@@ -1,46 +1,1813 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>My Links</title>
+    <title>متجر الخدمات الرقمية | صفحات ويب - بوتات ذكاء اصطناعي</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap" rel="stylesheet">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
     <style>
-        body {
-            font-family: Arial, sans-serif;
-            text-align: center;
-            padding: 50px;
-            background-color: #f4f4f4;
+        :root {
+            --primary: #6e45e2;
+            --primary-dark: #4a2c80;
+            --secondary: #ff7e5f;
+            --dark: #0f0e1a;
+            --light: #f1f1f6;
+            --neon-pink: #ff2d75;
+            --neon-blue: #00f2fe;
+            --neon-purple: #8a2be2;
+            --gold: #FFD700;
+            --diamond: #b9f2ff;
+            --galaxy-blue: #0e1a2f;
+            --galaxy-purple: #3a1d6e;
         }
-        .container {
-            background: white;
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Tajawal', sans-serif;
+            color: var(--light);
+            overflow-x: hidden;
+            background: var(--dark);
+            min-height: 100vh;
+            width: 100vw;
+        }
+        
+        #threejs-container {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -2;
+        }
+        
+        .cosmic-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: radial-gradient(ellipse at center, 
+                          rgba(14,26,47,0.2) 0%, 
+                          rgba(58,29,110,0.5) 100%);
+            z-index: -1;
+            pointer-events: none;
+        }
+        
+        .cosmic-portal {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 100vmax;
+            height: 100vmax;
+            border-radius: 50%;
+            background: radial-gradient(circle, 
+                          rgba(110,69,226,0.1) 0%, 
+                          rgba(0,0,0,0) 70%);
+            box-shadow: 0 0 200px rgba(110,69,226,0.3);
+            animation: pulse 12s infinite alternate;
+            z-index: -1;
+        }
+        
+        @keyframes pulse {
+            0% { transform: translate(-50%, -50%) scale(0.9); opacity: 0.5; }
+            50% { transform: translate(-50%, -50%) scale(1.1); opacity: 0.8; }
+            100% { transform: translate(-50%, -50%) scale(0.95); opacity: 0.6; }
+        }
+        
+        .main-container {
+            position: relative;
+            z-index: 10;
+            width: 100%;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            padding: 2rem;
+            backdrop-filter: blur(2px);
+        }
+        
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 3rem;
+            animation: fadeInDown 1s ease-out;
+        }
+        
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .logo {
+            font-size: 2.5rem;
+            font-weight: 900;
+            background: linear-gradient(90deg, var(--neon-blue), var(--neon-pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: 0 0 20px rgba(255,45,117,0.3);
+            position: relative;
+        }
+        
+        .logo::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 100%;
+            height: 3px;
+            background: linear-gradient(90deg, var(--neon-blue), var(--neon-pink));
+            border-radius: 3px;
+            transform: scaleX(0);
+            transform-origin: right;
+            transition: transform 0.5s ease;
+        }
+        
+        .logo:hover::after {
+            transform: scaleX(1);
+            transform-origin: left;
+        }
+        
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+        }
+        
+        .nav-links a {
+            color: var(--light);
+            text-decoration: none;
+            font-weight: 500;
+            position: relative;
+            padding: 0.5rem 0;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--neon-blue), var(--neon-pink));
+            transition: width 0.3s ease;
+        }
+        
+        .nav-links a:hover {
+            color: var(--neon-blue);
+        }
+        
+        .nav-links a:hover::after {
+            width: 100%;
+            left: 0;
+            right: auto;
+        }
+        
+        .hero {
+            text-align: center;
+            margin: 5rem 0;
+            position: relative;
+        }
+        
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 300px;
+            height: 300px;
+            background: radial-gradient(circle, rgba(110,69,226,0.3) 0%, rgba(0,0,0,0) 70%);
+            border-radius: 50%;
+            z-index: -1;
+            animation: float 6s ease-in-out infinite;
+        }
+        
+        @keyframes float {
+            0%, 100% { transform: translateX(-50%) translateY(0); }
+            50% { transform: translateX(-50%) translateY(-20px); }
+        }
+        
+        h1 {
+            font-size: 4.5rem;
+            margin-bottom: 1.5rem;
+            background: linear-gradient(90deg, var(--gold), var(--diamond));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            font-weight: 900;
+            text-shadow: 0 0 30px rgba(255,215,0,0.5);
+            line-height: 1.2;
+            animation: fadeInUp 1s ease-out 0.2s both;
+        }
+        
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .subtitle {
+            font-size: 1.8rem;
+            color: var(--light);
+            margin-bottom: 2rem;
+            max-width: 800px;
+            margin-left: auto;
+            margin-right: auto;
+            line-height: 1.6;
+            opacity: 0.9;
+            animation: fadeInUp 1s ease-out 0.4s both;
+        }
+        
+        .cta-button {
+            display: inline-block;
+            padding: 1.2rem 3rem;
+            background: linear-gradient(45deg, var(--primary), var(--neon-pink));
+            color: white;
+            border-radius: 50px;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 1.3rem;
+            margin-top: 2rem;
+            box-shadow: 0 10px 30px rgba(110,69,226,0.7);
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: none;
+            cursor: pointer;
+            position: relative;
+            overflow: hidden;
+            animation: fadeInUp 1s ease-out 0.6s both;
+        }
+        
+        .cta-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: all 0.7s ease;
+        }
+        
+        .cta-button:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 15px 40px rgba(110,69,226,0.9);
+        }
+        
+        .cta-button:hover::before {
+            left: 100%;
+        }
+        
+        .products-section {
+            margin: 8rem 0;
+            position: relative;
+        }
+        
+        .section-title {
+            font-size: 3rem;
+            text-align: center;
+            margin-bottom: 5rem;
+            background: linear-gradient(90deg, var(--neon-blue), var(--neon-purple));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            position: relative;
+            display: inline-block;
+            left: 50%;
+            transform: translateX(-50%);
+            animation: fadeInUp 1s ease-out 0.8s both;
+        }
+        
+        .section-title::after {
+            content: '';
+            position: absolute;
+            bottom: -15px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 200px;
+            height: 5px;
+            background: linear-gradient(90deg, var(--neon-blue), var(--neon-purple));
+            border-radius: 5px;
+            box-shadow: 0 0 20px var(--neon-blue);
+        }
+        
+        .products-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+            gap: 3rem;
+            margin-top: 5rem;
+        }
+        
+        .product-card {
+            background: rgba(15, 14, 26, 0.6);
+            border-radius: 20px;
+            overflow: hidden;
+            border: 1px solid rgba(110, 69, 226, 0.3);
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            position: relative;
+            backdrop-filter: blur(5px);
+            transform-style: preserve-3d;
+            perspective: 1000px;
+            animation: fadeIn 1s ease-out forwards;
+            opacity: 0;
+        }
+        
+        .product-card:nth-child(1) { animation-delay: 0.8s; }
+        .product-card:nth-child(2) { animation-delay: 1s; }
+        .product-card:nth-child(3) { animation-delay: 1.2s; }
+        .product-card:nth-child(4) { animation-delay: 1.4s; }
+        .product-card:nth-child(5) { animation-delay: 1.6s; }
+        .product-card:nth-child(6) { animation-delay: 1.8s; }
+        
+        @keyframes fadeIn {
+            to { opacity: 1; transform: translateY(0); }
+        }
+        
+        .product-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, 
+                          rgba(110,69,226,0.1) 0%, 
+                          rgba(255,126,95,0.05) 100%);
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+        
+        .product-card:hover {
+            transform: translateY(-15px) rotateX(5deg) rotateY(5deg);
+            box-shadow: 0 25px 50px rgba(110,69,226,0.5);
+            border-color: rgba(110, 69, 226, 0.8);
+        }
+        
+        .product-card:hover::before {
+            opacity: 1;
+        }
+        
+        .product-badge {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            background: linear-gradient(45deg, var(--neon-pink), var(--primary));
+            color: white;
+            padding: 0.5rem 1.5rem;
+            border-radius: 50px;
+            font-size: 0.9rem;
+            font-weight: 700;
+            z-index: 2;
+            box-shadow: 0 5px 15px rgba(255,45,117,0.5);
+            animation: pulseBadge 2s infinite alternate;
+        }
+        
+        @keyframes pulseBadge {
+            0% { transform: scale(1); box-shadow: 0 5px 15px rgba(255,45,117,0.5); }
+            100% { transform: scale(1.05); box-shadow: 0 5px 20px rgba(255,45,117,0.8); }
+        }
+        
+        .product-image-container {
+            height: 250px;
+            width: 100%;
+            overflow: hidden;
+            position: relative;
+        }
+        
+        .product-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        }
+        
+        .product-card:hover .product-image {
+            transform: scale(1.1) rotate(2deg);
+        }
+        
+        .product-details {
+            padding: 2rem;
+        }
+        
+        .product-title {
+            font-size: 1.8rem;
+            margin-bottom: 1rem;
+            color: var(--light);
+            position: relative;
             display: inline-block;
         }
-        a {
-            display: block;
-            margin: 10px 0;
-            padding: 10px;
-            text-decoration: none;
-            color: white;
-            background: #007bff;
-            border-radius: 5px;
+        
+        .product-title::after {
+            content: '';
+            position: absolute;
+            bottom: -5px;
+            left: 0;
+            width: 50px;
+            height: 3px;
+            background: linear-gradient(90deg, var(--neon-blue), var(--neon-pink));
+            border-radius: 3px;
+            transition: width 0.5s ease;
         }
-        a:hover {
-            background: #0056b3;
+        
+        .product-card:hover .product-title::after {
+            width: 100%;
+        }
+        
+        .product-description {
+            color: rgba(241, 241, 246, 0.8);
+            margin-bottom: 1.5rem;
+            line-height: 1.7;
+            min-height: 60px;
+        }
+        
+        .product-features {
+            margin: 1.5rem 0;
+            padding-right: 1rem;
+        }
+        
+        .product-features li {
+            margin-bottom: 0.8rem;
+            position: relative;
+            padding-right: 2rem;
+            color: rgba(241, 241, 246, 0.9);
+            transition: all 0.3s ease;
+        }
+        
+        .product-features li:hover {
+            color: var(--neon-blue);
+            transform: translateX(-5px);
+        }
+        
+        .product-features li::before {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 15px;
+            height: 15px;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2300f2fe'%3E%3Cpath d='M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z'/%3E%3C/svg%3E") no-repeat center;
+            background-size: contain;
+        }
+        
+        .product-price {
+            font-size: 2.2rem;
+            font-weight: 900;
+            color: var(--gold);
+            margin: 2rem 0;
+            text-align: center;
+            position: relative;
+        }
+        
+        .product-price::before,
+        .product-price::after {
+            content: '✧';
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--neon-pink);
+            font-size: 1.5rem;
+        }
+        
+        .product-price::before {
+            left: 20%;
+        }
+        
+        .product-price::after {
+            right: 20%;
+        }
+        
+        .product-actions {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+        }
+        
+        .buy-button {
+            flex: 1;
+            padding: 1rem;
+            background: linear-gradient(45deg, var(--primary), var(--neon-blue));
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+        }
+        
+        .buy-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: all 0.7s ease;
+        }
+        
+        .buy-button:hover {
+            transform: translateY(-5px) scale(1.05);
+            box-shadow: 0 10px 25px rgba(0, 242, 254, 0.6);
+        }
+        
+        .buy-button:hover::before {
+            left: 100%;
+        }
+        
+        .details-button {
+            flex: 1;
+            padding: 1rem;
+            background: transparent;
+            color: var(--light);
+            border: 2px solid var(--primary);
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 1.1rem;
+            cursor: pointer;
+            transition: all 0.5s ease;
+        }
+        
+        .details-button:hover {
+            background: rgba(110, 69, 226, 0.2);
+            border-color: var(--neon-blue);
+            color: var(--neon-blue);
+        }
+        
+        .contact-section {
+            margin: 8rem 0;
+            text-align: center;
+            position: relative;
+        }
+        
+        .contact-form {
+            max-width: 700px;
+            margin: 0 auto;
+            background: rgba(15, 14, 26, 0.6);
+            padding: 3rem;
+            border-radius: 20px;
+            border: 1px solid rgba(110, 69, 226, 0.3);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            backdrop-filter: blur(5px);
+            transform-style: preserve-3d;
+            transform: perspective(1000px);
+            animation: fadeInUp 1s ease-out 1s both;
+        }
+        
+        .form-group {
+            margin-bottom: 2rem;
+            text-align: right;
+            position: relative;
+        }
+        
+        .form-label {
+            display: block;
+            margin-bottom: 1rem;
+            font-weight: 500;
+            font-size: 1.1rem;
+            color: var(--neon-blue);
+        }
+        
+        .form-input, .form-textarea {
+            width: 100%;
+            padding: 1rem 1.5rem;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(110, 69, 226, 0.5);
+            border-radius: 12px;
+            color: var(--light);
+            font-family: 'Tajawal', sans-serif;
+            font-size: 1rem;
+            transition: all 0.5s ease;
+        }
+        
+        .form-input:focus, .form-textarea:focus {
+            outline: none;
+            border-color: var(--neon-blue);
+            box-shadow: 0 0 20px rgba(0, 242, 254, 0.4);
+            background: rgba(0, 242, 254, 0.05);
+        }
+        
+        .form-textarea {
+            min-height: 200px;
+            resize: vertical;
+        }
+        
+        .submit-button {
+            width: 100%;
+            padding: 1.2rem;
+            background: linear-gradient(45deg, var(--neon-pink), var(--primary));
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            margin-top: 1rem;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 25px rgba(255,45,117,0.5);
+        }
+        
+        .submit-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: all 0.7s ease;
+        }
+        
+        .submit-button:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 15px 35px rgba(255,45,117,0.7);
+        }
+        
+        .submit-button:hover::before {
+            left: 100%;
+        }
+        
+        footer {
+            text-align: center;
+            padding: 5rem 0;
+            margin-top: 5rem;
+            border-top: 1px solid rgba(110, 69, 226, 0.3);
+            position: relative;
+        }
+        
+        .footer-logo {
+            font-size: 2.5rem;
+            font-weight: 900;
+            background: linear-gradient(90deg, var(--neon-blue), var(--neon-pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            margin-bottom: 2rem;
+            display: inline-block;
+        }
+        
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 3rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+        
+        .footer-links a {
+            color: rgba(241, 241, 246, 0.8);
+            text-decoration: none;
+            font-size: 1.1rem;
+            transition: all 0.3s ease;
+            position: relative;
+            padding: 0.5rem 0;
+        }
+        
+        .footer-links a::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            right: 0;
+            width: 0;
+            height: 2px;
+            background: linear-gradient(90deg, var(--neon-blue), var(--neon-pink));
+            transition: width 0.3s ease;
+        }
+        
+        .footer-links a:hover {
+            color: var(--neon-blue);
+        }
+        
+        .footer-links a:hover::after {
+            width: 100%;
+            left: 0;
+            right: auto;
+        }
+        
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        
+        .social-link {
+            width: 60px;
+            height: 60px;
+            border-radius: 50%;
+            background: rgba(110, 69, 226, 0.2);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: var(--light);
+            font-size: 1.5rem;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            position: relative;
+            overflow: hidden;
+            border: 1px solid rgba(110, 69, 226, 0.5);
+        }
+        
+        .social-link::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, var(--primary), var(--neon-pink));
+            z-index: -1;
+            opacity: 0;
+            transition: opacity 0.5s ease;
+        }
+        
+        .social-link:hover {
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 0 10px 25px rgba(110,69,226,0.7);
+            color: white;
+            border-color: transparent;
+        }
+        
+        .social-link:hover::before {
+            opacity: 1;
+        }
+        
+        .copyright {
+            color: rgba(241, 241, 246, 0.6);
+            font-size: 1rem;
+            margin-top: 2rem;
+        }
+        
+        .floating-particles {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: -1;
+            overflow: hidden;
+        }
+        
+        .particle {
+            position: absolute;
+            background: white;
+            border-radius: 50%;
+            opacity: 0;
+            animation: floatParticle linear infinite;
+        }
+        
+        @keyframes floatParticle {
+            0% { transform: translateY(0) translateX(0); opacity: 0; }
+            10% { opacity: 0.8; }
+            100% { transform: translateY(-100vh) translateX(100px); opacity: 0; }
+        }
+        
+        /* Modal Styles */
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.9);
+            z-index: 1000;
+            justify-content: center;
+            align-items: center;
+            backdrop-filter: blur(5px);
+        }
+        
+        .modal-content {
+            background: linear-gradient(135deg, rgba(15,14,26,0.9), rgba(58,29,110,0.7));
+            border-radius: 20px;
+            width: 90%;
+            max-width: 800px;
+            max-height: 90vh;
+            overflow-y: auto;
+            padding: 3rem;
+            border: 1px solid var(--primary);
+            box-shadow: 0 0 100px rgba(110,69,226,0.7);
+            position: relative;
+            animation: modalFadeIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
+            transform-style: preserve-3d;
+            perspective: 1000px;
+        }
+        
+        @keyframes modalFadeIn {
+            from { opacity: 0; transform: translateY(-50px) rotateX(20deg); }
+            to { opacity: 1; transform: translateY(0) rotateX(0); }
+        }
+        
+        .close-modal {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 2rem;
+            color: var(--light);
+            cursor: pointer;
+            transition: all 0.5s ease;
+            z-index: 2;
+        }
+        
+        .close-modal:hover {
+            color: var(--neon-pink);
+            transform: rotate(90deg) scale(1.2);
+        }
+        
+        .modal-title {
+            font-size: 2.5rem;
+            margin-bottom: 2rem;
+            background: linear-gradient(90deg, var(--neon-blue), var(--neon-pink));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-align: center;
+            position: relative;
+        }
+        
+        .modal-title::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 150px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--neon-blue), var(--neon-pink));
+            border-radius: 4px;
+        }
+        
+        .modal-image-container {
+            width: 100%;
+            height: 350px;
+            border-radius: 15px;
+            overflow: hidden;
+            margin-bottom: 2rem;
+            position: relative;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+        }
+        
+        .modal-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.8s ease;
+        }
+        
+        .modal-image-container:hover .modal-image {
+            transform: scale(1.1);
+        }
+        
+        .modal-description {
+            line-height: 1.8;
+            margin-bottom: 2rem;
+            font-size: 1.1rem;
+            color: rgba(241, 241, 246, 0.9);
+        }
+        
+        .modal-features {
+            margin-bottom: 3rem;
+        }
+        
+        .modal-features li {
+            margin-bottom: 1rem;
+            position: relative;
+            padding-right: 2.5rem;
+            font-size: 1.1rem;
+            color: rgba(241, 241, 246, 0.9);
+        }
+        
+        .modal-features li::before {
+            content: '';
+            position: absolute;
+            right: 0;
+            top: 50%;
+            transform: translateY(-50%);
+            width: 20px;
+            height: 20px;
+            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2300f2fe'%3E%3Cpath d='M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z'/%3E%3C/svg%3E") no-repeat center;
+            background-size: contain;
+        }
+        
+        .modal-price {
+            font-size: 2.5rem;
+            font-weight: 900;
+            color: var(--gold);
+            text-align: center;
+            margin: 3rem 0;
+            position: relative;
+        }
+        
+        .modal-price::before,
+        .modal-price::after {
+            content: '✦';
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--neon-pink);
+            font-size: 2rem;
+            animation: spin 5s linear infinite;
+        }
+        
+        @keyframes spin {
+            0% { transform: translateY(-50%) rotate(0deg); }
+            100% { transform: translateY(-50%) rotate(360deg); }
+        }
+        
+        .modal-price::before {
+            left: 15%;
+        }
+        
+        .modal-price::after {
+            right: 15%;
+        }
+        
+        .modal-form .form-group {
+            margin-bottom: 1.5rem;
+        }
+        
+        .modal-form label {
+            display: block;
+            margin-bottom: 0.8rem;
+            color: var(--neon-blue);
+            font-size: 1.1rem;
+        }
+        
+        .modal-form input, 
+        .modal-form select, 
+        .modal-form textarea {
+            width: 100%;
+            padding: 1rem 1.5rem;
+            background: rgba(255,255,255,0.1);
+            border: 1px solid var(--primary);
+            border-radius: 12px;
+            color: var(--light);
+            font-family: 'Tajawal', sans-serif;
+            font-size: 1rem;
+            transition: all 0.5s ease;
+        }
+        
+        .modal-form input:focus, 
+        .modal-form select:focus, 
+        .modal-form textarea:focus {
+            outline: none;
+            border-color: var(--neon-blue);
+            box-shadow: 0 0 20px rgba(0, 242, 254, 0.4);
+            background: rgba(0, 242, 254, 0.05);
+        }
+        
+        .submit-order {
+            width: 100%;
+            padding: 1.2rem;
+            background: linear-gradient(45deg, var(--neon-pink), var(--primary));
+            color: white;
+            border: none;
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 1.2rem;
+            cursor: pointer;
+            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            margin-top: 2rem;
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(255,45,117,0.6);
+        }
+        
+        .submit-order::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: all 0.7s ease;
+        }
+        
+        .submit-order:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 15px 40px rgba(255,45,117,0.8);
+        }
+        
+        .submit-order:hover::before {
+            left: 100%;
+        }
+        
+        .confetti {
+            position: absolute;
+            width: 10px;
+            height: 10px;
+            background: var(--neon-pink);
+            opacity: 0;
+            animation: confettiFall 3s ease-out forwards;
+            z-index: 1001;
+        }
+        
+        @keyframes confettiFall {
+            0% { transform: translateY(-100px) rotate(0deg); opacity: 1; }
+            100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+        }
+        
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2.8rem;
+            }
+            
+            .subtitle {
+                font-size: 1.3rem;
+            }
+            
+            .nav-links {
+                display: none;
+            }
+            
+            .products-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+            
+            .section-title {
+                font-size: 2.2rem;
+            }
+            
+            .contact-form {
+                padding: 2rem;
+            }
+            
+            .modal-content {
+                padding: 2rem;
+            }
+            
+            .modal-title {
+                font-size: 2rem;
+            }
+            
+            .modal-image-container {
+                height: 250px;
+            }
+            
+            .footer-links {
+                gap: 1.5rem;
+            }
+            
+            .social-link {
+                width: 50px;
+                height: 50px;
+                font-size: 1.2rem;
+            }
+        }
+        
+        @media (max-width: 480px) {
+            h1 {
+                font-size: 2.2rem;
+            }
+            
+            .subtitle {
+                font-size: 1.1rem;
+            }
+            
+            .section-title {
+                font-size: 1.8rem;
+            }
+            
+            .product-card {
+                border-radius: 15px;
+            }
+            
+            .product-title {
+                font-size: 1.5rem;
+            }
+            
+            .product-price {
+                font-size: 1.8rem;
+            }
+            
+            .contact-form {
+                padding: 1.5rem;
+            }
+            
+            .modal-content {
+                padding: 1.5rem;
+            }
+            
+            .modal-title {
+                font-size: 1.8rem;
+            }
+            
+            .modal-image-container {
+                height: 200px;
+            }
         }
     </style>
 </head>
 <body>
-
-    <div class="container">
-        <h2>Follow Me</h2>
-        <a href="https://www.instagram.com/v_code.coding/profilecard/?igsh=MTQxMnJmcDcycW95Nw==" target="_blank">Instagram</a>
-        <a href="https://www.facebook.com/profile.php?id=61574233920997" target="_blank">Facebook Profile 1</a>
-        <a href="https://www.facebook.com/profile.php?id=61574539971913" target="_blank">Facebook Profile 2</a>
-        <a href="https://github.com/Ashref2004" target="_blank">GitHub</a>
+    <div id="threejs-container"></div>
+    <div class="cosmic-overlay"></div>
+    <div class="cosmic-portal"></div>
+    <div class="floating-particles" id="particles"></div>
+    
+    <div class="main-container">
+        <header>
+            <div class="logo">DigitalStore</div>
+            <nav class="nav-links">
+                <a href="#products">المنتجات</a>
+                <a href="#contact">اتصل بنا</a>
+                <a href="https://github.com/Ashref2004" target="_blank">GitHub</a>
+                <a href="https://www.instagram.com/v_code.coding" target="_blank">Instagram</a>
+            </nav>
+        </header>
+        
+        <section class="hero">
+            <h1>التحفة الرقمية التي تنتظرك</h1>
+            <p class="subtitle">
+                نقدم لك أفضل الحلول الرقمية من صفحات ويب ثلاثية الأبعاد إلى بوتات ذكاء اصطناعي متطورة، كل ذلك بتصميمات كونية أسطورية وأداء خارق
+            </p>
+            <button class="cta-button" onclick="openModal('استشارة مجانية', 0, 'consultation')">ابدأ رحلتك الرقمية</button>
+        </section>
+        
+        <section id="products" class="products-section">
+            <h2 class="section-title">إبداعاتنا الرقمية</h2>
+            
+            <div class="products-grid">
+                <!-- Product 1 -->
+                <div class="product-card">
+                    <span class="product-badge">الأكثر طلباً</span>
+                    <div class="product-image-container">
+                        <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="موقع إلكتروني متكامل" class="product-image">
+                    </div>
+                    <div class="product-details">
+                        <h3 class="product-title">موقع كوني ثلاثي الأبعاد</h3>
+                        <p class="product-description">تصميم موقع إلكتروني ببيئة ثلاثية الأبعاد تفاعلية مع تأثيرات حركية مذهلة</p>
+                        
+                        <ul class="product-features">
+                            <li>تصميم غامر ثلاثي الأبعاد</li>
+                            <li>تفاعلات حركية سلسة</li>
+                            <li>تحميل فائق السرعة</li>
+                            <li>تكامل مع جميع الأجهزة</li>
+                            <li>دعم فني مميز</li>
+                        </ul>
+                        
+                        <div class="product-price">$999</div>
+                        
+                        <div class="product-actions">
+                            <button class="buy-button" onclick="openModal('موقع كوني ثلاثي الأبعاد', 999, '3d-website')">اطلب الآن</button>
+                            <button class="details-button" onclick="showDetails('3d-website')">عرض التفاصيل</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product 2 -->
+                <div class="product-card">
+                    <span class="product-badge">جديد</span>
+                    <div class="product-image-container">
+                        <img src="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="بوت ذكي" class="product-image">
+                    </div>
+                    <div class="product-details">
+                        <h3 class="product-title">بوت الذكاء الكوني</h3>
+                        <p class="product-description">بوت ذكي بمظهر كوني متطور مع قدرات تعلم آلي فائقة وتفاعل طبيعي</p>
+                        
+                        <ul class="product-features">
+                            <li>واجهة كونية ثلاثية الأبعاد</li>
+                            <li>فهم عميق للغة الطبيعية</li>
+                            <li>تكامل مع منصات متعددة</li>
+                            <li>تخصيص كامل للشخصية</li>
+                            <li>تقارير أداء مفصلة</li>
+                        </ul>
+                        
+                        <div class="product-price">$599</div>
+                        
+                        <div class="product-actions">
+                            <button class="buy-button" onclick="openModal('بوت الذكاء الكوني', 599, 'ai-bot')">اطلب الآن</button>
+                            <button class="details-button" onclick="showDetails('ai-bot')">عرض التفاصيل</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product 3 -->
+                <div class="product-card">
+                    <div class="product-image-container">
+                        <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="متجر إلكتروني" class="product-image">
+                    </div>
+                    <div class="product-details">
+                        <h3 class="product-title">متجر كوني تفاعلي</h3>
+                        <p class="product-description">متجر إلكتروني ببيئة شراء غامرة بتأثيرات بصرية مذهلة وتجربة مستخدم فريدة</p>
+                        
+                        <ul class="product-features">
+                            <li>عرض منتجات ثلاثي الأبعاد</li>
+                            <li>تجربة شراء غامرة</li>
+                            <li>أنظمة دفع متكاملة</li>
+                            <li>لوحة تحكم متقدمة</li>
+                            <li>حماية وأمان عالي</li>
+                        </ul>
+                        
+                        <div class="product-price">$1499</div>
+                        
+                        <div class="product-actions">
+                            <button class="buy-button" onclick="openModal('متجر كوني تفاعلي', 1499, '3d-store')">اطلب الآن</button>
+                            <button class="details-button" onclick="showDetails('3d-store')">عرض التفاصيل</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product 4 -->
+                <div class="product-card">
+                    <div class="product-image-container">
+                        <img src="https://images.unsplash.com/photo-1639762681057-408e52192e55?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="بوت تسويقي" class="product-image">
+                    </div>
+                    <div class="product-details">
+                        <h3 class="product-title">بوت التسويق الكوني</h3>
+                        <p class="product-description">بوت تسويقي ذكي بمظهر كوني يجذب العملاء ويحول الزيارات إلى مبيعات</p>
+                        
+                        <ul class="product-features">
+                            <li>تحليل سلوك العميل</li>
+                            <li>حملات تسويقية ذكية</li>
+                            <li>واجهة كونية جذابة</li>
+                            <li>تكامل مع وسائل التواصل</li>
+                            <li>تقارير أداء مفصلة</li>
+                        </ul>
+                        
+                        <div class="product-price">$799</div>
+                        
+                        <div class="product-actions">
+                            <button class="buy-button" onclick="openModal('بوت التسويق الكوني', 799, 'marketing-bot')">اطلب الآن</button>
+                            <button class="details-button" onclick="showDetails('marketing-bot')">عرض التفاصيل</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product 5 -->
+                <div class="product-card">
+                    <span class="product-badge">عرض خاص</span>
+                    <div class="product-image-container">
+                        <img src="https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="موقع شخصي" class="product-image">
+                    </div>
+                    <div class="product-details">
+                        <h3 class="product-title">بوابة النجوم الشخصية</h3>
+                        <p class="product-description">موقع شخصي كوني يعرض أعمالك ومهاراتك بشكل تفاعلي ثلاثي الأبعاد</p>
+                        
+                        <ul class="product-features">
+                            <li>معرض أعمال تفاعلي</li>
+                            <li>سيرة ذاتية ثلاثية الأبعاد</li>
+                            <li>نموذج تواصل كوني</li>
+                            <li>استضافة مميزة لمدة عام</li>
+                            <li>شهادة رقمية مميزة</li>
+                        </ul>
+                        
+                        <div class="product-price">$699</div>
+                        
+                        <div class="product-actions">
+                            <button class="buy-button" onclick="openModal('بوابة النجوم الشخصية', 699, 'personal-portal')">اطلب الآن</button>
+                            <button class="details-button" onclick="showDetails('personal-portal')">عرض التفاصيل</button>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Product 6 -->
+                <div class="product-card">
+                    <div class="product-image-container">
+                        <img src="https://images.unsplash.com/photo-1633356122544-f134324a6cee?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="بوت محادثة" class="product-image">
+                    </div>
+                    <div class="product-details">
+                        <h3 class="product-title">بوت المحادثة الكوني</h3>
+                        <p class="product-description">بوت محادثة بذكاء اصطناعي متطور مع واجهة كونية ثلاثية الأبعاد</p>
+                        
+                        <ul class="product-features">
+                            <li>تفاعلات طبيعية متقدمة</li>
+                            <li>واجهة كونية ثلاثية الأبعاد</li>
+                            <li>تكامل مع مواقع الويب</li>
+                            <li>تعلم مستمر من التفاعلات</li>
+                            <li>إمكانية التخصيص الكامل</li>
+                        </ul>
+                        
+                        <div class="product-price">$899</div>
+                        
+                        <div class="product-actions">
+                            <button class="buy-button" onclick="openModal('بوت المحادثة الكوني', 899, 'chat-bot')">اطلب الآن</button>
+                            <button class="details-button" onclick="showDetails('chat-bot')">عرض التفاصيل</button>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+        
+        <section id="contact" class="contact-section">
+            <h2 class="section-title">تواصل مع الفريق الكوني</h2>
+            
+            <form class="contact-form">
+                <div class="form-group">
+                    <label for="contact-name">اسمك الكريم</label>
+                    <input type="text" id="contact-name" class="form-input" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="contact-email">بريدك الإلكتروني</label>
+                    <input type="email" id="contact-email" class="form-input" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="contact-subject">الموضوع</label>
+                    <input type="text" id="contact-subject" class="form-input" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="contact-message">رسالتك</label>
+                    <textarea id="contact-message" class="form-textarea" required></textarea>
+                </div>
+                
+                <button type="submit" class="submit-button">إرسال الرسالة</button>
+            </form>
+        </section>
+        
+        <footer>
+            <div class="footer-logo">DigitalStore</div>
+            
+            <div class="footer-links">
+                <a href="#products">منتجاتنا</a>
+                <a href="#contact">اتصل بنا</a>
+                <a href="https://github.com/Ashref2004" target="_blank">GitHub</a>
+                <a href="https://www.instagram.com/v_code.coding" target="_blank">Instagram</a>
+                <a href="https://wa.me/yournumber" target="_blank">WhatsApp</a>
+            </div>
+            
+            <div class="social-links">
+                <a href="https://github.com/Ashref2004" class="social-link" target="_blank"><i class="fab fa-github"></i></a>
+                <a href="https://www.instagram.com/v_code.coding" class="social-link" target="_blank"><i class="fab fa-instagram"></i></a>
+                <a href="https://facebook.com/yourprofile" class="social-link" target="_blank"><i class="fab fa-facebook-f"></i></a>
+                <a href="https://wa.me/yournumber" class="social-link" target="_blank"><i class="fab fa-whatsapp"></i></a>
+            </div>
+            
+            <p class="copyright">© 2023 DigitalStore. جميع الحقوق محفوظة</p>
+        </footer>
     </div>
 
-</body>
-</html>
+    <!-- Order Modal -->
+    <div class="modal" id="orderModal">
+        <div class="modal-content">
+            <span class="close-modal" onclick="closeModal()">&times;</span>
+            <h2 class="modal-title" id="modalProductTitle">طلب المنتج</h2>
+            
+            <div class="modal-image-container">
+                <img id="modalProductImage" src="" alt="صورة المنتج" class="modal-image">
+            </div>
+            
+            <p class="modal-description" id="modalProductDescription"></p>
+            
+            <ul class="modal-features" id="modalProductFeatures">
+            </ul>
+            
+            <div class="modal-price" id="modalProductPrice"></div>
+            
+            <form class="modal-form" id="orderForm">
+                <div class="form-group">
+                    <label for="name">الاسم الكامل</label>
+                    <input type="text" id="name" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="email">البريد الإلكتروني</label>
+                    <input type="email" id="email" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="phone">رقم الهاتف</label>
+                    <input type="tel" id="phone" required>
+                </div>
+                
+                <div class="form-group">
+                    <label for="details">تفاصيل إضافية</label>
+                    <textarea id="details" rows="4"></textarea>
+                </div>
+                
+                <button type="button" class="submit-order" onclick="submitOrder()">تأكيد الطلب</button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // Initialize Three.js scene with enhanced cosmic effects
+        const scene = new THREE.Scene();
+        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+        const renderer = new THREE.WebGLRenderer({ 
+            alpha: true, 
+            antialias: true,
+            powerPreference: "high-performance"
+        });
+        
+        renderer.setPixelRatio(window.devicePixelRatio);
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        renderer.setClearColor(0x000000, 0);
+        document.getElementById('threejs-container').appendChild(renderer.domElement);
+        
+        // Create galaxy of stars with different sizes and colors
+        const starsGeometry = new THREE.BufferGeometry();
+        const starCount = 10000;
+        
+        const positions = new Float32Array(starCount * 3);
+        const colors = new Float32Array(starCount * 3);
+        const sizes = new Float32Array(starCount);
+        
+        const colorPalette = [
+            new THREE.Color(0x6e45e2), // Purple
+            new THREE.Color(0x00f2fe), // Blue
+            new THREE.Color(0xff7e5f), // Orange
+            new THREE.Color(0xff2d75), // Pink
+            new THREE.Color(0xffffff)  // White
+        ];
+        
+        for (let i = 0; i < starCount; i++) {
+            // Positions
+            const i3 = i * 3;
+            positions[i3] = (Math.random() - 0.5) * 2000;
+            positions[i3 + 1] = (Math.random() - 0.5) * 2000;
+            positions[i3 + 2] = (Math.random() - 0.5) * 2000;
+            
+            // Colors
+            const color = colorPalette[Math.floor(Math.random() * colorPalette.length)];
+            colors[i3] = color.r;
+            colors[i3 + 1] = color.g;
+            colors[i3 + 2] = color.b;
+            
+            // Sizes
+            sizes[i] = Math.random() * 2 + 0.5;
+        }
+        
+        starsGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
+        starsGeometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
+        starsGeometry.setAttribute('size', new THREE.BufferAttribute(sizes, 1));
+        
+        const starsMaterial = new THREE.PointsMaterial({
+            size: 1,
+            vertexColors: true,
+            transparent: true,
+            opacity: 0.8,
+            sizeAttenuation: true
+        });
+        
+        const stars = new THREE.Points(starsGeometry, starsMaterial);
+        scene.add(stars);
+        
+        // Add glowing nebula with multiple layers
+        const nebulaGeometry = new THREE.SphereGeometry(10, 64, 64);
+        
+        // Main nebula
+        const nebulaMaterial = new THREE.MeshPhongMaterial({
+            color: 0x6e45e2,
+            transparent: true,
+            opacity: 0.1,
+            emissive: 0x6e45e2,
+            emissiveIntensity: 0.3,
+            side: THREE.DoubleSide
+        });
+        
+        const nebula = new THREE.Mesh(nebulaGeometry, nebulaMaterial);
+        scene.add(nebula);
+        
+        // Secondary nebula
+        const nebula2Geometry = new THREE.SphereGeometry(15, 64, 64);
+        const nebula2Material = new THREE.MeshPhongMaterial({
+            color: 0x00f2fe,
+            transparent: true,
+            opacity: 0.05,
+            emissive: 0x00f2fe,
+            emissiveIntensity: 0.2,
+            side: THREE.DoubleSide
+        });
+        
+        const nebula2 = new THREE.Mesh(nebula2Geometry, nebula2Material);
+        scene.add(nebula2);
+        
+        // Add particle system for cosmic dust
+        const particleCount = 5000;
+        const particlesGeometry = new THREE.BufferGeometry();
+        const particlePositions = new Float32Array(particleCount * 3);
+        const particleSizes = new Float32Array(particleCount);
+        
+        for (let i = 0; i < particleCount; i++) {
+            const i3 = i * 3;
+            particlePositions[i3] = (Math.random() - 0.5) * 1000;
+            particlePositions[i3 + 1] = (Math.random() - 0.5) * 1000;
+            particlePositions[i3 + 2] = (Math.random() - 0.5) * 1000;
+            
+            particleSizes[i] = Math.random() * 3 + 1;
+        }
+        
+        particlesGeometry.setAttribute('position', new THREE.BufferAttribute(particlePositions, 3));
+        particlesGeometry.setAttribute('size', new THREE.BufferAttribute(particleSizes, 1));
+        
+        const particlesMaterial = new THREE.PointsMaterial({
+            color: 0x8a2be2,
+            size: 1,
+            transparent: true,
+            opacity: 0.6,
+            blending: THREE.AdditiveBlending,
+            sizeAttenuation: true
+        });
+        
+        const particles = new THREE.Points(particlesGeometry, particlesMaterial);
+        scene.add(particles);
+        
+        // Add animated cosmic rays
+        const raysGeometry = new THREE.BufferGeometry();
+        const rayCount = 50;
+        const rayPositions = new Float32Array(rayCount * 3);
+        const rayEndPositions = new Float32Array(rayCount * 3);
+        
+        for (let i = 0; i < rayCount; i++) {
+            const i3 = i * 3;
+            const angle = Math.random() * Math.PI * 2;
+            const radius = 5 + Math.random() * 10;
+            
+            rayPositions[i3] = Math.cos(angle) * radius;
+            rayPositions[i3 + 1] = Math.sin(angle) * radius;
+            rayPositions[i3 + 2] = (Math.random() - 0.5) * 2;
+            
+            rayEndPositions[i3] = Math.cos(angle) * (radius + 5 + Math.random() * 10);
+            rayEndPositions[i3 + 1] = Math.sin(angle) * (radius + 5 + Math.random() * 10);
+            rayEndPositions[i3 + 2] = (Math.random() - 0.5) * 2;
+        }
+        
+        raysGeometry.setAttribute('position', new THREE.BufferAttribute(rayPositions, 3));
+        
+        const raysMaterial = new THREE.LineBasicMaterial({
+            color: 0x00f2fe,
+            transparent: true,
+            opacity: 0.5,
+            blending: THREE.AdditiveBlending
+        });
+        
+        const rays = new THREE.LineSegments(raysGeometry, raysMaterial);
+        scene.add(rays);
+        
+        // Add lights for better depth perception
+        const ambientLight = new THREE.AmbientLight(0x404040);
+        scene.add(ambientLight);
+        
+        const pointLight = new THREE.PointLight(0x6e45e2, 1, 50);
+        pointLight.position.set(5, 5, 5);
+        scene.add(pointLight);
+        
+        const pointLight2 = new THREE.PointLight(0x00f2fe, 1, 50);
+        pointLight2.position.set(-5, -5, -5);
+        scene.add(pointLight2);
+        
+        // Position camera
+        camera.position.z = 20;
+        
+        // Animation loop with enhanced effects
+        let time = 0;
+        function animate() {
+            requestAnimationFrame(animate);
+            
+            time += 0.01;
+            
+            // Rotate stars and nebulas
+            stars.rotation.x += 0.0002;
+            stars.rotation.y += 0.0003;
+            
+            nebula.rotation.x += 0.001;
+            nebula.rotation.y += 0.002;
+            nebula2.rotation.x += 0.0005;
+            nebula2.rotation.y += 0.001;
+            
+            particles.rotation.x += 0.002;
+            particles.rotation.y += 0.001;
+            
+            // Pulsing nebula effect
+            nebula.scale.setScalar(1 + Math.sin(time) * 0.05);
+            nebula2.scale.setScalar(1 + Math.cos(time * 0.8) * 0.1);
+            
+            // Animate cosmic rays
+            const positions = raysGeometry.attributes.position.array;
+            for (let i = 0; i < rayCount; i++) {
+                const i3 = i * 3;
+                const progress = (Math.sin(time * 2 + i) + 1) / 2;
+                
+                positions[i3] = rayPositions[i3] + (rayEndPositions[i3] - rayPositions[i3]) * progress;
+                positions[i3 + 1] = rayPositions[i3 + 1] + (rayEndPositions[i3 + 1] - rayPositions[i3 + 1]) * progress;
+                positions[i3 + 2] = rayPositions[i3 + 2] + (rayEndPositions[i3 + 2] - rayPositions[i3 + 2]) * progress;
+            }
+            raysGeometry.attributes.position.needsUpdate = true;
+            
+            renderer.render(scene, camera);
+        }
+        
+        animate();
+        
+        // Handle window resize
+        window.addEventListener('resize', () => {
+            camera.aspect = window.innerWidth / window.innerHeight;
+            camera.updateProjectionMatrix();
+            renderer.setSize(window.innerWidth, window.innerHeight);
+        });
+        
+        // Create floating particles for 2D effect
+        function createParticles() {
+            const particlesContainer = document.getElementById('particles');
+            const particleCount = 100;
+            
+            for (let i = 0; i < particleCount; i++) {
+                const particle = document.createElement('div');
+                particle.classList.add('particle');
+                
+                // Random size and shape
+                const size = Math.random() * 5 + 1;
+                particle.style.width = `${size}px`;
+                particle.style.height = `${size}px`;
+                
+                // Random shape (circle or star)
+                if (Math.random() > 0.7) {
+                    particle.style.borderRadius = '50%';
+                    particle.style.background = `rgba(255, ${Math.random() * 255}, ${Math.random() * 255}, ${Math.random() * 0.5 + 0.5})`;
+                } else {
+                    particle.style.background = 'transparent';
+                    particle.style.border = `${size / 2}px solid rgba(110, 69, 226, ${Math.random() * 0.5 + 0.3})`;
+                    particle.style.borderRadius = '50%';
+                    particle.style.boxShadow = `0 0 ${size * 2}px rgba(110, 69, 226, 0.7)`;
+                }
+                
+                // Random position
+                particle.style.left = `${Math.random() * 100}%`;
+                particle.style.top = `${Math.random() * 100 + 100}%`;
+                
+                // Random animation
+                const duration = Math.random() * 20 + 10;
+                const delay = Math.random() * 10;
+                const xMovement = (Math.random() - 0.5) * 200;
+                
+                particle.style.animation = `floatParticle ${duration}s linear ${delay}s infinite`;
+                particle.style.transform = `translateX(${xMovement}px)`;
+                
+                particlesContainer.appendChild(particle);
+            }
+        }
+        
+        document.addEventListener('DOMContentLoaded', createParticles);
+        
+        // Modal functionality
+        function openModal(title, price, productId) {
+            const modal = document.getElementById('orderModal');
+            const modalTitle = document.getElementById('modalProductTitle');
+            const modalPrice = document.getElementById('modalProductPrice');
+            const modalImage = document.getElementById('modalProductImage');
+            const modalDescription = document.getElementById('modalProductDescription');
+            const modalFeatures = document.getElementById('modalProductFeatures');
+            
+            // Set product details based on productId
+            let imageUrl = '';
+            let description = '';
+            let features = [];
+            
+            switch(productId) {
+                case '3d-website':
+                    imageUrl = 'https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80';
+                    description = 'تصميم موقع إلكتروني ببيئة ثلاثية الأبعاد تفاعلية مع تأثيرات حركية مذهلة تجعل زوارك يعيشون تجربة فريدة لا تنسى.';
+                    features = [
+                        'تصميم غامر ثلاثي الأبعاد',
+                        'تفاعلات حركية سلسة',
+                        'تحميل فائق السرعة',
+                        'تكامل مع جميع الأجهزة',
+                        'دعم فني مميز لمدة 6 أشهر'
+                    ];
+                    break;
+                case 'ai-bot':
+                    imageUrl = 'https://images.unsplash.com/photo-1620712943543-bcc4688e7485?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80';
+                    description = 'بوت ذكي بمظهر كوني متطور مع قدرات تعلم آلي فائقة وتفاعل طبيعي يحسن تجربة عملائك ويزيد من مبيعاتك.';
+                    features = [
+                        'واجهة كونية ثلاثية الأبعاد',
+                        'فهم عميق للغة الطبيعية',
+                        'تكامل مع منصات متعددة',
+                        'تخصيص كامل للشخصية',
+                        'تقارير أداء مفصلة'
+                    ];
+                    break;
+                case '3d-store':
+                    imageUrl = 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80';
+                    description = 'متجر إلكتروني ببيئة شراء غامرة بتأثيرات بصرية مذهلة وتجربة مستخدم فريدة تزيد من معدلات التحويل.';
+                    features = [
+                        'عرض منتجات ثلاثي الأبعاد',
+                        'تجربة شراء غامرة',
+                        'أنظمة دفع متكاملة',
+                        'لوحة تحكم متقدمة',
+                        'حماية وأمان عالي'
+                    ];
+                    break;
+                case 'marketing-bot':
+                    imageUrl = 'https://images.unsplash.com/photo-1639762681057-408e52192e55?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80';
+                    description = 'بوت تسويقي ذكي بمظهر كوني يجذب العملاء ويحول الزيارات إلى مبيعات باستخدام أحدث تقنيات الذكاء الاصطناعي.';
+                    features = [
+                        'تحليل سلوك العميل',
+                        'حملات تسويقية ذكية',
+                        'واجهة كونية جذابة',
+                        'تكامل مع وسائل التواصل',
+                        'تقارير أداء مفصلة'
+                    ];
+                    break;
+                case 'personal-portal':
+                    imageUrl = 'https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80';
+                    description = 'موقع شخصي كوني يعرض أعمالك ومهاراتك بشكل تفاعلي ثلاثي الأبعاد يجعلك تبرز بين المنافسين.';
+                    features = [
+                        'معرض أعمال تفاعلي',
+                        'سيرة ذاتية ثلاثية الأبعاد',
+                        'نموذج تواصل كوني',
+                        'استضافة مميزة لمدة عام',
+                        'شهادة رقمية مميزة'
+                    ];
+                    break;
+                case 'chat-bot':
+                    imageUrl = 'https://images.unsplash.com/photo-1633356122544-f134324a6cee?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80';
+                    description = 'بوت محادثة بذكاء اصطناعي متطور مع واجهة كونية ثلاثية الأبعاد يحسن تجربة عملائك ويساعدهم على مدار الساعة.';
+                    features = [
+                        'تفاعلات طبيعية متقدمة',
+                        'واجهة كونية ثلاثية الأبعاد',
+                        'تكامل مع مواقع الويب',
+                        'تعلم مستمر من التفاعلات',
+                        'إمكانية التخصيص الكامل'
+                    ];
+                    break;
+                case 'consultation':
+                    imageUrl = 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80';
+                    description = 'جلسة استشارية مع خبرائنا لتصميم الحل الرقمي الأمثل لاحتياجاتك وأهدافك التجارية.';
+                    features = [
+                        'تحليل احتياجاتك الرقمية',
+                        'مقترحات حلول مخصصة',
+                        'خطة تنفيذ استراتيجية',
+                        'نصائح لتحسين الأداء',
+                        'عرض أسعار مفصل'
+                    ];
+                    break;
+            }
+            
+            modalTitle.textContent = title;
+            modalPrice.textContent = price > 0 ? `$${price}` : 'مجاناً';
+            modalImage.src = imageUrl;
+            modalImage.alt = title;
+            modalDescription.textContent = description;
+            
+            // Clear previous features
+            modalFeatures.innerHTML = '';
+            
+            // Add new features
+            features.forEach(feature => {
+                const li = document.createElement('li');
+                li.textContent = feature;
+                modalFeatures.appendChild(li);
+            });
+            
+            modal.style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+            
+            // Add cosmic effect to modal opening
+            gsap.from('.modal-content', {
+                duration: 0.8,
+                y: -100,
+                opacity: 0,
+                ease: "back.out(1.7)",
+                onStart: () => {
+                    createConfetti();
+                }
+            });
+        }
+        
+        function closeModal() {
+            const modal = document.getElementById('orderModal');
+            
+            gsap.to('.modal-content', {
+                duration: 0.5,
+                y: 100,
+                opacity: 0,
+                ease: "back.in(1.7)",
+                onComplete: () => {
+                    modal.style.display = 'none';
+                    document.body.style.overflow = 'auto';
+                }
+            });
+        }
+        
+        function submitOrder() {
+            // Here you would normally send the order to your backend
+            // For demo purposes, we'll just show a success effect
+            
+            // Create celebration confetti
+            createConfetti(100);
+            
+            // Show success message
+            const modalTitle = document.getElementById('modalProductTitle');
+            modalTitle.textContent = 'تم الطلب بنجاح!';
+            modalTitle.style.background = 'linear-gradient(90deg, var(--gold), var(--neon-blue))';
+            
+            // Change button to success state
+            const submitBtn = document.querySelector('.submit-order');
+            submitBtn.textContent = 'تم الإرسال ✓';
+            submitBtn.style.background = 'linear-gradient(45deg, #4CAF50, #8BC34A)';
+            submitBtn.onclick = null;
