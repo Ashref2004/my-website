@@ -1,780 +1,1156 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>متجر الخدمات الرقمية | صفحات ويب - بوتات ذكاء اصطناعي</title>
+    <title>V-Code | Full Stack Developer</title>
+    <meta name="description" content="Professional developer offering cutting-edge digital solutions including web development, bot development, and custom applications.">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #6e45e2;
-            --primary-dark: #4a2c80;
-            --secondary: #ff7e5f;
-            --dark: #0f0e1a;
+            --primary: #00f0ff;
+            --primary-light: #6effff;
+            --primary-dark: #0077ff;
+            --secondary: #ff2d75;
+            --accent: #ffeb3b;
+            --dark: #0a0a12;
+            --darker: #050508;
             --light: #f1f1f6;
-            --neon-pink: #ff2d75;
-            --neon-blue: #00f2fe;
-            --neon-purple: #8a2be2;
-            --gold: #FFD700;
-            --diamond: #b9f2ff;
-            --galaxy-blue: #0e1a2f;
-            --galaxy-purple: #3a1d6e;
+            --lighter: #ffffff;
+            --text-primary: #e0e0e0;
+            --text-secondary: #a0a0a0;
+            --bg-color: #121218;
+            --card-bg: #1e1e2a;
+            --border-color: #2a2a3a;
+            --success: #00e676;
+            --warning: #ff9100;
+            --danger: #ff1744;
+            --code-bg: #1e1e3f;
+            --terminal-bg: #0a0a1a;
         }
-        
+
+        /* Light mode variables */
+        .light-mode {
+            --bg-color: #f8f9fa;
+            --card-bg: #ffffff;
+            --text-primary: #222222;
+            --text-secondary: #555555;
+            --border-color: #e0e0e0;
+            --dark: #f0f0f0;
+            --light: #ffffff;
+            --code-bg: #f0f0f5;
+            --terminal-bg: #f5f5ff;
+        }
+
+        [dir="rtl"] {
+            --text-direction: right;
+        }
+
+        [dir="ltr"] {
+            --text-direction: left;
+        }
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
+            transition: all 0.3s ease;
         }
-        
+
         body {
-            font-family: 'Tajawal', sans-serif;
-            color: var(--light);
+            font-family: 'Poppins', sans-serif;
+            color: var(--text-primary);
+            background-color: var(--bg-color);
+            line-height: 1.6;
+            direction: ltr;
+            text-align: var(--text-direction);
+            transition: background-color 0.3s ease;
             overflow-x: hidden;
-            background: var(--dark);
-            min-height: 100vh;
-            width: 100vw;
         }
-        
-        #threejs-container {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -2;
+
+        code, pre {
+            font-family: 'JetBrains Mono', monospace;
         }
-        
-        .cosmic-overlay {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: radial-gradient(ellipse at center, 
-                          rgba(14,26,47,0.2) 0%, 
-                          rgba(58,29,110,0.5) 100%);
-            z-index: -1;
-            pointer-events: none;
-        }
-        
-        .cosmic-portal {
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%);
-            width: 100vmax;
-            height: 100vmax;
-            border-radius: 50%;
-            background: radial-gradient(circle, 
-                          rgba(110,69,226,0.1) 0%, 
-                          rgba(0,0,0,0) 70%);
-            box-shadow: 0 0 200px rgba(110,69,226,0.3);
-            animation: pulse 12s infinite alternate;
-            z-index: -1;
-        }
-        
-        @keyframes pulse {
-            0% { transform: translate(-50%, -50%) scale(0.9); opacity: 0.5; }
-            50% { transform: translate(-50%, -50%) scale(1.1); opacity: 0.8; }
-            100% { transform: translate(-50%, -50%) scale(0.95); opacity: 0.6; }
-        }
-        
-        .main-container {
-            position: relative;
-            z-index: 10;
-            width: 100%;
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            padding: 2rem;
-            backdrop-filter: blur(2px);
-        }
-        
+
+        /* Header */
         header {
+            background-color: rgba(10, 10, 18, 0.9);
+            backdrop-filter: blur(10px);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
+            padding: 1rem 2rem;
+            transition: all 0.3s ease;
+            border-bottom: 1px solid rgba(0, 240, 255, 0.1);
+        }
+
+        .light-mode header {
+            background-color: rgba(255, 255, 255, 0.9);
+        }
+
+        .header-container {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin-bottom: 3rem;
-            animation: fadeInDown 1s ease-out;
+            max-width: 1400px;
+            margin: 0 auto;
         }
-        
-        @keyframes fadeInDown {
-            from { opacity: 0; transform: translateY(-30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
+
         .logo {
-            font-size: 2.5rem;
-            font-weight: 900;
-            background: linear-gradient(90deg, var(--neon-blue), var(--neon-pink));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            text-shadow: 0 0 20px rgba(255,45,117,0.3);
-            position: relative;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-family: 'JetBrains Mono', monospace;
+            letter-spacing: -1px;
         }
-        
-        .logo::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 100%;
-            height: 3px;
-            background: linear-gradient(90deg, var(--neon-blue), var(--neon-pink));
-            border-radius: 3px;
-            transform: scaleX(0);
-            transform-origin: right;
-            transition: transform 0.5s ease;
+
+        .logo img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            object-fit: cover;
+            border: 2px solid var(--primary);
         }
-        
-        .logo:hover::after {
-            transform: scaleX(1);
-            transform-origin: left;
-        }
-        
+
         .nav-links {
             display: flex;
-            gap: 2rem;
+            gap: 1.5rem;
+            align-items: center;
         }
-        
-        .nav-links a {
-            color: var(--light);
+
+        .nav-item {
+            position: relative;
+        }
+
+        .nav-link {
+            color: var(--text-primary);
             text-decoration: none;
             font-weight: 500;
-            position: relative;
-            padding: 0.5rem 0;
-            font-size: 1.1rem;
-            transition: all 0.3s ease;
+            padding: 0.5rem 1rem;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+            border-radius: 4px;
         }
-        
-        .nav-links a::after {
+
+        .nav-link:hover {
+            background: rgba(0, 240, 255, 0.1);
+            color: var(--primary);
+        }
+
+        .dropdown {
+            position: relative;
+            display: inline-block;
+        }
+
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: var(--card-bg);
+            min-width: 200px;
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            z-index: 1;
+            border-radius: 8px;
+            padding: 0.5rem 0;
+            border: 1px solid var(--border-color);
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .dropdown-content a {
+            color: var(--text-primary);
+            padding: 0.7rem 1.5rem;
+            text-decoration: none;
+            display: block;
+            font-size: 0.9rem;
+        }
+
+        .dropdown-content a:hover {
+            background-color: rgba(0, 240, 255, 0.1);
+            color: var(--primary);
+        }
+
+        .dropdown:hover .dropdown-content {
+            display: block;
+        }
+
+        .dropdown-toggle::after {
+            content: '\f078';
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            font-size: 0.7rem;
+            margin-left: 5px;
+        }
+
+        .mobile-menu-btn {
+            display: none;
+            background: none;
+            border: none;
+            font-size: 1.5rem;
+            color: var(--text-primary);
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        /* Theme and Language Toggle in Nav */
+        .nav-toggle {
+            display: flex;
+            gap: 0.5rem;
+            margin-left: 1.5rem;
+        }
+
+        .toggle-btn {
+            width: 36px;
+            height: 36px;
+            border-radius: 50%;
+            background: var(--card-bg);
+            color: var(--text-primary);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            cursor: pointer;
+            border: none;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .toggle-btn::before {
             content: '';
             position: absolute;
-            bottom: 0;
-            right: 0;
-            width: 0;
-            height: 2px;
-            background: linear-gradient(90deg, var(--neon-blue), var(--neon-pink));
-            transition: width 0.3s ease;
-        }
-        
-        .nav-links a:hover {
-            color: var(--neon-blue);
-        }
-        
-        .nav-links a:hover::after {
-            width: 100%;
+            top: 0;
             left: 0;
-            right: auto;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(135deg, rgba(0,240,255,0.2) 0%, rgba(255,45,117,0.1) 100%);
+            opacity: 0;
+            transition: opacity 0.3s ease;
         }
-        
+
+        .toggle-btn:hover::before {
+            opacity: 1;
+        }
+
+        .toggle-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(0,240,255,0.2);
+        }
+
+        /* Hero Section */
         .hero {
+            padding: 8rem 2rem 6rem;
             text-align: center;
-            margin: 5rem 0;
+            background: linear-gradient(135deg, var(--darker) 0%, var(--dark) 100%);
             position: relative;
+            overflow: hidden;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
         }
-        
+
         .hero::before {
             content: '';
             position: absolute;
-            top: -50px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 300px;
-            height: 300px;
-            background: radial-gradient(circle, rgba(110,69,226,0.3) 0%, rgba(0,0,0,0) 70%);
-            border-radius: 50%;
-            z-index: -1;
-            animation: float 6s ease-in-out infinite;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(0,240,255,0.05) 0%, rgba(255,255,255,0) 70%);
+            z-index: 0;
+            animation: float 6s infinite ease-in-out;
         }
-        
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: -50%;
+            right: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,45,117,0.05) 0%, rgba(255,255,255,0) 70%);
+            z-index: 0;
+            animation: float 8s infinite ease-in-out;
+        }
+
         @keyframes float {
-            0%, 100% { transform: translateX(-50%) translateY(0); }
-            50% { transform: translateX(-50%) translateY(-20px); }
+            0%, 100% {
+                transform: translate(0, 0);
+            }
+            50% {
+                transform: translate(10%, 10%);
+            }
         }
-        
-        h1 {
-            font-size: 4.5rem;
-            margin-bottom: 1.5rem;
-            background: linear-gradient(90deg, var(--gold), var(--diamond));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            font-weight: 900;
-            text-shadow: 0 0 30px rgba(255,215,0,0.5);
+
+        .hero-container {
+            max-width: 1000px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+            padding: 3rem;
+            border-radius: 16px;
+            background: rgba(18, 18, 24, 0.7);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(0, 240, 255, 0.1);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+        }
+
+        .light-mode .hero-container {
+            background: rgba(255, 255, 255, 0.8);
+            border: 1px solid rgba(0, 0, 0, 0.1);
+        }
+
+        h1, h2, h3, h4, h5, h6 {
+            font-family: 'JetBrains Mono', monospace;
+            font-weight: 700;
             line-height: 1.2;
-            animation: fadeInUp 1s ease-out 0.2s both;
+            margin-bottom: 1.5rem;
         }
-        
-        @keyframes fadeInUp {
-            from { opacity: 0; transform: translateY(30px); }
-            to { opacity: 1; transform: translateY(0); }
+
+        h1 {
+            font-size: 3.5rem;
+            background: linear-gradient(90deg, var(--primary), var(--primary-light));
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            margin-bottom: 1.5rem;
+            line-height: 1.1;
         }
-        
+
         .subtitle {
-            font-size: 1.8rem;
-            color: var(--light);
-            margin-bottom: 2rem;
-            max-width: 800px;
+            font-size: 1.3rem;
+            color: var(--text-secondary);
+            margin-bottom: 2.5rem;
+            max-width: 700px;
             margin-left: auto;
             margin-right: auto;
-            line-height: 1.6;
-            opacity: 0.9;
-            animation: fadeInUp 1s ease-out 0.4s both;
         }
-        
+
         .cta-button {
             display: inline-block;
-            padding: 1.2rem 3rem;
-            background: linear-gradient(45deg, var(--primary), var(--neon-pink));
+            padding: 1rem 2.5rem;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
             color: white;
             border-radius: 50px;
             text-decoration: none;
-            font-weight: 700;
-            font-size: 1.3rem;
-            margin-top: 2rem;
-            box-shadow: 0 10px 30px rgba(110,69,226,0.7);
-            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            border: none;
-            cursor: pointer;
+            font-weight: 600;
+            font-size: 1.1rem;
+            margin-top: 1rem;
+            box-shadow: 0 10px 30px rgba(0,240,255,0.3);
+            transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
-            animation: fadeInUp 1s ease-out 0.6s both;
+            border: none;
+            cursor: pointer;
+            z-index: 1;
+            font-family: 'JetBrains Mono', monospace;
+            text-transform: uppercase;
+            letter-spacing: 1px;
         }
-        
+
         .cta-button::before {
             content: '';
             position: absolute;
             top: 0;
-            left: -100%;
+            left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-            transition: all 0.7s ease;
+            background: linear-gradient(135deg, var(--primary-dark), var(--primary));
+            opacity: 0;
+            z-index: -1;
+            transition: opacity 0.3s ease;
         }
-        
-        .cta-button:hover {
-            transform: translateY(-5px) scale(1.05);
-            box-shadow: 0 15px 40px rgba(110,69,226,0.9);
-        }
-        
+
         .cta-button:hover::before {
-            left: 100%;
+            opacity: 1;
         }
-        
-        .products-section {
-            margin: 8rem 0;
+
+        .cta-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 15px 35px rgba(0,240,255,0.4);
+        }
+
+        .cta-button.secondary {
+            background: transparent;
+            border: 2px solid var(--primary);
+            color: var(--primary);
+            margin-left: 1rem;
+            box-shadow: none;
+        }
+
+        .cta-button.secondary:hover {
+            background: rgba(0, 240, 255, 0.1);
+        }
+
+        /* Typewriter Effect */
+        .typewriter {
+            display: inline-block;
             position: relative;
         }
-        
+
+        .typewriter::after {
+            content: '|';
+            position: absolute;
+            right: -10px;
+            animation: blink 1s infinite;
+            color: var(--primary);
+        }
+
+        @keyframes blink {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0; }
+        }
+
+        /* Terminal Effect */
+        .terminal {
+            background: var(--terminal-bg);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin: 3rem auto;
+            max-width: 800px;
+            text-align: left;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+            border: 1px solid rgba(0, 240, 255, 0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .terminal-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 1px solid rgba(0, 240, 255, 0.1);
+        }
+
+        .terminal-dots {
+            display: flex;
+            gap: 8px;
+            margin-right: 10px;
+        }
+
+        .terminal-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+        }
+
+        .terminal-dot.red {
+            background: #ff5f56;
+        }
+
+        .terminal-dot.yellow {
+            background: #ffbd2e;
+        }
+
+        .terminal-dot.green {
+            background: #27c93f;
+        }
+
+        .terminal-title {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+        }
+
+        .terminal-content {
+            font-family: 'JetBrains Mono', monospace;
+            color: var(--text-primary);
+            line-height: 1.6;
+        }
+
+        .terminal-line {
+            margin-bottom: 0.5rem;
+        }
+
+        .terminal-prompt {
+            color: var(--primary);
+            margin-right: 10px;
+        }
+
+        .terminal-command {
+            color: var(--accent);
+        }
+
+        .terminal-output {
+            color: var(--text-secondary);
+            opacity: 0;
+            animation: fadeIn 0.5s forwards;
+            animation-delay: calc(var(--line-index) * 0.3s);
+        }
+
+        @keyframes fadeIn {
+            to { opacity: 1; }
+        }
+
+        /* Products Section */
+        .section {
+            padding: 6rem 2rem;
+            max-width: 1400px;
+            margin: 0 auto;
+            position: relative;
+        }
+
         .section-title {
-            font-size: 3rem;
+            font-size: 2.5rem;
             text-align: center;
             margin-bottom: 5rem;
-            background: linear-gradient(90deg, var(--neon-blue), var(--neon-purple));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            color: var(--primary);
             position: relative;
             display: inline-block;
             left: 50%;
             transform: translateX(-50%);
-            animation: fadeInUp 1s ease-out 0.8s both;
         }
-        
+
         .section-title::after {
             content: '';
             position: absolute;
             bottom: -15px;
             left: 50%;
             transform: translateX(-50%);
-            width: 200px;
-            height: 5px;
-            background: linear-gradient(90deg, var(--neon-blue), var(--neon-purple));
-            border-radius: 5px;
-            box-shadow: 0 0 20px var(--neon-blue);
+            width: 100px;
+            height: 4px;
+            background: linear-gradient(90deg, var(--primary), var(--secondary));
+            border-radius: 3px;
         }
-        
+
+        .section-subtitle {
+            text-align: center;
+            color: var(--text-secondary);
+            max-width: 700px;
+            margin: 0 auto 4rem;
+            font-size: 1.1rem;
+        }
+
         .products-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
-            gap: 3rem;
-            margin-top: 5rem;
+            gap: 2.5rem;
+            margin-top: 2rem;
         }
-        
+
         .product-card {
-            background: rgba(15, 14, 26, 0.6);
-            border-radius: 20px;
+            background: var(--card-bg);
+            border-radius: 16px;
             overflow: hidden;
-            border: 1px solid rgba(110, 69, 226, 0.3);
-            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
             position: relative;
-            backdrop-filter: blur(5px);
-            transform-style: preserve-3d;
-            perspective: 1000px;
-            animation: fadeIn 1s ease-out forwards;
-            opacity: 0;
         }
-        
-        .product-card:nth-child(1) { animation-delay: 0.8s; }
-        .product-card:nth-child(2) { animation-delay: 1s; }
-        .product-card:nth-child(3) { animation-delay: 1.2s; }
-        .product-card:nth-child(4) { animation-delay: 1.4s; }
-        .product-card:nth-child(5) { animation-delay: 1.6s; }
-        .product-card:nth-child(6) { animation-delay: 1.8s; }
-        
-        @keyframes fadeIn {
-            to { opacity: 1; transform: translateY(0); }
-        }
-        
-        .product-card::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, 
-                          rgba(110,69,226,0.1) 0%, 
-                          rgba(255,126,95,0.05) 100%);
-            z-index: -1;
-            opacity: 0;
-            transition: opacity 0.5s ease;
-        }
-        
+
         .product-card:hover {
-            transform: translateY(-15px) rotateX(5deg) rotateY(5deg);
-            box-shadow: 0 25px 50px rgba(110,69,226,0.5);
-            border-color: rgba(110, 69, 226, 0.8);
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.2);
+            border-color: var(--primary);
         }
-        
-        .product-card:hover::before {
-            opacity: 1;
-        }
-        
+
         .product-badge {
             position: absolute;
-            top: 20px;
-            left: 20px;
-            background: linear-gradient(45deg, var(--neon-pink), var(--primary));
+            top: 15px;
+            right: 15px;
+            background: var(--secondary);
             color: white;
-            padding: 0.5rem 1.5rem;
-            border-radius: 50px;
-            font-size: 0.9rem;
-            font-weight: 700;
-            z-index: 2;
-            box-shadow: 0 5px 15px rgba(255,45,117,0.5);
-            animation: pulseBadge 2s infinite alternate;
+            padding: 0.3rem 1rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            z-index: 1;
+            box-shadow: 0 4px 10px rgba(255,45,117,0.3);
         }
-        
-        @keyframes pulseBadge {
-            0% { transform: scale(1); box-shadow: 0 5px 15px rgba(255,45,117,0.5); }
-            100% { transform: scale(1.05); box-shadow: 0 5px 20px rgba(255,45,117,0.8); }
+
+        .product-badge.primary {
+            background: var(--primary);
+            box-shadow: 0 4px 10px rgba(0,240,255,0.3);
         }
-        
+
+        .product-badge.accent {
+            background: var(--accent);
+            color: var(--dark);
+            box-shadow: 0 4px 10px rgba(255,235,59,0.3);
+        }
+
         .product-image-container {
-            height: 250px;
+            height: 220px;
             width: 100%;
             overflow: hidden;
             position: relative;
         }
-        
+
         .product-image {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: all 0.8s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            transition: transform 0.5s ease;
         }
-        
+
         .product-card:hover .product-image {
-            transform: scale(1.1) rotate(2deg);
+            transform: scale(1.1);
         }
-        
+
         .product-details {
             padding: 2rem;
         }
-        
+
         .product-title {
-            font-size: 1.8rem;
+            font-size: 1.5rem;
             margin-bottom: 1rem;
-            color: var(--light);
-            position: relative;
-            display: inline-block;
+            color: var(--primary);
+            font-family: 'JetBrains Mono', monospace;
         }
-        
-        .product-title::after {
-            content: '';
-            position: absolute;
-            bottom: -5px;
-            left: 0;
-            width: 50px;
-            height: 3px;
-            background: linear-gradient(90deg, var(--neon-blue), var(--neon-pink));
-            border-radius: 3px;
-            transition: width 0.5s ease;
-        }
-        
-        .product-card:hover .product-title::after {
-            width: 100%;
-        }
-        
+
         .product-description {
-            color: rgba(241, 241, 246, 0.8);
+            color: var(--text-secondary);
             margin-bottom: 1.5rem;
-            line-height: 1.7;
+            font-size: 0.95rem;
             min-height: 60px;
         }
-        
+
         .product-features {
-            margin: 1.5rem 0;
-            padding-right: 1rem;
+            margin-bottom: 1.5rem;
         }
-        
+
         .product-features li {
-            margin-bottom: 0.8rem;
             position: relative;
-            padding-right: 2rem;
-            color: rgba(241, 241, 246, 0.9);
-            transition: all 0.3s ease;
+            padding-left: 1.5rem;
+            margin-bottom: 0.5rem;
+            font-size: 0.9rem;
         }
-        
-        .product-features li:hover {
-            color: var(--neon-blue);
-            transform: translateX(-5px);
-        }
-        
+
         .product-features li::before {
-            content: '';
+            content: '▹';
             position: absolute;
-            right: 0;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 15px;
-            height: 15px;
-            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2300f2fe'%3E%3Cpath d='M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z'/%3E%3C/svg%3E") no-repeat center;
-            background-size: contain;
+            left: 0;
+            color: var(--primary);
         }
-        
+
         .product-price {
-            font-size: 2.2rem;
-            font-weight: 900;
-            color: var(--gold);
-            margin: 2rem 0;
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin: 1.5rem 0;
             text-align: center;
-            position: relative;
+            font-family: 'JetBrains Mono', monospace;
         }
-        
-        .product-price::before,
-        .product-price::after {
-            content: '✧';
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--neon-pink);
-            font-size: 1.5rem;
-        }
-        
-        .product-price::before {
-            left: 20%;
-        }
-        
-        .product-price::after {
-            right: 20%;
-        }
-        
+
         .product-actions {
             display: flex;
-            justify-content: center;
-            gap: 1.5rem;
+            gap: 1rem;
         }
-        
+
+        .buy-button, .details-button {
+            flex: 1;
+            padding: 0.8rem;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
         .buy-button {
-            flex: 1;
-            padding: 1rem;
-            background: linear-gradient(45deg, var(--primary), var(--neon-blue));
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
             color: white;
             border: none;
-            border-radius: 12px;
-            font-weight: 700;
-            font-size: 1.1rem;
-            cursor: pointer;
-            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            position: relative;
-            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0,240,255,0.3);
         }
-        
-        .buy-button::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-            transition: all 0.7s ease;
-        }
-        
+
         .buy-button:hover {
-            transform: translateY(-5px) scale(1.05);
-            box-shadow: 0 10px 25px rgba(0, 242, 254, 0.6);
+            background: linear-gradient(135deg, var(--primary-light), var(--primary));
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(0,240,255,0.4);
         }
-        
-        .buy-button:hover::before {
-            left: 100%;
-        }
-        
+
         .details-button {
-            flex: 1;
-            padding: 1rem;
             background: transparent;
-            color: var(--light);
+            color: var(--primary);
             border: 2px solid var(--primary);
-            border-radius: 12px;
-            font-weight: 700;
-            font-size: 1.1rem;
-            cursor: pointer;
-            transition: all 0.5s ease;
         }
-        
+
         .details-button:hover {
-            background: rgba(110, 69, 226, 0.2);
-            border-color: var(--neon-blue);
-            color: var(--neon-blue);
+            background: rgba(0, 240, 255, 0.1);
+            transform: translateY(-2px);
         }
-        
-        .contact-section {
-            margin: 8rem 0;
-            text-align: center;
-            position: relative;
-        }
-        
-        .contact-form {
-            max-width: 700px;
-            margin: 0 auto;
-            background: rgba(15, 14, 26, 0.6);
-            padding: 3rem;
-            border-radius: 20px;
-            border: 1px solid rgba(110, 69, 226, 0.3);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
-            backdrop-filter: blur(5px);
-            transform-style: preserve-3d;
-            transform: perspective(1000px);
-            animation: fadeInUp 1s ease-out 1s both;
-        }
-        
-        .form-group {
-            margin-bottom: 2rem;
-            text-align: right;
-            position: relative;
-        }
-        
-        .form-label {
-            display: block;
-            margin-bottom: 1rem;
-            font-weight: 500;
-            font-size: 1.1rem;
-            color: var(--neon-blue);
-        }
-        
-        .form-input, .form-textarea {
-            width: 100%;
-            padding: 1rem 1.5rem;
-            background: rgba(255,255,255,0.1);
-            border: 1px solid rgba(110, 69, 226, 0.5);
-            border-radius: 12px;
-            color: var(--light);
-            font-family: 'Tajawal', sans-serif;
-            font-size: 1rem;
-            transition: all 0.5s ease;
-        }
-        
-        .form-input:focus, .form-textarea:focus {
-            outline: none;
-            border-color: var(--neon-blue);
-            box-shadow: 0 0 20px rgba(0, 242, 254, 0.4);
-            background: rgba(0, 242, 254, 0.05);
-        }
-        
-        .form-textarea {
-            min-height: 200px;
-            resize: vertical;
-        }
-        
-        .submit-button {
-            width: 100%;
-            padding: 1.2rem;
-            background: linear-gradient(45deg, var(--neon-pink), var(--primary));
-            color: white;
-            border: none;
-            border-radius: 12px;
-            font-weight: 700;
-            font-size: 1.2rem;
-            cursor: pointer;
-            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            margin-top: 1rem;
+
+        /* My Work Section */
+        .my-work {
+            background: linear-gradient(135deg, var(--darker) 0%, var(--dark) 100%);
             position: relative;
             overflow: hidden;
-            box-shadow: 0 10px 25px rgba(255,45,117,0.5);
         }
-        
-        .submit-button::before {
+
+        .my-work::before {
             content: '';
             position: absolute;
             top: 0;
-            left: -100%;
+            left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-            transition: all 0.7s ease;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path fill="rgba(0,240,255,0.02)" d="M0,0 L100,0 L100,100 L0,100 Z" /></svg>');
+            background-size: cover;
+            opacity: 0.5;
         }
-        
-        .submit-button:hover {
-            transform: translateY(-5px) scale(1.02);
-            box-shadow: 0 15px 35px rgba(255,45,117,0.7);
+
+        .work-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+            gap: 2.5rem;
         }
-        
-        .submit-button:hover::before {
-            left: 100%;
-        }
-        
-        footer {
-            text-align: center;
-            padding: 5rem 0;
-            margin-top: 5rem;
-            border-top: 1px solid rgba(110, 69, 226, 0.3);
-            position: relative;
-        }
-        
-        .footer-logo {
-            font-size: 2.5rem;
-            font-weight: 900;
-            background: linear-gradient(90deg, var(--neon-blue), var(--neon-pink));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
-            margin-bottom: 2rem;
-            display: inline-block;
-        }
-        
-        .footer-links {
-            display: flex;
-            justify-content: center;
-            gap: 3rem;
-            margin-bottom: 3rem;
-            flex-wrap: wrap;
-        }
-        
-        .footer-links a {
-            color: rgba(241, 241, 246, 0.8);
-            text-decoration: none;
-            font-size: 1.1rem;
+
+        .work-item {
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
             transition: all 0.3s ease;
             position: relative;
-            padding: 0.5rem 0;
+            background: var(--card-bg);
+            border: 1px solid var(--border-color);
         }
-        
-        .footer-links a::after {
-            content: '';
-            position: absolute;
-            bottom: 0;
-            right: 0;
-            width: 0;
-            height: 2px;
-            background: linear-gradient(90deg, var(--neon-blue), var(--neon-pink));
-            transition: width 0.3s ease;
+
+        .work-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(0,0,0,0.3);
+            border-color: var(--primary);
         }
-        
-        .footer-links a:hover {
-            color: var(--neon-blue);
-        }
-        
-        .footer-links a:hover::after {
+
+        .work-image {
             width: 100%;
-            left: 0;
-            right: auto;
+            height: 200px;
+            object-fit: cover;
+            transition: transform 0.5s ease;
         }
-        
-        .social-links {
+
+        .work-item:hover .work-image {
+            transform: scale(1.05);
+        }
+
+        .work-info {
+            padding: 1.5rem;
+        }
+
+        .work-title {
+            font-size: 1.3rem;
+            margin-bottom: 0.5rem;
+            color: var(--primary);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .work-description {
+            color: var(--text-secondary);
+            margin-bottom: 1rem;
+            font-size: 0.9rem;
+        }
+
+        .work-link {
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+            margin-top: 0.5rem;
+            color: var(--primary);
+            font-size: 0.9rem;
+            text-decoration: none;
+            font-weight: 500;
+            transition: all 0.3s ease;
+        }
+
+        .work-link:hover {
+            color: var(--primary-light);
+            text-decoration: none;
+            gap: 10px;
+        }
+
+        /* Skills Section */
+        .skills-section {
+            position: relative;
+        }
+
+        .skills-dropdown {
+            display: none;
+            position: absolute;
+            background-color: var(--card-bg);
+            min-width: 800px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+            z-index: 1;
+            border-radius: 16px;
+            padding: 2rem;
+            border: 1px solid var(--border-color);
+            left: 50%;
+            transform: translateX(-50%);
+            top: 100%;
+            margin-top: 1rem;
+            animation: fadeIn 0.3s ease-out;
+        }
+
+        .skills-section:hover .skills-dropdown {
+            display: grid;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 2rem;
+        }
+
+        .skills {
             display: flex;
+            flex-wrap: wrap;
             justify-content: center;
             gap: 2rem;
-            margin-bottom: 3rem;
         }
-        
-        .social-link {
-            width: 60px;
-            height: 60px;
+
+        .skill-item {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            width: 120px;
+            transition: all 0.3s ease;
+        }
+
+        .skill-item:hover {
+            transform: translateY(-5px);
+        }
+
+        .skill-circle {
+            width: 80px;
+            height: 80px;
             border-radius: 50%;
-            background: rgba(110, 69, 226, 0.2);
+            background: var(--card-bg);
             display: flex;
             align-items: center;
             justify-content: center;
-            color: var(--light);
-            font-size: 1.5rem;
-            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            margin-bottom: 1rem;
+            box-shadow: 0 10px 20px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
+            border: 2px solid var(--border-color);
             position: relative;
             overflow: hidden;
-            border: 1px solid rgba(110, 69, 226, 0.5);
         }
-        
-        .social-link::before {
+
+        .skill-circle::before {
             content: '';
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            background: linear-gradient(45deg, var(--primary), var(--neon-pink));
-            z-index: -1;
+            background: linear-gradient(135deg, rgba(0,240,255,0.1) 0%, rgba(255,45,117,0.05) 100%);
             opacity: 0;
-            transition: opacity 0.5s ease;
+            transition: opacity 0.3s ease;
         }
-        
-        .social-link:hover {
-            transform: translateY(-5px) scale(1.1);
-            box-shadow: 0 10px 25px rgba(110,69,226,0.7);
-            color: white;
-            border-color: transparent;
-        }
-        
-        .social-link:hover::before {
+
+        .skill-circle:hover::before {
             opacity: 1;
         }
-        
-        .copyright {
-            color: rgba(241, 241, 246, 0.6);
-            font-size: 1rem;
-            margin-top: 2rem;
+
+        .skill-circle:hover {
+            transform: scale(1.1);
+            box-shadow: 0 15px 30px rgba(0,0,0,0.2);
+            border-color: var(--primary);
         }
-        
-        .floating-particles {
+
+        .skill-icon {
+            font-size: 2.5rem;
+            color: var(--primary);
+            transition: all 0.3s ease;
+        }
+
+        .skill-circle:hover .skill-icon {
+            color: var(--primary-light);
+            transform: scale(1.1);
+        }
+
+        .skill-name {
+            font-size: 1rem;
+            color: var(--text-primary);
+            text-align: center;
+            font-weight: 500;
+        }
+
+        .skill-level {
+            font-size: 0.8rem;
+            color: var(--text-secondary);
+            margin-top: 0.3rem;
+        }
+
+        /* Experience Timeline */
+        .timeline {
+            position: relative;
+            max-width: 1000px;
+            margin: 3rem auto;
+        }
+
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 100%;
+            background: linear-gradient(to bottom, var(--primary), var(--secondary));
+        }
+
+        .timeline-item {
+            padding: 1.5rem;
+            position: relative;
+            width: 50%;
+            box-sizing: border-box;
+        }
+
+        .timeline-item:nth-child(odd) {
+            left: 0;
+            padding-right: 3rem;
+            text-align: right;
+        }
+
+        .timeline-item:nth-child(even) {
+            left: 50%;
+            padding-left: 3rem;
+            text-align: left;
+        }
+
+        .timeline-content {
+            background: var(--card-bg);
+            padding: 1.5rem;
+            border-radius: 12px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+        }
+
+        .timeline-item:hover .timeline-content {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+            border-color: var(--primary);
+        }
+
+        .timeline-date {
+            color: var(--primary);
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .timeline-title {
+            font-size: 1.2rem;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .timeline-company {
+            color: var(--primary);
+            font-weight: 500;
+            margin-bottom: 0.5rem;
+        }
+
+        .timeline-description {
+            color: var(--text-secondary);
+            font-size: 0.9rem;
+        }
+
+        .timeline-item::after {
+            content: '';
+            position: absolute;
+            width: 20px;
+            height: 20px;
+            background: var(--primary);
+            border-radius: 50%;
+            top: 2rem;
+            z-index: 1;
+        }
+
+        .timeline-item:nth-child(odd)::after {
+            right: -10px;
+        }
+
+        .timeline-item:nth-child(even)::after {
+            left: -10px;
+        }
+
+        /* Contact Section */
+        .contact-form {
+            max-width: 700px;
+            margin: 0 auto;
+            background: var(--card-bg);
+            padding: 3rem;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.1);
+            border: 1px solid var(--border-color);
+        }
+
+        .form-group {
+            margin-bottom: 2rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.8rem;
+            font-weight: 500;
+            color: var(--text-primary);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .form-input, .form-textarea {
+            width: 100%;
+            padding: 1rem 1.5rem;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-family: 'Poppins', sans-serif;
+            font-size: 1rem;
+            transition: all 0.3s ease;
+            background-color: var(--bg-color);
+            color: var(--text-primary);
+        }
+
+        .form-input:focus, .form-textarea:focus {
+            outline: none;
+            border-color: var(--primary);
+            box-shadow: 0 0 0 3px rgba(0,240,255,0.1);
+        }
+
+        .form-textarea {
+            min-height: 180px;
+            resize: vertical;
+        }
+
+        .submit-button {
+            width: 100%;
+            padding: 1rem;
+            background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: 'JetBrains Mono', monospace;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            box-shadow: 0 5px 20px rgba(0,240,255,0.2);
+        }
+
+        .submit-button:hover {
+            background: linear-gradient(135deg, var(--primary-light), var(--primary));
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,240,255,0.3);
+        }
+
+        /* Code Snippet */
+        .code-snippet {
+            background: var(--code-bg);
+            border-radius: 8px;
+            padding: 1.5rem;
+            margin: 2rem 0;
+            overflow-x: auto;
+            border: 1px solid rgba(0, 240, 255, 0.1);
+        }
+
+        .code-snippet pre {
+            margin: 0;
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 0.9rem;
+            line-height: 1.5;
+            color: var(--text-primary);
+        }
+
+        /* Footer */
+        footer {
+            background: var(--darker);
+            color: white;
+            padding: 5rem 2rem 3rem;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        footer::before {
+            content: '';
             position: absolute;
             top: 0;
             left: 0;
             width: 100%;
             height: 100%;
-            pointer-events: none;
-            z-index: -1;
-            overflow: hidden;
+            background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100" preserveAspectRatio="none"><path fill="rgba(0,240,255,0.03)" d="M0,0 L100,0 L100,100 L0,100 Z" /></svg>');
+            background-size: cover;
+            opacity: 0.5;
         }
-        
-        .particle {
-            position: absolute;
-            background: white;
+
+        .footer-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .footer-logo {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--primary);
+            margin-bottom: 2rem;
+            display: inline-block;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .footer-links {
+            display: flex;
+            justify-content: center;
+            gap: 2.5rem;
+            margin-bottom: 3rem;
+            flex-wrap: wrap;
+        }
+
+        .footer-links a {
+            color: rgba(255,255,255,0.7);
+            text-decoration: none;
+            transition: all 0.3s ease;
+            font-size: 0.95rem;
+        }
+
+        .footer-links a:hover {
+            color: var(--primary);
+            transform: translateY(-2px);
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+            margin-bottom: 3rem;
+        }
+
+        .social-link {
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
-            opacity: 0;
-            animation: floatParticle linear infinite;
+            background: rgba(255,255,255,0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.3rem;
+            transition: all 0.3s ease;
         }
-        
-        @keyframes floatParticle {
-            0% { transform: translateY(0) translateX(0); opacity: 0; }
-            10% { opacity: 0.8; }
-            100% { transform: translateY(-100vh) translateX(100px); opacity: 0; }
+
+        .social-link:hover {
+            background: var(--primary);
+            transform: translateY(-5px) scale(1.1);
+            box-shadow: 0 10px 20px rgba(0,240,255,0.3);
         }
-        
-        /* Modal Styles */
+
+        .copyright {
+            color: rgba(255,255,255,0.5);
+            font-size: 0.9rem;
+            margin-top: 2rem;
+        }
+
+        /* Modal */
         .modal {
             display: none;
             position: fixed;
@@ -782,1032 +1158,1534 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0,0,0,0.9);
+            background: rgba(0,0,0,0.8);
+            backdrop-filter: blur(5px);
             z-index: 1000;
             justify-content: center;
             align-items: center;
-            backdrop-filter: blur(5px);
+            opacity: 0;
+            transition: opacity 0.3s ease;
         }
-        
+
+        .modal.active {
+            opacity: 1;
+            display: flex;
+        }
+
         .modal-content {
-            background: linear-gradient(135deg, rgba(15,14,26,0.9), rgba(58,29,110,0.7));
-            border-radius: 20px;
+            background: var(--card-bg);
+            border-radius: 16px;
             width: 90%;
             max-width: 800px;
             max-height: 90vh;
             overflow-y: auto;
             padding: 3rem;
-            border: 1px solid var(--primary);
-            box-shadow: 0 0 100px rgba(110,69,226,0.7);
             position: relative;
-            animation: modalFadeIn 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards;
-            transform-style: preserve-3d;
-            perspective: 1000px;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 20px 50px rgba(0,0,0,0.3);
+            animation: modalFadeIn 0.3s ease-out forwards;
         }
-        
+
         @keyframes modalFadeIn {
-            from { opacity: 0; transform: translateY(-50px) rotateX(20deg); }
-            to { opacity: 1; transform: translateY(0) rotateX(0); }
+            from { opacity: 0; transform: translateY(-30px); }
+            to { opacity: 1; transform: translateY(0); }
         }
-        
+
         .close-modal {
             position: absolute;
             top: 20px;
-            left: 20px;
-            font-size: 2rem;
-            color: var(--light);
+            right: 20px;
+            font-size: 1.8rem;
+            color: var(--text-secondary);
             cursor: pointer;
-            transition: all 0.5s ease;
-            z-index: 2;
+            background: none;
+            border: none;
+            transition: all 0.3s ease;
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
         }
-        
+
         .close-modal:hover {
-            color: var(--neon-pink);
-            transform: rotate(90deg) scale(1.2);
+            color: var(--primary);
+            background: rgba(0, 240, 255, 0.1);
+            transform: rotate(90deg);
         }
-        
+
         .modal-title {
-            font-size: 2.5rem;
+            font-size: 2.2rem;
             margin-bottom: 2rem;
-            background: linear-gradient(90deg, var(--neon-blue), var(--neon-pink));
-            -webkit-background-clip: text;
-            -webkit-text-fill-color: transparent;
+            color: var(--primary);
             text-align: center;
-            position: relative;
+            font-family: 'JetBrains Mono', monospace;
         }
-        
-        .modal-title::after {
-            content: '';
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
-            width: 150px;
-            height: 4px;
-            background: linear-gradient(90deg, var(--neon-blue), var(--neon-pink));
-            border-radius: 4px;
-        }
-        
+
         .modal-image-container {
             width: 100%;
             height: 350px;
-            border-radius: 15px;
+            border-radius: 12px;
             overflow: hidden;
             margin-bottom: 2rem;
-            position: relative;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
         }
-        
+
         .modal-image {
             width: 100%;
             height: 100%;
             object-fit: cover;
-            transition: transform 0.8s ease;
+            transition: transform 0.5s ease;
         }
-        
+
         .modal-image-container:hover .modal-image {
-            transform: scale(1.1);
+            transform: scale(1.05);
         }
-        
+
         .modal-description {
-            line-height: 1.8;
+            color: var(--text-secondary);
             margin-bottom: 2rem;
-            font-size: 1.1rem;
-            color: rgba(241, 241, 246, 0.9);
+            line-height: 1.7;
         }
-        
+
         .modal-features {
-            margin-bottom: 3rem;
+            margin-bottom: 2rem;
         }
-        
+
         .modal-features li {
-            margin-bottom: 1rem;
+            margin-bottom: 0.8rem;
             position: relative;
-            padding-right: 2.5rem;
-            font-size: 1.1rem;
-            color: rgba(241, 241, 246, 0.9);
+            padding-left: 2rem;
+            color: var(--text-primary);
         }
-        
+
         .modal-features li::before {
-            content: '';
+            content: '▹';
             position: absolute;
-            right: 0;
-            top: 50%;
-            transform: translateY(-50%);
-            width: 20px;
-            height: 20px;
-            background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24' fill='%2300f2fe'%3E%3Cpath d='M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z'/%3E%3C/svg%3E") no-repeat center;
-            background-size: contain;
+            left: 0;
+            color: var(--primary);
+            font-size: 1.2rem;
         }
-        
+
         .modal-price {
             font-size: 2.5rem;
-            font-weight: 900;
-            color: var(--gold);
-            text-align: center;
-            margin: 3rem 0;
-            position: relative;
-        }
-        
-        .modal-price::before,
-        .modal-price::after {
-            content: '✦';
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            color: var(--neon-pink);
-            font-size: 2rem;
-            animation: spin 5s linear infinite;
-        }
-        
-        @keyframes spin {
-            0% { transform: translateY(-50%) rotate(0deg); }
-            100% { transform: translateY(-50%) rotate(360deg); }
-        }
-        
-        .modal-price::before {
-            left: 15%;
-        }
-        
-        .modal-price::after {
-            right: 15%;
-        }
-        
-        .modal-form .form-group {
-            margin-bottom: 1.5rem;
-        }
-        
-        .modal-form label {
-            display: block;
-            margin-bottom: 0.8rem;
-            color: var(--neon-blue);
-            font-size: 1.1rem;
-        }
-        
-        .modal-form input, 
-        .modal-form select, 
-        .modal-form textarea {
-            width: 100%;
-            padding: 1rem 1.5rem;
-            background: rgba(255,255,255,0.1);
-            border: 1px solid var(--primary);
-            border-radius: 12px;
-            color: var(--light);
-            font-family: 'Tajawal', sans-serif;
-            font-size: 1rem;
-            transition: all 0.5s ease;
-        }
-        
-        .modal-form input:focus, 
-        .modal-form select:focus, 
-        .modal-form textarea:focus {
-            outline: none;
-            border-color: var(--neon-blue);
-            box-shadow: 0 0 20px rgba(0, 242, 254, 0.4);
-            background: rgba(0, 242, 254, 0.05);
-        }
-        
-        .submit-order {
-            width: 100%;
-            padding: 1.2rem;
-            background: linear-gradient(45deg, var(--neon-pink), var(--primary));
-            color: white;
-            border: none;
-            border-radius: 12px;
             font-weight: 700;
-            font-size: 1.2rem;
-            cursor: pointer;
-            transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            margin-top: 2rem;
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 10px 30px rgba(255,45,117,0.6);
+            color: var(--primary);
+            text-align: center;
+            margin: 2.5rem 0;
+            font-family: 'JetBrains Mono', monospace;
         }
-        
-        .submit-order::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: -100%;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-            transition: all 0.7s ease;
+
+        .modal-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 2rem;
         }
-        
-        .submit-order:hover {
-            transform: translateY(-5px) scale(1.02);
-            box-shadow: 0 15px 40px rgba(255,45,117,0.8);
+
+        .tech-tag {
+            background: rgba(0, 240, 255, 0.1);
+            color: var(--primary);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-family: 'JetBrains Mono', monospace;
         }
-        
-        .submit-order:hover::before {
-            left: 100%;
+
+        /* Success Message */
+        .success-message {
+            display: none;
+            background: rgba(0, 230, 118, 0.1);
+            border: 1px solid var(--success);
+            color: var(--success);
+            padding: 1.5rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+            animation: fadeIn 0.5s ease-out;
         }
-        
-        .confetti {
-            position: absolute;
-            width: 10px;
-            height: 10px;
-            background: var(--neon-pink);
-            opacity: 0;
-            animation: confettiFall 3s ease-out forwards;
-            z-index: 1001;
+
+        /* Responsive Design */
+        @media (max-width: 1200px) {
+            .skills-dropdown {
+                min-width: 700px;
+                grid-template-columns: repeat(3, 1fr);
+            }
         }
-        
-        @keyframes confettiFall {
-            0% { transform: translateY(-100px) rotate(0deg); opacity: 1; }
-            100% { transform: translateY(100vh) rotate(360deg); opacity: 0; }
+
+        @media (max-width: 992px) {
+            .timeline::before {
+                left: 30px;
+            }
+
+            .timeline-item {
+                width: 100%;
+                padding-left: 70px;
+                padding-right: 0;
+                text-align: left;
+            }
+
+            .timeline-item:nth-child(even) {
+                left: 0;
+            }
+
+            .timeline-item::after {
+                left: 20px;
+            }
+
+            .skills-dropdown {
+                min-width: 600px;
+                grid-template-columns: repeat(2, 1fr);
+            }
         }
-        
+
         @media (max-width: 768px) {
-            h1 {
-                font-size: 2.8rem;
-            }
-            
-            .subtitle {
-                font-size: 1.3rem;
-            }
-            
             .nav-links {
                 display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                width: 100%;
+                height: 100vh;
+                background: var(--darker);
+                flex-direction: column;
+                padding: 6rem 2rem 2rem;
+                box-shadow: 0 5px 30px rgba(0,0,0,0.3);
+                z-index: 100;
+                animation: slideIn 0.3s ease-out;
             }
-            
+
+            @keyframes slideIn {
+                from { transform: translateY(-20px); opacity: 0; }
+                to { transform: translateY(0); opacity: 1; }
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-item {
+                width: 100%;
+            }
+
+            .dropdown-content {
+                position: static;
+                box-shadow: none;
+                display: none;
+                width: 100%;
+                background: transparent;
+                border: none;
+                padding: 0.5rem 0 0 1.5rem;
+            }
+
+            .dropdown-content a {
+                padding: 0.7rem 0;
+            }
+
+            .dropdown:hover .dropdown-content {
+                display: none;
+            }
+
+            .dropdown.active .dropdown-content {
+                display: block;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+            }
+
+            .skills-dropdown {
+                min-width: 90%;
+                left: 5%;
+                transform: translateX(0);
+                grid-template-columns: repeat(2, 1fr);
+            }
+
+            h1 {
+                font-size: 2.5rem;
+            }
+
+            .section-title {
+                font-size: 2rem;
+            }
+
             .products-grid {
                 grid-template-columns: 1fr;
-                gap: 2rem;
             }
-            
-            .section-title {
-                font-size: 2.2rem;
+
+            .nav-toggle {
+                margin-left: 0;
+                margin-top: 2rem;
+                justify-content: flex-start;
+                width: 100%;
             }
-            
+
+            .hero {
+                padding: 6rem 1rem 4rem;
+            }
+
+            .hero-container {
+                padding: 2rem;
+            }
+
             .contact-form {
                 padding: 2rem;
             }
-            
+
             .modal-content {
-                padding: 2rem;
-            }
-            
-            .modal-title {
-                font-size: 2rem;
-            }
-            
-            .modal-image-container {
-                height: 250px;
-            }
-            
-            .footer-links {
-                gap: 1.5rem;
-            }
-            
-            .social-link {
-                width: 50px;
-                height: 50px;
-                font-size: 1.2rem;
+                padding: 2rem 1.5rem;
             }
         }
-        
-        @media (max-width: 480px) {
-            h1 {
-                font-size: 2.2rem;
+
+        @media (max-width: 576px) {
+            .header-container, .hero, .section {
+                padding-left: 1rem;
+                padding-right: 1rem;
             }
-            
+
+            h1 {
+                font-size: 2rem;
+            }
+
             .subtitle {
                 font-size: 1.1rem;
             }
-            
-            .section-title {
-                font-size: 1.8rem;
+
+            .cta-buttons {
+                display: flex;
+                flex-direction: column;
+                gap: 1rem;
             }
-            
-            .product-card {
-                border-radius: 15px;
+
+            .cta-button.secondary {
+                margin-left: 0;
             }
-            
-            .product-title {
-                font-size: 1.5rem;
+
+            .skills-dropdown {
+                grid-template-columns: 1fr;
             }
-            
-            .product-price {
-                font-size: 1.8rem;
-            }
-            
-            .contact-form {
-                padding: 1.5rem;
-            }
-            
-            .modal-content {
-                padding: 1.5rem;
-            }
-            
-            .modal-title {
-                font-size: 1.8rem;
-            }
-            
+
             .modal-image-container {
                 height: 200px;
             }
+
+            .modal-title {
+                font-size: 1.8rem;
+            }
+
+            .modal-price {
+                font-size: 2rem;
+            }
         }
+
+        /* RTL Styles */
+        [dir="rtl"] {
+            direction: rtl;
+            text-align: right;
+        }
+
+        [dir="rtl"] .modal-features li {
+            padding-left: 0;
+            padding-right: 2rem;
+        }
+
+        [dir="rtl"] .modal-features li::before {
+            left: auto;
+            right: 0;
+        }
+
+        [dir="rtl"] .dropdown-toggle::after {
+            margin-left: 0;
+            margin-right: 5px;
+        }
+
+        [dir="rtl"] .timeline::before {
+            right: 30px;
+            left: auto;
+        }
+
+        [dir="rtl"] .timeline-item {
+            padding-right: 70px;
+            padding-left: 0;
+        }
+
+        [dir="rtl"] .timeline-item::after {
+            right: 20px;
+            left: auto;
+        }
+
+        /* Animations */
+        @keyframes floatUp {
+            0% { transform: translateY(20px); opacity: 0; }
+            100% { transform: translateY(0); opacity: 1; }
+        }
+
+        .animate-float {
+            animation: floatUp 1s ease-out forwards;
+        }
+
+        .delay-1 { animation-delay: 0.1s; }
+        .delay-2 { animation-delay: 0.2s; }
+        .delay-3 { animation-delay: 0.3s; }
+        .delay-4 { animation-delay: 0.4s; }
+        .delay-5 { animation-delay: 0.5s; }
     </style>
 </head>
 <body>
-    <div id="threejs-container"></div>
-    <div class="cosmic-overlay"></div>
-    <div class="cosmic-portal"></div>
-    <div class="floating-particles" id="particles"></div>
-    
-    <div class="main-container">
-        <header>
-            <div class="logo">DigitalStore</div>
-            <nav class="nav-links">
-                <a href="#products">المنتجات</a>
-                <a href="#contact">اتصل بنا</a>
-                <a href="https://github.com/Ashref2004" target="_blank">GitHub</a>
-                <a href="https://www.instagram.com/v_code.coding" target="_blank">Instagram</a>
-            </nav>
-        </header>
-        
-        <section class="hero">
-            <h1>التحفة الرقمية التي تنتظرك</h1>
-            <p class="subtitle">
-                نقدم لك أفضل الحلول الرقمية من صفحات ويب ثلاثية الأبعاد إلى بوتات ذكاء اصطناعي متطورة، كل ذلك بتصميمات كونية أسطورية وأداء خارق
-            </p>
-            <button class="cta-button" onclick="openModal('استشارة مجانية', 0, 'consultation')">ابدأ رحلتك الرقمية</button>
-        </section>
-        
-        <section id="products" class="products-section">
-            <h2 class="section-title">إبداعاتنا الرقمية</h2>
+    <!-- Header -->
+    <header>
+        <div class="header-container">
+            <a href="#" class="logo">
+                <img id="profile-img" src="https://via.placeholder.com/150" alt="Developer Photo">
+                <span data-translate="logo">V-Code</span>
+            </a>
             
-            <div class="products-grid">
-                <!-- Product 1 -->
-                <div class="product-card">
-                    <span class="product-badge">الأكثر طلباً</span>
-                    <div class="product-image-container">
-                        <img src="https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="موقع إلكتروني متكامل" class="product-image">
+            <button class="mobile-menu-btn" onclick="toggleMenu()">
+                <i class="fas fa-bars"></i>
+            </button>
+            
+            <nav class="nav-links">
+                <div class="nav-item dropdown">
+                    <a href="#expertise" class="nav-link dropdown-toggle" data-translate="expertise">
+                        <i class="fas fa-laptop-code"></i> Expertise
+                    </a>
+                    <div class="dropdown-content">
+                        <a href="#" data-translate="web_dev">Web Development</a>
+                        <a href="#" data-translate="bot_dev">Bot Development</a>
+                        <a href="#" data-translate="mobile_dev">Mobile Development</a>
+                        <a href="#" data-translate="database">Database Design</a>
                     </div>
-                    <div class="product-details">
-                        <h3 class="product-title">موقع كوني ثلاثي الأبعاد</h3>
-                        <p class="product-description">تصميم موقع إلكتروني ببيئة ثلاثية الأبعاد تفاعلية مع تأثيرات حركية مذهلة</p>
-                        
-                        <ul class="product-features">
-                            <li>تصميم غامر ثلاثي الأبعاد</li>
-                            <li>تفاعلات حركية سلسة</li>
-                            <li>تحميل فائق السرعة</li>
-                            <li>تكامل مع جميع الأجهزة</li>
-                            <li>دعم فني مميز</li>
-                        </ul>
-                        
-                        <div class="product-price">$999</div>
-                        
-                        <div class="product-actions">
-                            <button class="buy-button" onclick="openModal('موقع كوني ثلاثي الأبعاد', 999, '3d-website')">اطلب الآن</button>
-                            <button class="details-button" onclick="showDetails('3d-website')">عرض التفاصيل</button>
+                </div>
+                
+                <div class="nav-item dropdown">
+                    <a href="#projects" class="nav-link dropdown-toggle" data-translate="projects">
+                        <i class="fas fa-project-diagram"></i> Projects
+                    </a>
+                    <div class="dropdown-content">
+                        <a href="https://t.me/TissmsiltBot" target="_blank">Univ-Bot</a>
+                        <a href="https://ashref2004.github.io/EL-Hadj-El-Omra/" target="_blank">Hajj & Umrah Website</a>
+                        <a href="https://github.com/Ashref2004/Umrah-Agency.git" target="_blank">Umrah Agency</a>
+                        <a href="#">Custom Bots</a>
+                    </div>
+                </div>
+                
+                <div class="nav-item skills-section">
+                    <a href="#skills" class="nav-link" data-translate="skills">
+                        <i class="fas fa-code"></i> Skills
+                    </a>
+                    <div class="skills-dropdown">
+                        <div class="skill-item">
+                            <div class="skill-circle">
+                                <i class="fab fa-html5 skill-icon"></i>
+                            </div>
+                            <span class="skill-name">HTML</span>
+                            <span class="skill-level">Expert</span>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-circle">
+                                <i class="fab fa-css3-alt skill-icon"></i>
+                            </div>
+                            <span class="skill-name">CSS</span>
+                            <span class="skill-level">Expert</span>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-circle">
+                                <i class="fab fa-js skill-icon"></i>
+                            </div>
+                            <span class="skill-name">JavaScript</span>
+                            <span class="skill-level">Expert</span>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-circle">
+                                <i class="fab fa-python skill-icon"></i>
+                            </div>
+                            <span class="skill-name">Python</span>
+                            <span class="skill-level">Advanced</span>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-circle">
+                                <i class="fab fa-php skill-icon"></i>
+                            </div>
+                            <span class="skill-name">PHP</span>
+                            <span class="skill-level">Intermediate</span>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-circle">
+                                <i class="fas fa-database skill-icon"></i>
+                            </div>
+                            <span class="skill-name">SQLite3</span>
+                            <span class="skill-level">Advanced</span>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-circle">
+                                <i class="fab fa-react skill-icon"></i>
+                            </div>
+                            <span class="skill-name">React</span>
+                            <span class="skill-level">Intermediate</span>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-circle">
+                                <i class="fab fa-node-js skill-icon"></i>
+                            </div>
+                            <span class="skill-name">Node.js</span>
+                            <span class="skill-level">Advanced</span>
                         </div>
                     </div>
                 </div>
                 
-                <!-- Product 2 -->
-                <div class="product-card">
-                    <span class="product-badge">جديد</span>
-                    <div class="product-image-container">
-                        <img src="https://images.unsplash.com/photo-1620712943543-bcc4688e7485?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="بوت ذكي" class="product-image">
-                    </div>
-                    <div class="product-details">
-                        <h3 class="product-title">بوت الذكاء الكوني</h3>
-                        <p class="product-description">بوت ذكي بمظهر كوني متطور مع قدرات تعلم آلي فائقة وتفاعل طبيعي</p>
-                        
-                        <ul class="product-features">
-                            <li>واجهة كونية ثلاثية الأبعاد</li>
-                            <li>فهم عميق للغة الطبيعية</li>
-                            <li>تكامل مع منصات متعددة</li>
-                            <li>تخصيص كامل للشخصية</li>
-                            <li>تقارير أداء مفصلة</li>
-                        </ul>
-                        
-                        <div class="product-price">$599</div>
-                        
-                        <div class="product-actions">
-                            <button class="buy-button" onclick="openModal('بوت الذكاء الكوني', 599, 'ai-bot')">اطلب الآن</button>
-                            <button class="details-button" onclick="showDetails('ai-bot')">عرض التفاصيل</button>
-                        </div>
-                    </div>
+                <div class="nav-item">
+                    <a href="#experience" class="nav-link" data-translate="experience">
+                        <i class="fas fa-briefcase"></i> Experience
+                    </a>
                 </div>
                 
-                <!-- Product 3 -->
-                <div class="product-card">
-                    <div class="product-image-container">
-                        <img src="https://images.unsplash.com/photo-1516321318423-f06f85e504b3?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="متجر إلكتروني" class="product-image">
-                    </div>
-                    <div class="product-details">
-                        <h3 class="product-title">متجر كوني تفاعلي</h3>
-                        <p class="product-description">متجر إلكتروني ببيئة شراء غامرة بتأثيرات بصرية مذهلة وتجربة مستخدم فريدة</p>
-                        
-                        <ul class="product-features">
-                            <li>عرض منتجات ثلاثي الأبعاد</li>
-                            <li>تجربة شراء غامرة</li>
-                            <li>أنظمة دفع متكاملة</li>
-                            <li>لوحة تحكم متقدمة</li>
-                            <li>حماية وأمان عالي</li>
-                        </ul>
-                        
-                        <div class="product-price">$1499</div>
-                        
-                        <div class="product-actions">
-                            <button class="buy-button" onclick="openModal('متجر كوني تفاعلي', 1499, '3d-store')">اطلب الآن</button>
-                            <button class="details-button" onclick="showDetails('3d-store')">عرض التفاصيل</button>
-                        </div>
-                    </div>
+                <div class="nav-item">
+                    <a href="#contact" class="nav-link" data-translate="contact">
+                        <i class="fas fa-envelope"></i> Contact
+                    </a>
                 </div>
                 
-                <!-- Product 4 -->
-                <div class="product-card">
-                    <div class="product-image-container">
-                        <img src="https://images.unsplash.com/photo-1639762681057-408e52192e55?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="بوت تسويقي" class="product-image">
-                    </div>
-                    <div class="product-details">
-                        <h3 class="product-title">بوت التسويق الكوني</h3>
-                        <p class="product-description">بوت تسويقي ذكي بمظهر كوني يجذب العملاء ويحول الزيارات إلى مبيعات</p>
-                        
-                        <ul class="product-features">
-                            <li>تحليل سلوك العميل</li>
-                            <li>حملات تسويقية ذكية</li>
-                            <li>واجهة كونية جذابة</li>
-                            <li>تكامل مع وسائل التواصل</li>
-                            <li>تقارير أداء مفصلة</li>
-                        </ul>
-                        
-                        <div class="product-price">$799</div>
-                        
-                        <div class="product-actions">
-                            <button class="buy-button" onclick="openModal('بوت التسويق الكوني', 799, 'marketing-bot')">اطلب الآن</button>
-                            <button class="details-button" onclick="showDetails('marketing-bot')">عرض التفاصيل</button>
-                        </div>
-                    </div>
+                <div class="nav-toggle">
+                    <button class="toggle-btn" onclick="toggleTheme()" title="Toggle Dark Mode">
+                        <i class="fas fa-moon" id="theme-icon"></i>
+                    </button>
+                    <button class="toggle-btn" onclick="changeLanguage('en')" title="English">
+                        <img src="https://flagcdn.com/w20/gb.png" alt="English">
+                    </button>
+                    <button class="toggle-btn" onclick="changeLanguage('ar')" title="العربية">
+                        <img src="https://flagcdn.com/w20/dz.png" alt="العربية">
+                    </button>
                 </div>
-                
-                <!-- Product 5 -->
-                <div class="product-card">
-                    <span class="product-badge">عرض خاص</span>
-                    <div class="product-image-container">
-                        <img src="https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="موقع شخصي" class="product-image">
+            </nav>
+        </div>
+    </header>
+
+    <!-- Hero Section -->
+    <section class="hero">
+        <div class="hero-container animate-float">
+            <h1 data-translate="hero_title">V-Code <span class="typewriter" id="typewriter"></span></h1>
+            <p class="subtitle" data-translate="hero_subtitle">
+                أصمم وأطور حلول ويب وروبوتات مخصصة لحل المشاكل الواقعية. من روبوتات الجامعة إلى خدمات الحج، أبني تطبيقات عملية تجعل الحياة أسهل.
+            </p>
+            <div class="cta-buttons">
+                <a href="#contact" class="cta-button" data-translate="hire_me">وظفني</a>
+                <a href="#projects" class="cta-button secondary" data-translate="view_work">عرض الأعمال</a>
+            </div>
+            
+            <div class="terminal">
+                <div class="terminal-header">
+                    <div class="terminal-dots">
+                        <div class="terminal-dot red"></div>
+                        <div class="terminal-dot yellow"></div>
+                        <div class="terminal-dot green"></div>
                     </div>
-                    <div class="product-details">
-                        <h3 class="product-title">بوابة النجوم الشخصية</h3>
-                        <p class="product-description">موقع شخصي كوني يعرض أعمالك ومهاراتك بشكل تفاعلي ثلاثي الأبعاد</p>
-                        
-                        <ul class="product-features">
-                            <li>معرض أعمال تفاعلي</li>
-                            <li>سيرة ذاتية ثلاثية الأبعاد</li>
-                            <li>نموذج تواصل كوني</li>
-                            <li>استضافة مميزة لمدة عام</li>
-                            <li>شهادة رقمية مميزة</li>
-                        </ul>
-                        
-                        <div class="product-price">$699</div>
-                        
-                        <div class="product-actions">
-                            <button class="buy-button" onclick="openModal('بوابة النجوم الشخصية', 699, 'personal-portal')">اطلب الآن</button>
-                            <button class="details-button" onclick="showDetails('personal-portal')">عرض التفاصيل</button>
-                        </div>
-                    </div>
+                    <div class="terminal-title">vcode ~/projects/univ-bot</div>
                 </div>
-                
-                <!-- Product 6 -->
-                <div class="product-card">
-                    <div class="product-image-container">
-                        <img src="https://images.unsplash.com/photo-1633356122544-f134324a6cee?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80" alt="بوت محادثة" class="product-image">
+                <div class="terminal-content">
+                    <div class="terminal-line">
+                        <span class="terminal-prompt">$</span>
+                        <span class="terminal-command">node bot.js --start</span>
                     </div>
-                    <div class="product-details">
-                        <h3 class="product-title">بوت المحادثة الكوني</h3>
-                        <p class="product-description">بوت محادثة بذكاء اصطناعي متطور مع واجهة كونية ثلاثية الأبعاد</p>
-                        
-                        <ul class="product-features">
-                            <li>تفاعلات طبيعية متقدمة</li>
-                            <li>واجهة كونية ثلاثية الأبعاد</li>
-                            <li>تكامل مع مواقع الويب</li>
-                            <li>تعلم مستمر من التفاعلات</li>
-                            <li>إمكانية التخصيص الكامل</li>
-                        </ul>
-                        
-                        <div class="product-price">$899</div>
-                        
-                        <div class="product-actions">
-                            <button class="buy-button" onclick="openModal('بوت المحادثة الكوني', 899, 'chat-bot')">اطلب الآن</button>
-                            <button class="details-button" onclick="showDetails('chat-bot')">عرض التفاصيل</button>
-                        </div>
+                    <div class="terminal-line terminal-output" style="--line-index: 1">
+                        Initializing Univ-Bot server...
+                    </div>
+                    <div class="terminal-line terminal-output" style="--line-index: 2">
+                        Connecting to database...
+                    </div>
+                    <div class="terminal-line terminal-output" style="--line-index: 3">
+                        Bot is now online and ready to serve students!
+                    </div>
+                    <div class="terminal-line">
+                        <span class="terminal-prompt">$</span>
+                        <span class="terminal-command">_</span>
                     </div>
                 </div>
             </div>
-        </section>
+        </div>
+    </section>
+
+    <!-- Expertise Section -->
+    <section id="expertise" class="section">
+        <h2 class="section-title" data-translate="my_expertise">تخصصاتي</h2>
+        <p class="section-subtitle" data-translate="expertise_subtitle">التقنيات والخدمات التي أتخصص فيها</p>
         
-        <section id="contact" class="contact-section">
-            <h2 class="section-title">تواصل مع الفريق الكوني</h2>
+        <div class="products-grid">
+            <!-- Web Development -->
+            <div class="product-card animate-float delay-1">
+                <div class="product-badge primary" data-translate="expert">خبير</div>
+                <div class="product-image-container">
+                    <img src="images/web-dev.jpg" alt="Web Development" class="product-image" onerror="this.src='https://source.unsplash.com/random/600x400/?web,development'">
+                </div>
+                <div class="product-details">
+                    <h3 class="product-title" data-translate="web_dev">تطوير الويب</h3>
+                    <p class="product-description" data-translate="web_dev_desc">
+                        مواقع وتطبيقات ويب مخصصة مبنية بتقنيات حديثة.
+                    </p>
+                    <ul class="product-features">
+                        <li data-translate="web_feature1">تصميم متجاوب</li>
+                        <li data-translate="web_feature2">تطوير الواجهة الأمامية</li>
+                        <li data-translate="web_feature3">تطوير الواجهة الخلفية</li>
+                        <li data-translate="web_feature4">تكامل API</li>
+                    </ul>
+                    <div class="product-actions">
+                        <button class="buy-button" onclick="openModal('Web Development', 1500, 'web-dev')" data-translate="inquire">استفسر</button>
+                        <button class="details-button" onclick="showDetails('web-dev')" data-translate="details">التفاصيل</button>
+                    </div>
+                </div>
+            </div>
             
-            <form class="contact-form">
-                <div class="form-group">
-                    <label for="contact-name">اسمك الكريم</label>
-                    <input type="text" id="contact-name" class="form-input" required>
+            <!-- Bot Development -->
+            <div class="product-card animate-float delay-2">
+                <div class="product-badge" data-translate="expert">خبير</div>
+                <div class="product-image-container">
+                    <img src="images/bot-dev.jpg" alt="Bot Development" class="product-image" onerror="this.src='https://source.unsplash.com/random/600x400/?chat,bot'">
                 </div>
-                
-                <div class="form-group">
-                    <label for="contact-email">بريدك الإلكتروني</label>
-                    <input type="email" id="contact-email" class="form-input" required>
+                <div class="product-details">
+                    <h3 class="product-title" data-translate="bot_dev">تطوير الروبوتات</h3>
+                    <p class="product-description" data-translate="bot_dev_desc">
+                        روبوتات مخصصة لمنصات مختلفة لأتمتة المهام وتقديم الخدمات.
+                    </p>
+                    <ul class="product-features">
+                        <li data-translate="bot_feature1">روبوتات تيليجرام</li>
+                        <li data-translate="bot_feature2">روبوتات واتساب</li>
+                        <li data-translate="bot_feature3">روبوتات ديسكورد</li>
+                        <li data-translate="bot_feature4">نصوص الأتمتة</li>
+                    </ul>
+                    <div class="product-actions">
+                        <button class="buy-button" onclick="openModal('Bot Development', 1000, 'bot-dev')" data-translate="inquire">استفسر</button>
+                        <button class="details-button" onclick="showDetails('bot-dev')" data-translate="details">التفاصيل</button>
+                    </div>
                 </div>
-                
-                <div class="form-group">
-                    <label for="contact-subject">الموضوع</label>
-                    <input type="text" id="contact-subject" class="form-input" required>
+            </div>
+            
+            <!-- Mobile Development -->
+            <div class="product-card animate-float delay-3">
+                <div class="product-badge accent" data-translate="intermediate">متوسط</div>
+                <div class="product-image-container">
+                    <img src="images/mobile-dev.jpg" alt="Mobile Development" class="product-image" onerror="this.src='https://source.unsplash.com/random/600x400/?mobile,app'">
                 </div>
-                
-                <div class="form-group">
-                    <label for="contact-message">رسالتك</label>
-                    <textarea id="contact-message" class="form-textarea" required></textarea>
+                <div class="product-details">
+                    <h3 class="product-title" data-translate="mobile_dev">تطوير التطبيقات</h3>
+                    <p class="product-description" data-translate="mobile_dev_desc">
+                        تطبيقات جوال متعددة المنصات لنظامي iOS و Android.
+                    </p>
+                    <ul class="product-features">
+                        <li data-translate="mobile_feature1">React Native</li>
+                        <li data-translate="mobile_feature2">تطبيقات هجينة</li>
+                        <li data-translate="mobile_feature3">تصميم واجهة المستخدم</li>
+                        <li data-translate="mobile_feature4">تكامل API</li>
+                    </ul>
+                    <div class="product-actions">
+                        <button class="buy-button" onclick="openModal('Mobile Development', 2500, 'mobile-dev')" data-translate="inquire">استفسر</button>
+                        <button class="details-button" onclick="showDetails('mobile-dev')" data-translate="details">التفاصيل</button>
+                    </div>
                 </div>
-                
-                <button type="submit" class="submit-button">إرسال الرسالة</button>
-            </form>
-        </section>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projects Section -->
+    <section id="projects" class="section my-work">
+        <h2 class="section-title" data-translate="featured_projects">المشاريع البارزة</h2>
+        <p class="section-subtitle" data-translate="projects_subtitle">حلول عملية قمت ببنائها لحل مشاكل حقيقية</p>
         
-        <footer>
-            <div class="footer-logo">DigitalStore</div>
+        <div class="work-grid">
+            <!-- Univ-Bot -->
+            <div class="work-item animate-float delay-1">
+                <img src="images/univ-bot.jpg" alt="Univ-Bot" class="work-image" onerror="this.src='https://source.unsplash.com/random/600x400/?chatbot,education'">
+                <div class="work-info">
+                    <h3 class="work-title">Univ-Bot</h3>
+                    <p class="work-description">
+                        روبوت مساعد للطلاب يوفر خدمات الجامعة بما في ذلك المواد الدراسية والامتحانات والجداول.
+                    </p>
+                    <a href="https://t.me/TissmsiltBot" target="_blank" class="work-link" data-translate="view_project">
+                        عرض المشروع <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Hajj & Umrah Website -->
+            <div class="work-item animate-float delay-2">
+                <img src="images/hajj-umrah.jpg" alt="Hajj & Umrah Website" class="work-image" onerror="this.src='https://source.unsplash.com/random/600x400/?hajj,islam'">
+                <div class="work-info">
+                    <h3 class="work-title">موقع الحج والعمرة</h3>
+                    <p class="work-description">
+                        منصة شاملة للحجاج والمعتمرين مع جميع المعلومات والخدمات اللازمة.
+                    </p>
+                    <a href="https://ashref2004.github.io/EL-Hadj-El-Omra/" target="_blank" class="work-link" data-translate="view_project">
+                        عرض المشروع <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Umrah Agency -->
+            <div class="work-item animate-float delay-3">
+                <img src="images/umrah-agency.jpg" alt="Umrah Agency" class="work-image" onerror="this.src='https://source.unsplash.com/random/600x400/?agency,travel'">
+                <div class="work-info">
+                    <h3 class="work-title">وكالة عمرة</h3>
+                    <p class="work-description">
+                        موقع كامل لوكالة عمرة مع نظام حجوزات وإدارة العملاء.
+                    </p>
+                    <a href="https://github.com/Ashref2004/Umrah-Agency.git" target="_blank" class="work-link" data-translate="view_project">
+                        عرض المشروع <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+            
+            <!-- Custom Bots -->
+            <div class="work-item animate-float delay-4">
+                <img src="images/custom-bots.jpg" alt="Custom Bots" class="work-image" onerror="this.src='https://source.unsplash.com/random/600x400/?chatbot,ai'">
+                <div class="work-info">
+                    <h3 class="work-title">روبوتات مخصصة</h3>
+                    <p class="work-description">
+                        روبوتات مخصصة بناها لأغراض مختلفة بما في ذلك الأتمتة وخدمة العملاء.
+                    </p>
+                    <a href="#" class="work-link" data-translate="view_project">
+                        عرض المشروع <i class="fas fa-arrow-right"></i>
+                    </a>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Experience Section -->
+    <section id="experience" class="section">
+        <h2 class="section-title" data-translate="professional_journey">رحلة مهنية</h2>
+        <p class="section-subtitle" data-translate="experience_subtitle">محطات في مسيرتي كمطور</p>
+        
+        <div class="timeline">
+            <!-- Experience 1 -->
+            <div class="timeline-item animate-float delay-1">
+                <div class="timeline-content">
+                    <div class="timeline-date" data-translate="exp1_date">2023 - الحاضر</div>
+                    <h3 class="timeline-title" data-translate="exp1_title">V-Code</h3>
+                    <div class="timeline-company">عمل حر</div>
+                    <p class="timeline-description">
+                        تطوير حلول ويب وروبوتات مخصصة للعملاء. إنشاء Univ-Bot، مواقع الحج والعمرة، ومشاريع أخرى متنوعة.
+                    </p>
+                </div>
+            </div>
+            
+            <!-- Experience 2 -->
+            <div class="timeline-item animate-float delay-2">
+                <div class="timeline-content">
+                    <div class="timeline-date" data-translate="exp2_date">2021 - 2023</div>
+                    <h3 class="timeline-title" data-translate="exp2_title">مطور ويب</h3>
+                    <div class="timeline-company">عمل حر</div>
+                    <p class="timeline-description">
+                        بناء مواقع وتطبيقات ويب باستخدام HTML، CSS، JavaScript، و PHP. بدأت تعلم Python و Node.js.
+                    </p>
+                </div>
+            </div>
+            
+            <!-- Experience 3 -->
+            <div class="timeline-item animate-float delay-3">
+                <div class="timeline-content">
+                    <div class="timeline-date" data-translate="exp3_date">2019 - 2021</div>
+                    <h3 class="timeline-title" data-translate="exp3_title">مطور واجهات</h3>
+                    <div class="timeline-company">عمل حر</div>
+                    <p class="timeline-description">
+                        بدأت رحلتي مع HTML و CSS، ثم انتقلت إلى JavaScript. بنيت أول مواقعي ومشاريعي الصغيرة.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Skills Section -->
+    <section id="skills" class="section">
+        <h2 class="section-title" data-translate="technical_arsenal">الأدوات التقنية</h2>
+        <p class="section-subtitle" data-translate="skills_subtitle">التقنيات التي أعمل بها</p>
+        
+        <div class="skills">
+            <div class="skill-item animate-float delay-1">
+                <div class="skill-circle">
+                    <i class="fab fa-html5 skill-icon"></i>
+                </div>
+                <span class="skill-name">HTML</span>
+                <span class="skill-level">خبير</span>
+            </div>
+            
+            <div class="skill-item animate-float delay-2">
+                <div class="skill-circle">
+                    <i class="fab fa-css3-alt skill-icon"></i>
+                </div>
+                <span class="skill-name">CSS</span>
+                <span class="skill-level">خبير</span>
+            </div>
+            
+            <div class="skill-item animate-float delay-3">
+                <div class="skill-circle">
+                    <i class="fab fa-js skill-icon"></i>
+                </div>
+                <span class="skill-name">JavaScript</span>
+                <span class="skill-level">خبير</span>
+            </div>
+            
+            <div class="skill-item animate-float delay-4">
+                <div class="skill-circle">
+                    <i class="fab fa-python skill-icon"></i>
+                </div>
+                <span class="skill-name">Python</span>
+                <span class="skill-level">متقدم</span>
+            </div>
+            
+            <div class="skill-item animate-float delay-5">
+                <div class="skill-circle">
+                    <i class="fab fa-php skill-icon"></i>
+                </div>
+                <span class="skill-name">PHP</span>
+                <span class="skill-level">متوسط</span>
+            </div>
+            
+            <div class="skill-item animate-float delay-1">
+                <div class="skill-circle">
+                    <i class="fas fa-database skill-icon"></i>
+                </div>
+                <span class="skill-name">SQLite3</span>
+                <span class="skill-level">متقدم</span>
+            </div>
+            
+            <div class="skill-item animate-float delay-2">
+                <div class="skill-circle">
+                    <i class="fab fa-react skill-icon"></i>
+                </div>
+                <span class="skill-name">React</span>
+                <span class="skill-level">متوسط</span>
+            </div>
+            
+            <div class="skill-item animate-float delay-3">
+                <div class="skill-circle">
+                    <i class="fab fa-node-js skill-icon"></i>
+                </div>
+                <span class="skill-name">Node.js</span>
+                <span class="skill-level">متقدم</span>
+            </div>
+        </div>
+        
+        <div class="code-snippet animate-float delay-4">
+            <pre><code>// Univ-Bot Main Functionality
+function handleStudentRequest(userId, request) {
+    // Connect to database
+    const db = new SQLite3.Database('univbot.db');
+    
+    // Check request type
+    switch(request.type) {
+        case 'course':
+            return getCourseMaterials(db, userId, request.course);
+        case 'exam':
+            return getExamInfo(db, userId, request.exam);
+        case 'schedule':
+            return getSchedule(db, userId);
+        default:
+            return "Sorry, I didn't understand that request.";
+    }
+}
+
+// Example usage
+const response = handleStudentRequest('12345', {type: 'course', course: 'CS101'});
+console.log('Bot response:', response);</code></pre>
+        </div>
+    </section>
+
+    <!-- Contact Section -->
+    <section id="contact" class="section">
+        <h2 class="section-title" data-translate="collaborate">لنتعاون</h2>
+        <p class="section-subtitle" data-translate="contact_subtitle">مستعد لمناقشة مشروعك القادم؟</p>
+        
+        <form class="contact-form animate-float delay-1" id="contactForm">
+            <div id="successMessage" class="success-message" style="display: none;">
+                <i class="fas fa-check-circle"></i> <span data-translate="message_sent">تم إرسال رسالتك بنجاح!</span>
+            </div>
+            
+            <div class="form-group">
+                <label for="name" data-translate="name">الاسم</label>
+                <input type="text" id="name" class="form-input" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="email" data-translate="email">البريد الإلكتروني</label>
+                <input type="email" id="email" class="form-input" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="subject" data-translate="subject">الموضوع</label>
+                <input type="text" id="subject" class="form-input" required>
+            </div>
+            
+            <div class="form-group">
+                <label for="message" data-translate="message">الرسالة</label>
+                <textarea id="message" class="form-textarea" required></textarea>
+            </div>
+            
+            <button type="submit" class="submit-button" data-translate="send_message">إرسال الرسالة</button>
+        </form>
+    </section>
+
+    <!-- Footer -->
+    <footer>
+        <div class="footer-container">
+            <div class="footer-logo">V-Code</div>
             
             <div class="footer-links">
-                <a href="#products">منتجاتنا</a>
-                <a href="#contact">اتصل بنا</a>
-                <a href="https://github.com/Ashref2004" target="_blank">GitHub</a>
-                <a href="https://www.instagram.com/v_code.coding" target="_blank">Instagram</a>
-                <a href="https://wa.me/yournumber" target="_blank">WhatsApp</a>
+                <a href="#expertise" data-translate="expertise">التخصصات</a>
+                <a href="#projects" data-translate="projects">المشاريع</a>
+                <a href="#skills" data-translate="skills">المهارات</a>
+                <a href="#experience" data-translate="experience">الخبرة</a>
+                <a href="#contact" data-translate="contact">اتصل</a>
             </div>
             
             <div class="social-links">
-                <a href="https://github.com/Ashref2004" class="social-link" target="_blank"><i class="fab fa-github"></i></a>
-                <a href="https://www.instagram.com/v_code.coding" class="social-link" target="_blank"><i class="fab fa-instagram"></i></a>
-                <a href="https://facebook.com/yourprofile" class="social-link" target="_blank"><i class="fab fa-facebook-f"></i></a>
-                <a href="https://wa.me/yournumber" class="social-link" target="_blank"><i class="fab fa-whatsapp"></i></a>
+                <a href="https://www.facebook.com/profile.php?id=61574233920997" class="social-link"><i class="fab fa-facebook"></i></a>
+                <a href="https://www.instagram.com/v_code.coding/" class="social-link"><i class="fab fa-instagram"></i></a>
+                <a href="https://github.com/Ashref2004" class="social-link"><i class="fab fa-github"></i></a>
+                <a href="https://www.linkedin.com/in/v-code-701a54356" class="social-link"><i class="fab fa-linkedin"></i></a>
+                <a href="https://t.me/Ashref2004" class="social-link"><i class="fab fa-telegram"></i></a>
+                <a href="https://wa.me/213782675199" class="social-link"><i class="fab fa-whatsapp"></i></a>
             </div>
             
-            <p class="copyright">© 2023 DigitalStore. جميع الحقوق محفوظة</p>
-        </footer>
-    </div>
+            <p class="copyright" data-translate="copyright">© 2024 V-Code. جميع الحقوق محفوظة.</p>
+        </div>
+    </footer>
 
     <!-- Order Modal -->
     <div class="modal" id="orderModal">
         <div class="modal-content">
-            <span class="close-modal" onclick="closeModal()">&times;</span>
-            <h2 class="modal-title" id="modalProductTitle">طلب المنتج</h2>
+            <button class="close-modal" onclick="closeModal()">&times;</button>
+            <h2 class="modal-title" id="modalProductTitle">استفسار عن الخدمة</h2>
             
             <div class="modal-image-container">
-                <img id="modalProductImage" src="" alt="صورة المنتج" class="modal-image">
+                <img id="modalProductImage" src="" alt="Service Image" class="modal-image">
             </div>
             
             <p class="modal-description" id="modalProductDescription"></p>
             
+            <div class="modal-tech" id="modalProductTech">
+                <!-- Technology tags will be added here -->
+            </div>
+            
             <ul class="modal-features" id="modalProductFeatures">
+                <!-- Features will be added here -->
             </ul>
             
             <div class="modal-price" id="modalProductPrice"></div>
             
             <form class="modal-form" id="orderForm">
                 <div class="form-group">
-                    <label for="name">الاسم الكامل</label>
-                    <input type="text" id="name" required>
+                    <label for="order-name" data-translate="full_name">الاسم الكامل</label>
+                    <input type="text" id="order-name" class="form-input" required>
                 </div>
                 
                 <div class="form-group">
-                    <label for="email">البريد الإلكتروني</label>
-                    <input type="email" id="email" required>
+                    <label for="order-email" data-translate="email">البريد الإلكتروني</label>
+                    <input type="email" id="order-email" class="form-input" required>
                 </div>
                 
                 <div class="form-group">
-                    <label for="phone">رقم الهاتف</label>
-                    <input type="tel" id="phone" required>
+                    <label for="order-phone" data-translate="phone">الهاتف</label>
+                    <input type="tel" id="order-phone" class="form-input" required>
                 </div>
                 
                 <div class="form-group">
-                    <label for="details">تفاصيل إضافية</label>
-                    <textarea id="details" rows="4"></textarea>
+                    <label for="order-company" data-translate="company">الشركة</label>
+                    <input type="text" id="order-company" class="form-input">
                 </div>
                 
-                <button type="button" class="submit-order" onclick="submitOrder()">تأكيد الطلب</button>
+                <div class="form-group">
+                    <label for="order-details" data-translate="project_details">تفاصيل المشروع</label>
+                    <textarea id="order-details" rows="5" class="form-textarea"></textarea>
+                </div>
+                
+                <button type="button" class="submit-button" onclick="submitOrder()" data-translate="send_inquiry">إرسال الاستفسار</button>
             </form>
         </div>
     </div>
 
+    <!-- Database Connection -->
     <script>
-        // Initialize Three.js scene with enhanced cosmic effects
-        const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-        const renderer = new THREE.WebGLRenderer({ 
-            alpha: true, 
-            antialias: true,
-            powerPreference: "high-performance"
-        });
-        
-        renderer.setPixelRatio(window.devicePixelRatio);
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        renderer.setClearColor(0x000000, 0);
-        document.getElementById('threejs-container').appendChild(renderer.domElement);
-        
-        // Create galaxy of stars with different sizes and colors
-        const starsGeometry = new THREE.BufferGeometry();
-        const starCount = 10000;
-        
-        const positions = new Float32Array(starCount * 3);
-        const colors = new Float32Array(starCount * 3);
-        const sizes = new Float32Array(starCount);
-        
-        const colorPalette = [
-            new THREE.Color(0x6e45e2), // Purple
-            new THREE.Color(0x00f2fe), // Blue
-            new THREE.Color(0xff7e5f), // Orange
-            new THREE.Color(0xff2d75), // Pink
-            new THREE.Color(0xffffff)  // White
-        ];
-        
-        for (let i = 0; i < starCount; i++) {
-            // Positions
-            const i3 = i * 3;
-            positions[i3] = (Math.random() - 0.5) * 2000;
-            positions[i3 + 1] = (Math.random() - 0.5) * 2000;
-            positions[i3 + 2] = (Math.random() - 0.5) * 2000;
-            
-            // Colors
-            const color = colorPalette[Math.floor(Math.random() * colorPalette.length)];
-            colors[i3] = color.r;
-            colors[i3 + 1] = color.g;
-            colors[i3 + 2] = color.b;
-            
-            // Sizes
-            sizes[i] = Math.random() * 2 + 0.5;
+        // Initialize SQLite database
+        function initDatabase() {
+            return new Promise((resolve, reject) => {
+                try {
+                    // In a real app, you would use SQLite in Node.js or a proper backend
+                    // This is just a simulation for the frontend
+                    const db = {
+                        name: 'vcode_portfolio.db',
+                        version: '1.0',
+                        tables: {
+                            messages: [],
+                            projects: [],
+                            skills: []
+                        }
+                    };
+                    
+                    console.log('Database initialized:', db.name);
+                    resolve(db);
+                } catch (error) {
+                    reject(error);
+                }
+            });
         }
-        
-        starsGeometry.setAttribute('position', new THREE.BufferAttribute(positions, 3));
-        starsGeometry.setAttribute('color', new THREE.BufferAttribute(colors, 3));
-        starsGeometry.setAttribute('size', new THREE.BufferAttribute(sizes, 1));
-        
-        const starsMaterial = new THREE.PointsMaterial({
-            size: 1,
-            vertexColors: true,
-            transparent: true,
-            opacity: 0.8,
-            sizeAttenuation: true
-        });
-        
-        const stars = new THREE.Points(starsGeometry, starsMaterial);
-        scene.add(stars);
-        
-        // Add glowing nebula with multiple layers
-        const nebulaGeometry = new THREE.SphereGeometry(10, 64, 64);
-        
-        // Main nebula
-        const nebulaMaterial = new THREE.MeshPhongMaterial({
-            color: 0x6e45e2,
-            transparent: true,
-            opacity: 0.1,
-            emissive: 0x6e45e2,
-            emissiveIntensity: 0.3,
-            side: THREE.DoubleSide
-        });
-        
-        const nebula = new THREE.Mesh(nebulaGeometry, nebulaMaterial);
-        scene.add(nebula);
-        
-        // Secondary nebula
-        const nebula2Geometry = new THREE.SphereGeometry(15, 64, 64);
-        const nebula2Material = new THREE.MeshPhongMaterial({
-            color: 0x00f2fe,
-            transparent: true,
-            opacity: 0.05,
-            emissive: 0x00f2fe,
-            emissiveIntensity: 0.2,
-            side: THREE.DoubleSide
-        });
-        
-        const nebula2 = new THREE.Mesh(nebula2Geometry, nebula2Material);
-        scene.add(nebula2);
-        
-        // Add particle system for cosmic dust
-        const particleCount = 5000;
-        const particlesGeometry = new THREE.BufferGeometry();
-        const particlePositions = new Float32Array(particleCount * 3);
-        const particleSizes = new Float32Array(particleCount);
-        
-        for (let i = 0; i < particleCount; i++) {
-            const i3 = i * 3;
-            particlePositions[i3] = (Math.random() - 0.5) * 1000;
-            particlePositions[i3 + 1] = (Math.random() - 0.5) * 1000;
-            particlePositions[i3 + 2] = (Math.random() - 0.5) * 1000;
-            
-            particleSizes[i] = Math.random() * 3 + 1;
+
+        // Save message to database
+        function saveMessageToDB(message) {
+            return new Promise((resolve, reject) => {
+                try {
+                    // In a real app, this would save to SQLite
+                    // Here we just simulate it
+                    const db = window.db || { tables: { messages: [] } };
+                    db.tables.messages.push({
+                        ...message,
+                        id: Date.now(),
+                        createdAt: new Date().toISOString()
+                    });
+                    
+                    window.db = db;
+                    console.log('Message saved to DB:', message);
+                    resolve(true);
+                } catch (error) {
+                    reject(error);
+                }
+            });
         }
-        
-        particlesGeometry.setAttribute('position', new THREE.BufferAttribute(particlePositions, 3));
-        particlesGeometry.setAttribute('size', new THREE.BufferAttribute(particleSizes, 1));
-        
-        const particlesMaterial = new THREE.PointsMaterial({
-            color: 0x8a2be2,
-            size: 1,
-            transparent: true,
-            opacity: 0.6,
-            blending: THREE.AdditiveBlending,
-            sizeAttenuation: true
+
+        // Initialize database when page loads
+        document.addEventListener('DOMContentLoaded', function() {
+            initDatabase().then(db => {
+                window.db = db;
+                console.log('Database ready');
+            }).catch(error => {
+                console.error('Database initialization error:', error);
+            });
         });
-        
-        const particles = new THREE.Points(particlesGeometry, particlesMaterial);
-        scene.add(particles);
-        
-        // Add animated cosmic rays
-        const raysGeometry = new THREE.BufferGeometry();
-        const rayCount = 50;
-        const rayPositions = new Float32Array(rayCount * 3);
-        const rayEndPositions = new Float32Array(rayCount * 3);
-        
-        for (let i = 0; i < rayCount; i++) {
-            const i3 = i * 3;
-            const angle = Math.random() * Math.PI * 2;
-            const radius = 5 + Math.random() * 10;
-            
-            rayPositions[i3] = Math.cos(angle) * radius;
-            rayPositions[i3 + 1] = Math.sin(angle) * radius;
-            rayPositions[i3 + 2] = (Math.random() - 0.5) * 2;
-            
-            rayEndPositions[i3] = Math.cos(angle) * (radius + 5 + Math.random() * 10);
-            rayEndPositions[i3 + 1] = Math.sin(angle) * (radius + 5 + Math.random() * 10);
-            rayEndPositions[i3 + 2] = (Math.random() - 0.5) * 2;
-        }
-        
-        raysGeometry.setAttribute('position', new THREE.BufferAttribute(rayPositions, 3));
-        
-        const raysMaterial = new THREE.LineBasicMaterial({
-            color: 0x00f2fe,
-            transparent: true,
-            opacity: 0.5,
-            blending: THREE.AdditiveBlending
-        });
-        
-        const rays = new THREE.LineSegments(raysGeometry, raysMaterial);
-        scene.add(rays);
-        
-        // Add lights for better depth perception
-        const ambientLight = new THREE.AmbientLight(0x404040);
-        scene.add(ambientLight);
-        
-        const pointLight = new THREE.PointLight(0x6e45e2, 1, 50);
-        pointLight.position.set(5, 5, 5);
-        scene.add(pointLight);
-        
-        const pointLight2 = new THREE.PointLight(0x00f2fe, 1, 50);
-        pointLight2.position.set(-5, -5, -5);
-        scene.add(pointLight2);
-        
-        // Position camera
-        camera.position.z = 20;
-        
-        // Animation loop with enhanced effects
-        let time = 0;
-        function animate() {
-            requestAnimationFrame(animate);
-            
-            time += 0.01;
-            
-            // Rotate stars and nebulas
-            stars.rotation.x += 0.0002;
-            stars.rotation.y += 0.0003;
-            
-            nebula.rotation.x += 0.001;
-            nebula.rotation.y += 0.002;
-            nebula2.rotation.x += 0.0005;
-            nebula2.rotation.y += 0.001;
-            
-            particles.rotation.x += 0.002;
-            particles.rotation.y += 0.001;
-            
-            // Pulsing nebula effect
-            nebula.scale.setScalar(1 + Math.sin(time) * 0.05);
-            nebula2.scale.setScalar(1 + Math.cos(time * 0.8) * 0.1);
-            
-            // Animate cosmic rays
-            const positions = raysGeometry.attributes.position.array;
-            for (let i = 0; i < rayCount; i++) {
-                const i3 = i * 3;
-                const progress = (Math.sin(time * 2 + i) + 1) / 2;
-                
-                positions[i3] = rayPositions[i3] + (rayEndPositions[i3] - rayPositions[i3]) * progress;
-                positions[i3 + 1] = rayPositions[i3 + 1] + (rayEndPositions[i3 + 1] - rayPositions[i3 + 1]) * progress;
-                positions[i3 + 2] = rayPositions[i3 + 2] + (rayEndPositions[i3 + 2] - rayPositions[i3 + 2]) * progress;
+    </script>
+
+    <script>
+        // Translations
+        const translations = {
+            en: {
+                logo: "V-Code",
+                expertise: "Expertise",
+                projects: "Projects",
+                skills: "Skills",
+                experience: "Experience",
+                contact: "Contact",
+                hero_title: "V-Code ",
+                hero_subtitle: "I design and develop custom web solutions and bots that solve real-world problems. From university bots to Hajj services, I build practical applications that make life easier.",
+                hire_me: "Hire Me",
+                view_work: "View Work",
+                my_expertise: "My Expertise",
+                expertise_subtitle: "Technologies and services I specialize in",
+                web_dev: "Web Development",
+                web_dev_desc: "Custom websites and web applications built with modern technologies.",
+                web_feature1: "Responsive Design",
+                web_feature2: "Frontend Development",
+                web_feature3: "Backend Development",
+                web_feature4: "API Integration",
+                bot_dev: "Bot Development",
+                bot_dev_desc: "Custom bots for various platforms to automate tasks and provide services.",
+                bot_feature1: "Telegram Bots",
+                bot_feature2: "WhatsApp Bots",
+                bot_feature3: "Discord Bots",
+                bot_feature4: "Automation Scripts",
+                mobile_dev: "Mobile Development",
+                mobile_dev_desc: "Cross-platform mobile applications for iOS and Android.",
+                mobile_feature1: "React Native",
+                mobile_feature2: "Hybrid Apps",
+                mobile_feature3: "UI/UX Design",
+                mobile_feature4: "API Integration",
+                database: "Database Design",
+                inquire: "Inquire",
+                details: "Details",
+                expert: "Expert",
+                intermediate: "Intermediate",
+                featured_projects: "Featured Projects",
+                projects_subtitle: "Practical solutions I've built to solve real problems",
+                view_project: "View Project",
+                professional_journey: "Professional Journey",
+                experience_subtitle: "Milestones in my career as a developer",
+                exp1_date: "2023 - Present",
+                exp1_title: "V-Code",
+                exp1_company: "Freelance",
+                exp1_desc: "Developing custom web solutions and bots for clients. Created Univ-Bot, Hajj & Umrah websites, and various other projects.",
+                exp2_date: "2021 - 2023",
+                exp2_title: "Web Developer",
+                exp2_company: "Freelance",
+                exp2_desc: "Built websites and web applications using HTML, CSS, JavaScript, and PHP. Started learning Python and Node.js.",
+                exp3_date: "2019 - 2021",
+                exp3_title: "Frontend Developer",
+                exp3_company: "Freelance",
+                exp3_desc: "Started my journey with HTML and CSS, then moved to JavaScript. Built my first websites and small projects.",
+                technical_arsenal: "Technical Arsenal",
+                skills_subtitle: "Technologies I work with",
+                collaborate: "Let's Collaborate",
+                contact_subtitle: "Ready to discuss your next project?",
+                name: "Name",
+                email: "Email",
+                subject: "Subject",
+                message: "Message",
+                send_message: "Send Message",
+                full_name: "Full Name",
+                phone: "Phone",
+                company: "Company",
+                project_details: "Project Details",
+                send_inquiry: "Send Inquiry",
+                thank_you: "Thank you",
+                inquiry_received: "Your inquiry for",
+                has_been_received: "has been received. I'll contact you shortly.",
+                message_sent: "Your message has been sent successfully!",
+                copyright: "© 2024 V-Code. All rights reserved."
+            },
+            ar: {
+                logo: "V-Code",
+                expertise: "التخصصات",
+                projects: "المشاريع",
+                skills: "المهارات",
+                experience: "الخبرة",
+                contact: "اتصل",
+                hero_title: "V-Code ",
+                hero_subtitle: "أصمم وأطور حلول ويب وروبوتات مخصصة لحل المشاكل الواقعية. من روبوتات الجامعة إلى خدمات الحج، أبني تطبيقات عملية تجعل الحياة أسهل.",
+                hire_me: "وظفني",
+                view_work: "عرض الأعمال",
+                my_expertise: "تخصصاتي",
+                expertise_subtitle: "التقنيات والخدمات التي أتخصص فيها",
+                web_dev: "تطوير الويب",
+                web_dev_desc: "مواقع وتطبيقات ويب مخصصة مبنية بتقنيات حديثة.",
+                web_feature1: "تصميم متجاوب",
+                web_feature2: "تطوير الواجهة الأمامية",
+                web_feature3: "تطوير الواجهة الخلفية",
+                web_feature4: "تكامل API",
+                bot_dev: "تطوير الروبوتات",
+                bot_dev_desc: "روبوتات مخصصة لمنصات مختلفة لأتمتة المهام وتقديم الخدمات.",
+                bot_feature1: "روبوتات تيليجرام",
+                bot_feature2: "روبوتات واتساب",
+                bot_feature3: "روبوتات ديسكورد",
+                bot_feature4: "نصوص الأتمتة",
+                mobile_dev: "تطوير التطبيقات",
+                mobile_dev_desc: "تطبيقات جوال متعددة المنصات لنظامي iOS و Android.",
+                mobile_feature1: "React Native",
+                mobile_feature2: "تطبيقات هجينة",
+                mobile_feature3: "تصميم واجهة المستخدم",
+                mobile_feature4: "تكامل API",
+                database: "تصميم قواعد البيانات",
+                inquire: "استفسر",
+                details: "التفاصيل",
+                expert: "خبير",
+                intermediate: "متوسط",
+                featured_projects: "المشاريع البارزة",
+                projects_subtitle: "حلول عملية قمت ببنائها لحل مشاكل حقيقية",
+                view_project: "عرض المشروع",
+                professional_journey: "رحلة مهنية",
+                experience_subtitle: "محطات في مسيرتي كمطور",
+                exp1_date: "2023 - الحاضر",
+                exp1_title: "V-Code",
+                exp1_company: "عمل حر",
+                exp1_desc: "تطوير حلول ويب وروبوتات مخصصة للعملاء. إنشاء Univ-Bot، مواقع الحج والعمرة، ومشاريع أخرى متنوعة.",
+                exp2_date: "2021 - 2023",
+                exp2_title: "مطور ويب",
+                exp2_company: "عمل حر",
+                exp2_desc: "بناء مواقع وتطبيقات ويب باستخدام HTML، CSS، JavaScript، و PHP. بدأت تعلم Python و Node.js.",
+                exp3_date: "2019 - 2021",
+                exp3_title: "مطور واجهات",
+                exp3_company: "عمل حر",
+                exp3_desc: "بدأت رحلتي مع HTML و CSS، ثم انتقلت إلى JavaScript. بنيت أول مواقعي ومشاريعي الصغيرة.",
+                technical_arsenal: "الأدوات التقنية",
+                skills_subtitle: "التقنيات التي أعمل بها",
+                collaborate: "لنتعاون",
+                contact_subtitle: "مستعد لمناقشة مشروعك القادم؟",
+                name: "الاسم",
+                email: "البريد الإلكتروني",
+                subject: "الموضوع",
+                message: "الرسالة",
+                send_message: "إرسال الرسالة",
+                full_name: "الاسم الكامل",
+                phone: "الهاتف",
+                company: "الشركة",
+                project_details: "تفاصيل المشروع",
+                send_inquiry: "إرسال الاستفسار",
+                thank_you: "شكرًا لك",
+                inquiry_received: "تم استلام استفسارك حول",
+                has_been_received: "سأتواصل معك قريبًا.",
+                message_sent: "تم إرسال رسالتك بنجاح!",
+                copyright: "© 2024 V-Code. جميع الحقوق محفوظة."
             }
-            raysGeometry.attributes.position.needsUpdate = true;
+        };
+
+        // Product details
+        const productDetails = {
+            'web-dev': {
+                description: "Custom web development services tailored to your specific needs. From simple websites to complex web applications, I build solutions that work across all devices and platforms.",
+                features: [
+                    "Responsive design that works on all devices",
+                    "Clean, modern UI/UX design",
+                    "Frontend development with HTML, CSS, JavaScript",
+                    "Backend development with Node.js, PHP, or Python",
+                    "API development and integration",
+                    "Database design and implementation"
+                ],
+                technologies: ["HTML", "CSS", "JavaScript", "React", "Node.js", "PHP", "Python"],
+                image: "images/web-dev.jpg"
+            },
+            'bot-dev': {
+                description: "Custom bot development for various platforms including Telegram, WhatsApp, and Discord. I create bots that automate tasks, provide information, and enhance user engagement.",
+                features: [
+                    "Telegram bot development",
+                    "WhatsApp bot integration",
+                    "Discord bot creation",
+                    "Automation scripts",
+                    "Natural language processing",
+                    "Database integration"
+                ],
+                technologies: ["JavaScript", "Python", "Node.js", "Telegram API", "WhatsApp API", "Discord API"],
+                image: "images/bot-dev.jpg"
+            },
+            'mobile-dev': {
+                description: "Cross-platform mobile application development using React Native. I build apps that work on both iOS and Android with a single codebase.",
+                features: [
+                    "React Native development",
+                    "Hybrid mobile apps",
+                    "UI/UX design",
+                    "API integration",
+                    "App store deployment",
+                    "Performance optimization"
+                ],
+                technologies: ["React Native", "JavaScript", "Redux", "Firebase", "API Integration"],
+                image: "images/mobile-dev.jpg"
+            }
+        };
+
+        // Typewriter effect words
+        const typewriterWords = {
+            en: ["Web", "Bots", "Mobile", "Solutions", "JavaScript"],
+            ar: ["ويب", "روبوتات", "موبايل", "حلول", "جافا سكريبت"]
+        };
+        
+        let currentLanguage = 'en';
+        let darkMode = true; // Default to dark mode
+
+        // Initialize the page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Initialize typewriter effect
+            initTypewriter();
             
-            renderer.render(scene, camera);
-        }
-        
-        animate();
-        
-        // Handle window resize
-        window.addEventListener('resize', () => {
-            camera.aspect = window.innerWidth / window.innerHeight;
-            camera.updateProjectionMatrix();
-            renderer.setSize(window.innerWidth, window.innerHeight);
+            // Load saved theme preference
+            loadThemePreference();
+            
+            // Load saved language preference
+            loadLanguagePreference();
+            
+            // Set up form submissions
+            setupForms();
+            
+            // Initialize animations
+            initAnimations();
+            
+            // Setup mobile menu
+            setupMobileMenu();
+            
+            // Initialize database
+            initDatabase();
         });
-        
-        // Create floating particles for 2D effect
-        function createParticles() {
-            const particlesContainer = document.getElementById('particles');
-            const particleCount = 100;
+
+        // Initialize animations
+        function initAnimations() {
+            const animateElements = document.querySelectorAll('.animate-float');
             
-            for (let i = 0; i < particleCount; i++) {
-                const particle = document.createElement('div');
-                particle.classList.add('particle');
+            const observer = new IntersectionObserver((entries) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        entry.target.style.opacity = 1;
+                        entry.target.style.transform = 'translateY(0)';
+                    }
+                });
+            }, { threshold: 0.1 });
+            
+            animateElements.forEach(el => {
+                el.style.opacity = 0;
+                el.style.transform = 'translateY(20px)';
+                el.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
+                observer.observe(el);
+            });
+        }
+
+        // Setup mobile menu
+        function setupMobileMenu() {
+            const mobileBtn = document.querySelector('.mobile-menu-btn');
+            const navLinks = document.querySelector('.nav-links');
+            
+            mobileBtn.addEventListener('click', function() {
+                navLinks.classList.toggle('active');
+                this.innerHTML = navLinks.classList.contains('active') ? 
+                    '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+            });
+            
+            // Close menu when clicking on a link
+            document.querySelectorAll('.nav-links a').forEach(link => {
+                link.addEventListener('click', () => {
+                    if (window.innerWidth <= 768) {
+                        navLinks.classList.remove('active');
+                        mobileBtn.innerHTML = '<i class="fas fa-bars"></i>';
+                    }
+                });
+            });
+        }
+
+        // Typewriter effect
+        function initTypewriter() {
+            const typewriterElement = document.getElementById('typewriter');
+            let wordIndex = 0;
+            let charIndex = 0;
+            let isDeleting = false;
+            let isWaiting = false;
+            
+            function type() {
+                if (isWaiting) return;
                 
-                // Random size and shape
-                const size = Math.random() * 5 + 1;
-                particle.style.width = `${size}px`;
-                particle.style.height = `${size}px`;
+                const currentWord = typewriterWords[currentLanguage][wordIndex];
+                const speed = isDeleting ? 50 : 100;
                 
-                // Random shape (circle or star)
-                if (Math.random() > 0.7) {
-                    particle.style.borderRadius = '50%';
-                    particle.style.background = `rgba(255, ${Math.random() * 255}, ${Math.random() * 255}, ${Math.random() * 0.5 + 0.5})`;
+                if (isDeleting) {
+                    typewriterElement.textContent = currentWord.substring(0, charIndex - 1);
+                    charIndex--;
                 } else {
-                    particle.style.background = 'transparent';
-                    particle.style.border = `${size / 2}px solid rgba(110, 69, 226, ${Math.random() * 0.5 + 0.3})`;
-                    particle.style.borderRadius = '50%';
-                    particle.style.boxShadow = `0 0 ${size * 2}px rgba(110, 69, 226, 0.7)`;
+                    typewriterElement.textContent = currentWord.substring(0, charIndex + 1);
+                    charIndex++;
                 }
                 
-                // Random position
-                particle.style.left = `${Math.random() * 100}%`;
-                particle.style.top = `${Math.random() * 100 + 100}%`;
-                
-                // Random animation
-                const duration = Math.random() * 20 + 10;
-                const delay = Math.random() * 10;
-                const xMovement = (Math.random() - 0.5) * 200;
-                
-                particle.style.animation = `floatParticle ${duration}s linear ${delay}s infinite`;
-                particle.style.transform = `translateX(${xMovement}px)`;
-                
-                particlesContainer.appendChild(particle);
+                if (!isDeleting && charIndex === currentWord.length) {
+                    isWaiting = true;
+                    setTimeout(() => {
+                        isWaiting = false;
+                        isDeleting = true;
+                        setTimeout(type, 500);
+                    }, 1500);
+                } else if (isDeleting && charIndex === 0) {
+                    isDeleting = false;
+                    wordIndex = (wordIndex + 1) % typewriterWords[currentLanguage].length;
+                    setTimeout(type, 500);
+                } else {
+                    setTimeout(type, speed);
+                }
+            }
+            
+            setTimeout(type, 1000);
+        }
+
+        // Toggle dark/light theme
+        function toggleTheme() {
+            darkMode = !darkMode;
+            if (darkMode) {
+                document.body.classList.remove('light-mode');
+                document.getElementById('theme-icon').className = 'fas fa-moon';
+            } else {
+                document.body.classList.add('light-mode');
+                document.getElementById('theme-icon').className = 'fas fa-sun';
+            }
+            
+            // Save preference to localStorage
+            localStorage.setItem('darkMode', darkMode);
+        }
+
+        // Load theme preference
+        function loadThemePreference() {
+            const savedMode = localStorage.getItem('darkMode');
+            if (savedMode === 'false') {
+                darkMode = false;
+                document.body.classList.add('light-mode');
+                document.getElementById('theme-icon').className = 'fas fa-sun';
             }
         }
-        
-        document.addEventListener('DOMContentLoaded', createParticles);
-        
-        // Modal functionality
-        function openModal(title, price, productId) {
-            const modal = document.getElementById('orderModal');
-            const modalTitle = document.getElementById('modalProductTitle');
-            const modalPrice = document.getElementById('modalProductPrice');
-            const modalImage = document.getElementById('modalProductImage');
-            const modalDescription = document.getElementById('modalProductDescription');
-            const modalFeatures = document.getElementById('modalProductFeatures');
+
+        // Change language
+        function changeLanguage(lang) {
+            currentLanguage = lang;
+            document.body.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
+            document.documentElement.setAttribute('lang', lang);
             
-            // Set product details based on productId
-            let imageUrl = '';
-            let description = '';
-            let features = [];
+            // Update all translatable elements
+            document.querySelectorAll('[data-translate]').forEach(element => {
+                const key = element.getAttribute('data-translate');
+                if (translations[lang][key]) {
+                    element.textContent = translations[lang][key];
+                }
+            });
             
-            switch(productId) {
-                case '3d-website':
-                    imageUrl = 'https://images.unsplash.com/photo-1551650975-87deedd944c3?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80';
-                    description = 'تصميم موقع إلكتروني ببيئة ثلاثية الأبعاد تفاعلية مع تأثيرات حركية مذهلة تجعل زوارك يعيشون تجربة فريدة لا تنسى.';
-                    features = [
-                        'تصميم غامر ثلاثي الأبعاد',
-                        'تفاعلات حركية سلسة',
-                        'تحميل فائق السرعة',
-                        'تكامل مع جميع الأجهزة',
-                        'دعم فني مميز لمدة 6 أشهر'
-                    ];
-                    break;
-                case 'ai-bot':
-                    imageUrl = 'https://images.unsplash.com/photo-1620712943543-bcc4688e7485?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80';
-                    description = 'بوت ذكي بمظهر كوني متطور مع قدرات تعلم آلي فائقة وتفاعل طبيعي يحسن تجربة عملائك ويزيد من مبيعاتك.';
-                    features = [
-                        'واجهة كونية ثلاثية الأبعاد',
-                        'فهم عميق للغة الطبيعية',
-                        'تكامل مع منصات متعددة',
-                        'تخصيص كامل للشخصية',
-                        'تقارير أداء مفصلة'
-                    ];
-                    break;
-                case '3d-store':
-                    imageUrl = 'https://images.unsplash.com/photo-1516321318423-f06f85e504b3?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80';
-                    description = 'متجر إلكتروني ببيئة شراء غامرة بتأثيرات بصرية مذهلة وتجربة مستخدم فريدة تزيد من معدلات التحويل.';
-                    features = [
-                        'عرض منتجات ثلاثي الأبعاد',
-                        'تجربة شراء غامرة',
-                        'أنظمة دفع متكاملة',
-                        'لوحة تحكم متقدمة',
-                        'حماية وأمان عالي'
-                    ];
-                    break;
-                case 'marketing-bot':
-                    imageUrl = 'https://images.unsplash.com/photo-1639762681057-408e52192e55?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80';
-                    description = 'بوت تسويقي ذكي بمظهر كوني يجذب العملاء ويحول الزيارات إلى مبيعات باستخدام أحدث تقنيات الذكاء الاصطناعي.';
-                    features = [
-                        'تحليل سلوك العميل',
-                        'حملات تسويقية ذكية',
-                        'واجهة كونية جذابة',
-                        'تكامل مع وسائل التواصل',
-                        'تقارير أداء مفصلة'
-                    ];
-                    break;
-                case 'personal-portal':
-                    imageUrl = 'https://images.unsplash.com/photo-1467232004584-a241de8bcf5d?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80';
-                    description = 'موقع شخصي كوني يعرض أعمالك ومهاراتك بشكل تفاعلي ثلاثي الأبعاد يجعلك تبرز بين المنافسين.';
-                    features = [
-                        'معرض أعمال تفاعلي',
-                        'سيرة ذاتية ثلاثية الأبعاد',
-                        'نموذج تواصل كوني',
-                        'استضافة مميزة لمدة عام',
-                        'شهادة رقمية مميزة'
-                    ];
-                    break;
-                case 'chat-bot':
-                    imageUrl = 'https://images.unsplash.com/photo-1633356122544-f134324a6cee?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80';
-                    description = 'بوت محادثة بذكاء اصطناعي متطور مع واجهة كونية ثلاثية الأبعاد يحسن تجربة عملائك ويساعدهم على مدار الساعة.';
-                    features = [
-                        'تفاعلات طبيعية متقدمة',
-                        'واجهة كونية ثلاثية الأبعاد',
-                        'تكامل مع مواقع الويب',
-                        'تعلم مستمر من التفاعلات',
-                        'إمكانية التخصيص الكامل'
-                    ];
-                    break;
-                case 'consultation':
-                    imageUrl = 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?ixlib=rb-1.2.1&auto=format&fit=crop&w=800&q=80';
-                    description = 'جلسة استشارية مع خبرائنا لتصميم الحل الرقمي الأمثل لاحتياجاتك وأهدافك التجارية.';
-                    features = [
-                        'تحليل احتياجاتك الرقمية',
-                        'مقترحات حلول مخصصة',
-                        'خطة تنفيذ استراتيجية',
-                        'نصائح لتحسين الأداء',
-                        'عرض أسعار مفصل'
-                    ];
-                    break;
+            // Restart typewriter with new language words
+            initTypewriter();
+            
+            // Save preference to localStorage
+            localStorage.setItem('language', lang);
+        }
+
+        // Load language preference
+        function loadLanguagePreference() {
+            const savedLang = localStorage.getItem('language');
+            if (savedLang && translations[savedLang]) {
+                changeLanguage(savedLang);
             }
+        }
+
+        // Toggle mobile menu
+        function toggleMenu() {
+            const navLinks = document.querySelector('.nav-links');
+            const menuBtn = document.querySelector('.mobile-menu-btn');
             
-            modalTitle.textContent = title;
-            modalPrice.textContent = price > 0 ? `$${price}` : 'مجاناً';
-            modalImage.src = imageUrl;
-            modalImage.alt = title;
-            modalDescription.textContent = description;
+            navLinks.classList.toggle('active');
+            menuBtn.innerHTML = navLinks.classList.contains('active') ? 
+                '<i class="fas fa-times"></i>' : '<i class="fas fa-bars"></i>';
+        }
+
+        // Open modal for service inquiry
+        function openModal(title, price, serviceId) {
+            const modal = document.getElementById('orderModal');
+            const service = productDetails[serviceId];
             
-            // Clear previous features
-            modalFeatures.innerHTML = '';
+            document.getElementById('modalProductTitle').textContent = translations[currentLanguage][`${serviceId}_title`] || title;
+            document.getElementById('modalProductPrice').textContent = `${translations[currentLanguage]['starting_from']} $${price.toLocaleString()}`;
+            document.getElementById('modalProductImage').src = service.image;
+            document.getElementById('modalProductDescription').textContent = service.description;
             
-            // Add new features
-            features.forEach(feature => {
+            const featuresList = document.getElementById('modalProductFeatures');
+            featuresList.innerHTML = '';
+            
+            service.features.forEach(feature => {
                 const li = document.createElement('li');
-                li.textContent = feature;
-                modalFeatures.appendChild(li);
+                li.textContent = translations[currentLanguage][`${serviceId}_feature${service.features.indexOf(feature)+1}`] || feature;
+                featuresList.appendChild(li);
             });
             
-            modal.style.display = 'flex';
+            const techContainer = document.getElementById('modalProductTech');
+            techContainer.innerHTML = '';
+            
+            service.technologies.forEach(tech => {
+                const tag = document.createElement('span');
+                tag.className = 'tech-tag';
+                tag.textContent = tech;
+                techContainer.appendChild(tag);
+            });
+            
+            modal.classList.add('active');
             document.body.style.overflow = 'hidden';
-            
-            // Add cosmic effect to modal opening
-            gsap.from('.modal-content', {
-                duration: 0.8,
-                y: -100,
-                opacity: 0,
-                ease: "back.out(1.7)",
-                onStart: () => {
-                    createConfetti();
-                }
-            });
         }
-        
-        function closeModal() {
+
+        // Show service details
+        function showDetails(serviceId) {
+            const service = productDetails[serviceId];
             const modal = document.getElementById('orderModal');
             
-            gsap.to('.modal-content', {
-                duration: 0.5,
-                y: 100,
-                opacity: 0,
-                ease: "back.in(1.7)",
-                onComplete: () => {
-                    modal.style.display = 'none';
-                    document.body.style.overflow = 'auto';
-                }
+            document.getElementById('modalProductTitle').textContent = translations[currentLanguage][`${serviceId}_title`] || serviceId;
+            document.getElementById('modalProductPrice').textContent = '';
+            document.getElementById('modalProductImage').src = service.image;
+            document.getElementById('modalProductDescription').textContent = service.description;
+            
+            const featuresList = document.getElementById('modalProductFeatures');
+            featuresList.innerHTML = '';
+            
+            service.features.forEach(feature => {
+                const li = document.createElement('li');
+                li.textContent = translations[currentLanguage][`${serviceId}_feature${service.features.indexOf(feature)+1}`] || feature;
+                featuresList.appendChild(li);
+            });
+            
+            const techContainer = document.getElementById('modalProductTech');
+            techContainer.innerHTML = '';
+            
+            service.technologies.forEach(tech => {
+                const tag = document.createElement('span');
+                tag.className = 'tech-tag';
+                tag.textContent = tech;
+                techContainer.appendChild(tag);
+            });
+            
+            // Hide the order form for details view
+            document.getElementById('orderForm').style.display = 'none';
+            
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden';
+        }
+
+        // Close modal
+        function closeModal() {
+            document.getElementById('orderModal').classList.remove('active');
+            document.body.style.overflow = 'auto';
+            document.getElementById('orderForm').style.display = 'block';
+        }
+
+        // Submit order form
+        function submitOrder() {
+            const name = document.getElementById('order-name').value;
+            const email = document.getElementById('order-email').value;
+            const phone = document.getElementById('order-phone').value;
+            const company = document.getElementById('order-company').value;
+            const details = document.getElementById('order-details').value;
+            const service = document.getElementById('modalProductTitle').textContent;
+            
+            // Save to database
+            saveMessageToDB({
+                type: 'service_inquiry',
+                service,
+                name,
+                email,
+                phone,
+                company,
+                details
+            }).then(() => {
+                // Show success message
+                const successMsg = `${translations[currentLanguage]['thank_you']} ${name}! ${translations[currentLanguage]['inquiry_received']} ${service} ${translations[currentLanguage]['has_been_received']}`;
+                alert(successMsg);
+                
+                // Reset form
+                document.getElementById('orderForm').reset();
+                closeModal();
+            }).catch(error => {
+                console.error('Error saving inquiry:', error);
+                alert(translations[currentLanguage]['error_occurred']);
             });
         }
-        
-        function submitOrder() {
-            // Here you would normally send the order to your backend
-            // For demo purposes, we'll just show a success effect
-            
-            // Create celebration confetti
-            createConfetti(100);
-            
-            // Show success message
-            const modalTitle = document.getElementById('modalProductTitle');
-            modalTitle.textContent = 'تم الطلب بنجاح!';
-            modalTitle.style.background = 'linear-gradient(90deg, var(--gold), var(--neon-blue))';
-            
-            // Change button to success state
-            const submitBtn = document.querySelector('.submit-order');
-            submitBtn.textContent = 'تم الإرسال ✓';
-            submitBtn.style.background = 'linear-gradient(45deg, #4CAF50, #8BC34A)';
-            submitBtn.onclick = null;
+
+        // Setup form submissions
+        function setupForms() {
+            document.getElementById('contactForm').addEventListener('submit', function(e) {
+                e.preventDefault();
+                
+                const name = document.getElementById('name').value;
+                const email = document.getElementById('email').value;
+                const subject = document.getElementById('subject').value;
+                const message = document.getElementById('message').value;
+                
+                // Save to database
+                saveMessageToDB({
+                    type: 'contact_form',
+                    name,
+                    email,
+                    subject,
+                    message
+                }).then(() => {
+                    // Show success message
+                    const successMessage = document.getElementById('successMessage');
+                    successMessage.style.display = 'block';
+                    
+                    // Reset form
+                    this.reset();
+                    
+                    // Hide success message after 5 seconds
+                    setTimeout(() => {
+                        successMessage.style.display = 'none';
+                    }, 5000);
+                }).catch(error => {
+                    console.error('Error saving message:', error);
+                    alert(translations[currentLanguage]['error_occurred']);
+                });
+            });
+        }
+
+        // Close modal when clicking outside
+        window.onclick = function(event) {
+            const modal = document.getElementById('orderModal');
+            if (event.target === modal) {
+                closeModal();
+            }
+        }
+    </script>
+</body>
+</html>
