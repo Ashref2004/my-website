@@ -3,8 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>V-Code | Full Stack Developer</title>
-    <meta name="description" content="Professional developer offering cutting-edge digital solutions including web development, bot development, and custom applications.">
+    <title>V-Code </title>
+    <meta name="description" content="Professional backend developer specializing in scalable APIs, database architecture, and server-side solutions.">
+    <link rel="icon" href="images/Ash.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@300;400;500;700&family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
@@ -30,27 +31,6 @@
             --terminal-bg: #0a0a1a;
         }
 
-        /* Light mode variables */
-        .light-mode {
-            --bg-color: #f8f9fa;
-            --card-bg: #ffffff;
-            --text-primary: #222222;
-            --text-secondary: #555555;
-            --border-color: #e0e0e0;
-            --dark: #f0f0f0;
-            --light: #ffffff;
-            --code-bg: #f0f0f5;
-            --terminal-bg: #f5f5ff;
-        }
-
-        [dir="rtl"] {
-            --text-direction: right;
-        }
-
-        [dir="ltr"] {
-            --text-direction: left;
-        }
-
         * {
             margin: 0;
             padding: 0;
@@ -63,9 +43,6 @@
             color: var(--text-primary);
             background-color: var(--bg-color);
             line-height: 1.6;
-            direction: ltr;
-            text-align: var(--text-direction);
-            transition: background-color 0.3s ease;
             overflow-x: hidden;
         }
 
@@ -83,10 +60,6 @@
             padding: 1rem 2rem;
             transition: all 0.3s ease;
             border-bottom: 1px solid rgba(0, 240, 255, 0.1);
-        }
-
-        .light-mode header {
-            background-color: rgba(255, 255, 255, 0.9);
         }
 
         .header-container {
@@ -143,54 +116,6 @@
             color: var(--primary);
         }
 
-        .dropdown {
-            position: relative;
-            display: inline-block;
-        }
-
-        .dropdown-content {
-            display: none;
-            position: absolute;
-            background-color: var(--card-bg);
-            min-width: 200px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
-            z-index: 1;
-            border-radius: 8px;
-            padding: 0.5rem 0;
-            border: 1px solid var(--border-color);
-            animation: fadeIn 0.3s ease-out;
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-10px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        .dropdown-content a {
-            color: var(--text-primary);
-            padding: 0.7rem 1.5rem;
-            text-decoration: none;
-            display: block;
-            font-size: 0.9rem;
-        }
-
-        .dropdown-content a:hover {
-            background-color: rgba(0, 240, 255, 0.1);
-            color: var(--primary);
-        }
-
-        .dropdown:hover .dropdown-content {
-            display: block;
-        }
-
-        .dropdown-toggle::after {
-            content: '\f078';
-            font-family: 'Font Awesome 6 Free';
-            font-weight: 900;
-            font-size: 0.7rem;
-            margin-left: 5px;
-        }
-
         .mobile-menu-btn {
             display: none;
             background: none;
@@ -201,7 +126,7 @@
             z-index: 1001;
         }
 
-        /* Theme and Language Toggle in Nav */
+        /* Theme Toggle */
         .nav-toggle {
             display: flex;
             gap: 0.5rem;
@@ -222,22 +147,6 @@
             transition: all 0.3s ease;
             position: relative;
             overflow: hidden;
-        }
-
-        .toggle-btn::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, rgba(0,240,255,0.2) 0%, rgba(255,45,117,0.1) 100%);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .toggle-btn:hover::before {
-            opacity: 1;
         }
 
         .toggle-btn:hover {
@@ -304,11 +213,6 @@
             box-shadow: 0 20px 50px rgba(0,0,0,0.3);
         }
 
-        .light-mode .hero-container {
-            background: rgba(255, 255, 255, 0.8);
-            border: 1px solid rgba(0, 0, 0, 0.1);
-        }
-
         h1, h2, h3, h4, h5, h6 {
             font-family: 'JetBrains Mono', monospace;
             font-weight: 700;
@@ -357,23 +261,6 @@
             letter-spacing: 1px;
         }
 
-        .cta-button::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, var(--primary-dark), var(--primary));
-            opacity: 0;
-            z-index: -1;
-            transition: opacity 0.3s ease;
-        }
-
-        .cta-button:hover::before {
-            opacity: 1;
-        }
-
         .cta-button:hover {
             transform: translateY(-3px);
             box-shadow: 0 15px 35px rgba(0,240,255,0.4);
@@ -410,8 +297,8 @@
             50% { opacity: 0; }
         }
 
-        /* Terminal Effect */
-        .terminal {
+        /* Server Status */
+        .server-status {
             background: var(--terminal-bg);
             border-radius: 10px;
             padding: 1.5rem;
@@ -424,7 +311,7 @@
             overflow: hidden;
         }
 
-        .terminal-header {
+        .server-header {
             display: flex;
             align-items: center;
             margin-bottom: 1rem;
@@ -432,56 +319,56 @@
             border-bottom: 1px solid rgba(0, 240, 255, 0.1);
         }
 
-        .terminal-dots {
+        .server-dots {
             display: flex;
             gap: 8px;
             margin-right: 10px;
         }
 
-        .terminal-dot {
+        .server-dot {
             width: 12px;
             height: 12px;
             border-radius: 50%;
         }
 
-        .terminal-dot.red {
+        .server-dot.red {
             background: #ff5f56;
         }
 
-        .terminal-dot.yellow {
+        .server-dot.yellow {
             background: #ffbd2e;
         }
 
-        .terminal-dot.green {
+        .server-dot.green {
             background: #27c93f;
         }
 
-        .terminal-title {
+        .server-title {
             font-family: 'JetBrains Mono', monospace;
             font-size: 0.8rem;
             color: var(--text-secondary);
         }
 
-        .terminal-content {
+        .server-content {
             font-family: 'JetBrains Mono', monospace;
             color: var(--text-primary);
             line-height: 1.6;
         }
 
-        .terminal-line {
+        .server-line {
             margin-bottom: 0.5rem;
         }
 
-        .terminal-prompt {
+        .server-prompt {
             color: var(--primary);
             margin-right: 10px;
         }
 
-        .terminal-command {
+        .server-command {
             color: var(--accent);
         }
 
-        .terminal-output {
+        .server-output {
             color: var(--text-secondary);
             opacity: 0;
             animation: fadeIn 0.5s forwards;
@@ -492,7 +379,7 @@
             to { opacity: 1; }
         }
 
-        /* Products Section */
+        /* Services Section */
         .section {
             padding: 6rem 2rem;
             max-width: 1400px;
@@ -531,14 +418,14 @@
             font-size: 1.1rem;
         }
 
-        .products-grid {
+        .services-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
             gap: 2.5rem;
             margin-top: 2rem;
         }
 
-        .product-card {
+        .service-card {
             background: var(--card-bg);
             border-radius: 16px;
             overflow: hidden;
@@ -548,13 +435,13 @@
             position: relative;
         }
 
-        .product-card:hover {
+        .service-card:hover {
             transform: translateY(-10px);
             box-shadow: 0 15px 40px rgba(0,0,0,0.2);
             border-color: var(--primary);
         }
 
-        .product-badge {
+        .service-badge {
             position: absolute;
             top: 15px;
             right: 15px;
@@ -568,86 +455,77 @@
             box-shadow: 0 4px 10px rgba(255,45,117,0.3);
         }
 
-        .product-badge.primary {
+        .service-badge.primary {
             background: var(--primary);
             box-shadow: 0 4px 10px rgba(0,240,255,0.3);
         }
 
-        .product-badge.accent {
+        .service-badge.accent {
             background: var(--accent);
             color: var(--dark);
             box-shadow: 0 4px 10px rgba(255,235,59,0.3);
         }
 
-        .product-image-container {
+        .service-image-container {
             height: 220px;
             width: 100%;
             overflow: hidden;
             position: relative;
         }
 
-        .product-image {
+        .service-image {
             width: 100%;
             height: 100%;
             object-fit: cover;
             transition: transform 0.5s ease;
         }
 
-        .product-card:hover .product-image {
+        .service-card:hover .service-image {
             transform: scale(1.1);
         }
 
-        .product-details {
+        .service-details {
             padding: 2rem;
         }
 
-        .product-title {
+        .service-title {
             font-size: 1.5rem;
             margin-bottom: 1rem;
             color: var(--primary);
             font-family: 'JetBrains Mono', monospace;
         }
 
-        .product-description {
+        .service-description {
             color: var(--text-secondary);
             margin-bottom: 1.5rem;
             font-size: 0.95rem;
             min-height: 60px;
         }
 
-        .product-features {
+        .service-features {
             margin-bottom: 1.5rem;
         }
 
-        .product-features li {
+        .service-features li {
             position: relative;
             padding-left: 1.5rem;
             margin-bottom: 0.5rem;
             font-size: 0.9rem;
         }
 
-        .product-features li::before {
+        .service-features li::before {
             content: '▹';
             position: absolute;
             left: 0;
             color: var(--primary);
         }
 
-        .product-price {
-            font-size: 1.8rem;
-            font-weight: 700;
-            color: var(--primary);
-            margin: 1.5rem 0;
-            text-align: center;
-            font-family: 'JetBrains Mono', monospace;
-        }
-
-        .product-actions {
+        .service-actions {
             display: flex;
             gap: 1rem;
         }
 
-        .buy-button, .details-button {
+        .contact-button, .details-button {
             flex: 1;
             padding: 0.8rem;
             border-radius: 8px;
@@ -658,14 +536,14 @@
             font-family: 'JetBrains Mono', monospace;
         }
 
-        .buy-button {
+        .contact-button {
             background: linear-gradient(135deg, var(--primary), var(--primary-dark));
             color: white;
             border: none;
             box-shadow: 0 4px 15px rgba(0,240,255,0.3);
         }
 
-        .buy-button:hover {
+        .contact-button:hover {
             background: linear-gradient(135deg, var(--primary-light), var(--primary));
             transform: translateY(-2px);
             box-shadow: 0 6px 20px rgba(0,240,255,0.4);
@@ -682,14 +560,14 @@
             transform: translateY(-2px);
         }
 
-        /* My Work Section */
-        .my-work {
+        /* Projects Section */
+        .backend-projects {
             background: linear-gradient(135deg, var(--darker) 0%, var(--dark) 100%);
             position: relative;
             overflow: hidden;
         }
 
-        .my-work::before {
+        .backend-projects::before {
             content: '';
             position: absolute;
             top: 0;
@@ -701,13 +579,13 @@
             opacity: 0.5;
         }
 
-        .work-grid {
+        .projects-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
             gap: 2.5rem;
         }
 
-        .work-item {
+        .project-item {
             border-radius: 12px;
             overflow: hidden;
             box-shadow: 0 10px 30px rgba(0,0,0,0.2);
@@ -717,41 +595,57 @@
             border: 1px solid var(--border-color);
         }
 
-        .work-item:hover {
+        .project-item:hover {
             transform: translateY(-10px);
             box-shadow: 0 15px 40px rgba(0,0,0,0.3);
             border-color: var(--primary);
         }
 
-        .work-image {
+        .project-image {
             width: 100%;
             height: 200px;
             object-fit: cover;
             transition: transform 0.5s ease;
         }
 
-        .work-item:hover .work-image {
+        .project-item:hover .project-image {
             transform: scale(1.05);
         }
 
-        .work-info {
+        .project-info {
             padding: 1.5rem;
         }
 
-        .work-title {
+        .project-title {
             font-size: 1.3rem;
             margin-bottom: 0.5rem;
             color: var(--primary);
             font-family: 'JetBrains Mono', monospace;
         }
 
-        .work-description {
+        .project-description {
             color: var(--text-secondary);
             margin-bottom: 1rem;
             font-size: 0.9rem;
         }
 
-        .work-link {
+        .project-tech {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 0.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .tech-tag {
+            background: rgba(0, 240, 255, 0.1);
+            color: var(--primary);
+            padding: 0.3rem 0.8rem;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .project-link {
             display: inline-flex;
             align-items: center;
             gap: 5px;
@@ -763,18 +657,18 @@
             transition: all 0.3s ease;
         }
 
-        .work-link:hover {
+        .project-link:hover {
             color: var(--primary-light);
             text-decoration: none;
             gap: 10px;
         }
 
-        /* Skills Section */
-        .skills-section {
+        /* Tech Stack Section */
+        .tech-stack {
             position: relative;
         }
 
-        .skills-dropdown {
+        .tech-dropdown {
             display: none;
             position: absolute;
             background-color: var(--card-bg);
@@ -791,20 +685,20 @@
             animation: fadeIn 0.3s ease-out;
         }
 
-        .skills-section:hover .skills-dropdown {
+        .tech-stack:hover .tech-dropdown {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             gap: 2rem;
         }
 
-        .skills {
+        .tech-stack-items {
             display: flex;
             flex-wrap: wrap;
             justify-content: center;
             gap: 2rem;
         }
 
-        .skill-item {
+        .tech-item {
             display: flex;
             flex-direction: column;
             align-items: center;
@@ -812,11 +706,11 @@
             transition: all 0.3s ease;
         }
 
-        .skill-item:hover {
+        .tech-item:hover {
             transform: translateY(-5px);
         }
 
-        .skill-circle {
+        .tech-circle {
             width: 80px;
             height: 80px;
             border-radius: 50%;
@@ -832,47 +726,31 @@
             overflow: hidden;
         }
 
-        .skill-circle::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(135deg, rgba(0,240,255,0.1) 0%, rgba(255,45,117,0.05) 100%);
-            opacity: 0;
-            transition: opacity 0.3s ease;
-        }
-
-        .skill-circle:hover::before {
-            opacity: 1;
-        }
-
-        .skill-circle:hover {
+        .tech-circle:hover {
             transform: scale(1.1);
             box-shadow: 0 15px 30px rgba(0,0,0,0.2);
             border-color: var(--primary);
         }
 
-        .skill-icon {
+        .tech-icon {
             font-size: 2.5rem;
             color: var(--primary);
             transition: all 0.3s ease;
         }
 
-        .skill-circle:hover .skill-icon {
+        .tech-circle:hover .tech-icon {
             color: var(--primary-light);
             transform: scale(1.1);
         }
 
-        .skill-name {
+        .tech-name {
             font-size: 1rem;
             color: var(--text-primary);
             text-align: center;
             font-weight: 500;
         }
 
-        .skill-level {
+        .tech-level {
             font-size: 0.8rem;
             color: var(--text-secondary);
             margin-top: 0.3rem;
@@ -1042,8 +920,8 @@
             box-shadow: 0 8px 25px rgba(0,240,255,0.3);
         }
 
-        /* Code Snippet */
-        .code-snippet {
+        /* API Code Snippet */
+        .api-snippet {
             background: var(--code-bg);
             border-radius: 8px;
             padding: 1.5rem;
@@ -1052,7 +930,7 @@
             border: 1px solid rgba(0, 240, 255, 0.1);
         }
 
-        .code-snippet pre {
+        .api-snippet pre {
             margin: 0;
             font-family: 'JetBrains Mono', monospace;
             font-size: 0.9rem;
@@ -1268,29 +1146,11 @@
             font-size: 1.2rem;
         }
 
-        .modal-price {
-            font-size: 2.5rem;
-            font-weight: 700;
-            color: var(--primary);
-            text-align: center;
-            margin: 2.5rem 0;
-            font-family: 'JetBrains Mono', monospace;
-        }
-
         .modal-tech {
             display: flex;
             flex-wrap: wrap;
             gap: 0.5rem;
             margin-bottom: 2rem;
-        }
-
-        .tech-tag {
-            background: rgba(0, 240, 255, 0.1);
-            color: var(--primary);
-            padding: 0.3rem 0.8rem;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-family: 'JetBrains Mono', monospace;
         }
 
         /* Success Message */
@@ -1307,7 +1167,7 @@
 
         /* Responsive Design */
         @media (max-width: 1200px) {
-            .skills-dropdown {
+            .tech-dropdown {
                 min-width: 700px;
                 grid-template-columns: repeat(3, 1fr);
             }
@@ -1333,7 +1193,7 @@
                 left: 20px;
             }
 
-            .skills-dropdown {
+            .tech-dropdown {
                 min-width: 600px;
                 grid-template-columns: repeat(2, 1fr);
             }
@@ -1368,33 +1228,11 @@
                 width: 100%;
             }
 
-            .dropdown-content {
-                position: static;
-                box-shadow: none;
-                display: none;
-                width: 100%;
-                background: transparent;
-                border: none;
-                padding: 0.5rem 0 0 1.5rem;
-            }
-
-            .dropdown-content a {
-                padding: 0.7rem 0;
-            }
-
-            .dropdown:hover .dropdown-content {
-                display: none;
-            }
-
-            .dropdown.active .dropdown-content {
-                display: block;
-            }
-
             .mobile-menu-btn {
                 display: block;
             }
 
-            .skills-dropdown {
+            .tech-dropdown {
                 min-width: 90%;
                 left: 5%;
                 transform: translateX(0);
@@ -1409,7 +1247,7 @@
                 font-size: 2rem;
             }
 
-            .products-grid {
+            .services-grid {
                 grid-template-columns: 1fr;
             }
 
@@ -1461,7 +1299,7 @@
                 margin-left: 0;
             }
 
-            .skills-dropdown {
+            .tech-dropdown {
                 grid-template-columns: 1fr;
             }
 
@@ -1472,46 +1310,6 @@
             .modal-title {
                 font-size: 1.8rem;
             }
-
-            .modal-price {
-                font-size: 2rem;
-            }
-        }
-
-        /* RTL Styles */
-        [dir="rtl"] {
-            direction: rtl;
-            text-align: right;
-        }
-
-        [dir="rtl"] .modal-features li {
-            padding-left: 0;
-            padding-right: 2rem;
-        }
-
-        [dir="rtl"] .modal-features li::before {
-            left: auto;
-            right: 0;
-        }
-
-        [dir="rtl"] .dropdown-toggle::after {
-            margin-left: 0;
-            margin-right: 5px;
-        }
-
-        [dir="rtl"] .timeline::before {
-            right: 30px;
-            left: auto;
-        }
-
-        [dir="rtl"] .timeline-item {
-            padding-right: 70px;
-            padding-left: 0;
-        }
-
-        [dir="rtl"] .timeline-item::after {
-            right: 20px;
-            left: auto;
         }
 
         /* Animations */
@@ -1536,8 +1334,8 @@
     <header>
         <div class="header-container">
             <a href="#" class="logo">
-                <img id="profile-img" src="https://via.placeholder.com/150" alt="Developer Photo">
-                <span data-translate="logo">V-Code</span>
+                <img id="profile-img" src="images/Ash.png" alt="Developer Photo">
+                <span>V-Code</span>
             </a>
             
             <button class="mobile-menu-btn" onclick="toggleMenu()">
@@ -1545,102 +1343,90 @@
             </button>
             
             <nav class="nav-links">
-                <div class="nav-item dropdown">
-                    <a href="#expertise" class="nav-link dropdown-toggle" data-translate="expertise">
-                        <i class="fas fa-laptop-code"></i> Expertise
+                <div class="nav-item">
+                    <a href="#services" class="nav-link">
+                        <i class="fas fa-server"></i> Services
                     </a>
-                    <div class="dropdown-content">
-                        <a href="#" data-translate="web_dev">Web Development</a>
-                        <a href="#" data-translate="bot_dev">Bot Development</a>
-                        <a href="#" data-translate="mobile_dev">Mobile Development</a>
-                        <a href="#" data-translate="database">Database Design</a>
-                    </div>
                 </div>
                 
-                <div class="nav-item dropdown">
-                    <a href="#projects" class="nav-link dropdown-toggle" data-translate="projects">
+                <div class="nav-item">
+                    <a href="#projects" class="nav-link">
                         <i class="fas fa-project-diagram"></i> Projects
                     </a>
-                    <div class="dropdown-content">
-                        <a href="https://t.me/TissmsiltBot" target="_blank">Univ-Bot</a>
-                        <a href="https://ashref2004.github.io/EL-Hadj-El-Omra/" target="_blank">Hajj & Umrah Website</a>
-                        <a href="https://github.com/Ashref2004/Umrah-Agency.git" target="_blank">Umrah Agency</a>
-                        <a href="#">Custom Bots</a>
-                    </div>
                 </div>
                 
-                <div class="nav-item skills-section">
-                    <a href="#skills" class="nav-link" data-translate="skills">
-                        <i class="fas fa-code"></i> Skills
+                <div class="nav-item tech-stack">
+                    <a href="#tech" class="nav-link">
+                        <i class="fas fa-code"></i> Tech Stack
                     </a>
-                    <div class="skills-dropdown">
-                        <div class="skill-item">
-                            <div class="skill-circle">
-                                <i class="fab fa-html5 skill-icon"></i>
+                    <div class="tech-dropdown">
+                        <div class="tech-item">
+                            <div class="tech-circle">
+                                <i class="fab fa-node-js tech-icon"></i>
                             </div>
-                            <span class="skill-name">HTML</span>
-                            <span class="skill-level">Expert</span>
+                            <span class="tech-name">Node.js</span>
+                            <span class="tech-level">Expert</span>
                         </div>
-                        <div class="skill-item">
-                            <div class="skill-circle">
-                                <i class="fab fa-css3-alt skill-icon"></i>
+                        <div class="tech-item">
+                            <div class="tech-circle">
+                                <i class="fab fa-python tech-icon"></i>
                             </div>
-                            <span class="skill-name">CSS</span>
-                            <span class="skill-level">Expert</span>
+                            <span class="tech-name">Python</span>
+                            <span class="tech-level">Advanced</span>
                         </div>
-                        <div class="skill-item">
-                            <div class="skill-circle">
-                                <i class="fab fa-js skill-icon"></i>
+                        <div class="tech-item">
+                            <div class="tech-circle">
+                                <i class="fas fa-database tech-icon"></i>
                             </div>
-                            <span class="skill-name">JavaScript</span>
-                            <span class="skill-level">Expert</span>
+                            <span class="tech-name">SQL</span>
+                            <span class="tech-level">Expert</span>
                         </div>
-                        <div class="skill-item">
-                            <div class="skill-circle">
-                                <i class="fab fa-python skill-icon"></i>
+                        <div class="tech-item">
+                            <div class="tech-circle">
+                                <i class="fab fa-aws tech-icon"></i>
                             </div>
-                            <span class="skill-name">Python</span>
-                            <span class="skill-level">Advanced</span>
+                            <span class="tech-name">AWS</span>
+                            <span class="tech-level">Intermediate</span>
                         </div>
-                        <div class="skill-item">
-                            <div class="skill-circle">
-                                <i class="fab fa-php skill-icon"></i>
+                        <div class="tech-item">
+                            <div class="tech-circle">
+                                <i class="fab fa-docker tech-icon"></i>
                             </div>
-                            <span class="skill-name">PHP</span>
-                            <span class="skill-level">Intermediate</span>
+                            <span class="tech-name">Docker</span>
+                            <span class="tech-level">Advanced</span>
                         </div>
-                        <div class="skill-item">
-                            <div class="skill-circle">
-                                <i class="fas fa-database skill-icon"></i>
+                        <div class="tech-item">
+                            <div class="tech-circle">
+                                <i class="fas fa-server tech-icon"></i>
                             </div>
-                            <span class="skill-name">SQLite3</span>
-                            <span class="skill-level">Advanced</span>
+                            <span class="tech-name">REST APIs</span>
+                            <span class="tech-level">Expert</span>
                         </div>
-                        <div class="skill-item">
-                            <div class="skill-circle">
-                                <i class="fab fa-react skill-icon"></i>
+                        <div class="tech-item">
+                            <div class="tech-circle">
+                                <i class="fas fa-bolt tech-icon"></i>
                             </div>
-                            <span class="skill-name">React</span>
-                            <span class="skill-level">Intermediate</span>
+                            <span class="tech-name">GraphQL</span>
+                            <span class="tech-level">Intermediate</span>
                         </div>
-                        <div class="skill-item">
-                            <div class="skill-circle">
-                                <i class="fab fa-node-js skill-icon"></i>
+                        <div class="tech-item">
+                            <div class="tech-circle">
+                                <i class="fas fa-shield-alt tech-icon"></i>
                             </div>
-                            <span class="skill-name">Node.js</span>
-                            <span class="skill-level">Advanced</span>
+                            <span class="tech-name">Auth</span>
+                            <span class="tech-level">Advanced</span>
                         </div>
                     </div>
                 </div>
                 
                 <div class="nav-item">
-                    <a href="#experience" class="nav-link" data-translate="experience">
+                    <a href="#experience" class="nav-link">
                         <i class="fas fa-briefcase"></i> Experience
                     </a>
                 </div>
                 
                 <div class="nav-item">
-                    <a href="#contact" class="nav-link" data-translate="contact">
+                    <a href="#contact" class="nav-link">
                         <i class="fas fa-envelope"></i> Contact
                     </a>
                 </div>
@@ -1648,12 +1434,6 @@
                 <div class="nav-toggle">
                     <button class="toggle-btn" onclick="toggleTheme()" title="Toggle Dark Mode">
                         <i class="fas fa-moon" id="theme-icon"></i>
-                    </button>
-                    <button class="toggle-btn" onclick="changeLanguage('en')" title="English">
-                        <img src="https://flagcdn.com/w20/gb.png" alt="English">
-                    </button>
-                    <button class="toggle-btn" onclick="changeLanguage('ar')" title="العربية">
-                        <img src="https://flagcdn.com/w20/dz.png" alt="العربية">
                     </button>
                 </div>
             </nav>
@@ -1663,121 +1443,125 @@
     <!-- Hero Section -->
     <section class="hero">
         <div class="hero-container animate-float">
-            <h1 data-translate="hero_title">V-Code <span class="typewriter" id="typewriter"></span></h1>
-            <p class="subtitle" data-translate="hero_subtitle">
-                مصمم ومبرمج ويب وسبق لي أن إستعملت العديد من اللغات الخاصة بل برمجة ولدي العديد من الأعمال الإحترافية والخبرة وسوف أصل بإذن الله.
+            <h1>V-Code <span class="typewriter" id="typewriter"></span></h1>
+            <p class="subtitle">
+                Backend engineer specializing in scalable APIs, database architecture, and server-side solutions. 
+                I build robust systems that power modern applications.
             </p>
             <div class="cta-buttons">
-                <a href="#contact" class="cta-button" data-translate="hire_me">أريد عمل</a>
-                <a href="#projects" class="cta-button secondary" data-translate="view_work">عرض الأعمال</a>
+                <a href="#contact" class="cta-button">Hire Me</a>
+                <a href="#projects" class="cta-button secondary">View Projects</a>
             </div>
             
-            <div class="terminal">
-                <div class="terminal-header">
-                    <div class="terminal-dots">
-                        <div class="terminal-dot red"></div>
-                        <div class="terminal-dot yellow"></div>
-                        <div class="terminal-dot green"></div>
+            <div class="server-status">
+                <div class="server-header">
+                    <div class="server-dots">
+                        <div class="server-dot red"></div>
+                        <div class="server-dot yellow"></div>
+                        <div class="server-dot green"></div>
                     </div>
-                    <div class="terminal-title">vcode ~/projects/univ-bot</div>
+                    <div class="server-title">server ~/api/v1</div>
                 </div>
-                <div class="terminal-content">
-                    <div class="terminal-line">
-                        <span class="terminal-prompt">$</span>
-                        <span class="terminal-command">node bot.js --start</span>
+                <div class="server-content">
+                    <div class="server-line">
+                        <span class="server-prompt">$</span>
+                        <span class="server-command">npm run start:prod</span>
                     </div>
-                    <div class="terminal-line terminal-output" style="--line-index: 1">
-                        Initializing Univ-Bot server...
+                    <div class="server-line server-output" style="--line-index: 1">
+                        Starting production server...
                     </div>
-                    <div class="terminal-line terminal-output" style="--line-index: 2">
-                        Connecting to database...
+                    <div class="server-line server-output" style="--line-index: 2">
+                        Connected to MongoDB cluster
                     </div>
-                    <div class="terminal-line terminal-output" style="--line-index: 3">
-                        Bot is now online and ready to serve students!
+                    <div class="server-line server-output" style="--line-index: 3">
+                        API server running on port 443
                     </div>
-                    <div class="terminal-line">
-                        <span class="terminal-prompt">$</span>
-                        <span class="terminal-command">_</span>
+                    <div class="server-line">
+                        <span class="server-prompt">$</span>
+                        <span class="server-command">_</span>
                     </div>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Expertise Section -->
-    <section id="expertise" class="section">
-        <h2 class="section-title" data-translate="my_expertise">تخصصاتي</h2>
-        <p class="section-subtitle" data-translate="expertise_subtitle">التقنيات والخدمات التي أتخصص فيها</p>
+    <!-- Services Section -->
+    <section id="services" class="section">
+        <h2 class="section-title">My Services</h2>
+        <p class="section-subtitle">Backend solutions tailored to your needs</p>
         
-        <div class="products-grid">
-            <!-- Web Development -->
-            <div class="product-card animate-float delay-1">
-                <div class="product-badge primary" data-translate="expert">خبير</div>
-                <div class="product-image-container">
-                    <img src="images/web-dev.jpg" alt="Web Development" class="product-image" onerror="this.src='https://source.unsplash.com/random/600x400/?web,development'">
+        <div class="services-grid">
+            <!-- API Development -->
+            <div class="service-card animate-float delay-1">
+                <div class="service-badge primary">Expert</div>
+                <div class="service-image-container">
+                    <img src="images/Ash.png" alt="API Development" class="service-image">
                 </div>
-                <div class="product-details">
-                    <h3 class="product-title" data-translate="web_dev">تطوير الويب</h3>
-                    <p class="product-description" data-translate="web_dev_desc">
-                        مواقع وتطبيقات ويب مخصصة مبنية بتقنيات حديثة.
+                <div class="service-details">
+                    <h3 class="service-title">API Development</h3>
+                    <p class="service-description">
+                        Custom RESTful and GraphQL APIs built with Node.js, Express, and Python. 
+                        Scalable, secure, and well-documented solutions.
                     </p>
-                    <ul class="product-features">
-                        <li data-translate="web_feature1">تصميم متجاوب</li>
-                        <li data-translate="web_feature2">تطوير الواجهة الأمامية</li>
-                        <li data-translate="web_feature3">تطوير الواجهة الخلفية</li>
-                        <li data-translate="web_feature4">تكامل API</li>
+                    <ul class="service-features">
+                        <li>REST API Design & Development</li>
+                        <li>GraphQL Schema Design</li>
+                        <li>API Documentation (Swagger/OpenAPI)</li>
+                        <li>Performance Optimization</li>
                     </ul>
-                    <div class="product-actions">
-                        <button class="buy-button" onclick="openModal('Web Development', 1500, 'web-dev')" data-translate="inquire">استفسر</button>
-                        <button class="details-button" onclick="showDetails('web-dev')" data-translate="details">التفاصيل</button>
+                    <div class="service-actions">
+                        <button class="contact-button" onclick="openModal('API Development', 2000, 'api-dev')">Contact</button>
+                        <button class="details-button" onclick="showDetails('api-dev')">Details</button>
                     </div>
                 </div>
             </div>
             
-            <!-- Bot Development -->
-            <div class="product-card animate-float delay-2">
-                <div class="product-badge" data-translate="expert">خبير</div>
-                <div class="product-image-container">
-                    <img src="images/bot-dev.jpg" alt="Bot Development" class="product-image" onerror="this.src='https://source.unsplash.com/random/600x400/?chat,bot'">
+            <!-- Database Architecture -->
+            <div class="service-card animate-float delay-2">
+                <div class="service-badge">Expert</div>
+                <div class="service-image-container">
+                    <img src="images/Ash.png" alt="Database Architecture" class="service-image">
                 </div>
-                <div class="product-details">
-                    <h3 class="product-title" data-translate="bot_dev">تطوير الروبوتات</h3>
-                    <p class="product-description" data-translate="bot_dev_desc">
-                        روبوتات مخصصة لمنصات مختلفة لأتمتة المهام وتقديم الخدمات.
+                <div class="service-details">
+                    <h3 class="service-title">Database Architecture</h3>
+                    <p class="service-description">
+                        Relational and NoSQL database design, optimization, and implementation 
+                        for high-performance applications.
                     </p>
-                    <ul class="product-features">
-                        <li data-translate="bot_feature1">روبوتات تيليجرام</li>
-                        <li data-translate="bot_feature2">روبوتات واتساب</li>
-                        <li data-translate="bot_feature3">روبوتات ديسكورد</li>
-                        <li data-translate="bot_feature4">نصوص الأتمتة</li>
+                    <ul class="service-features">
+                        <li>SQL & NoSQL Database Design</li>
+                        <li>Query Optimization</li>
+                        <li>Data Modeling</li>
+                        <li>Migration Strategies</li>
                     </ul>
-                    <div class="product-actions">
-                        <button class="buy-button" onclick="openModal('Bot Development', 1000, 'bot-dev')" data-translate="inquire">استفسر</button>
-                        <button class="details-button" onclick="showDetails('bot-dev')" data-translate="details">التفاصيل</button>
+                    <div class="service-actions">
+                        <button class="contact-button" onclick="openModal('Database Architecture', 1800, 'db-arch')">Contact</button>
+                        <button class="details-button" onclick="showDetails('db-arch')">Details</button>
                     </div>
                 </div>
             </div>
             
-            <!-- Mobile Development -->
-            <div class="product-card animate-float delay-3">
-                <div class="product-badge accent" data-translate="intermediate">متوسط</div>
-                <div class="product-image-container">
-                    <img src="images/mobile-dev.jpg" alt="Mobile Development" class="product-image" onerror="this.src='https://source.unsplash.com/random/600x400/?mobile,app'">
+            <!-- Server Setup -->
+            <div class="service-card animate-float delay-3">
+                <div class="service-badge accent">Advanced</div>
+                <div class="service-image-container">
+                    <img src="images/Ash.png" alt="Server Setup" class="service-image">
                 </div>
-                <div class="product-details">
-                    <h3 class="product-title" data-translate="mobile_dev">تطوير التطبيقات</h3>
-                    <p class="product-description" data-translate="mobile_dev_desc">
-                        تطبيقات جوال متعددة المنصات لنظامي iOS و Android.
+                <div class="service-details">
+                    <h3 class="service-title">Server Setup</h3>
+                    <p class="service-description">
+                        Cloud infrastructure setup and deployment on AWS, GCP, and Azure. 
+                        Containerized solutions with Docker and Kubernetes.
                     </p>
-                    <ul class="product-features">
-                        <li data-translate="mobile_feature1">React Native</li>
-                        <li data-translate="mobile_feature2">تطبيقات هجينة</li>
-                        <li data-translate="mobile_feature3">تصميم واجهة المستخدم</li>
-                        <li data-translate="mobile_feature4">تكامل API</li>
+                    <ul class="service-features">
+                        <li>Cloud Infrastructure</li>
+                        <li>Docker & Kubernetes</li>
+                        <li>CI/CD Pipelines</li>
+                        <li>Load Balancing</li>
                     </ul>
-                    <div class="product-actions">
-                        <button class="buy-button" onclick="openModal('Mobile Development', 2500, 'mobile-dev')" data-translate="inquire">استفسر</button>
-                        <button class="details-button" onclick="showDetails('mobile-dev')" data-translate="details">التفاصيل</button>
+                    <div class="service-actions">
+                        <button class="contact-button" onclick="openModal('Server Setup', 2500, 'server-setup')">Contact</button>
+                        <button class="details-button" onclick="showDetails('server-setup')">Details</button>
                     </div>
                 </div>
             </div>
@@ -1785,63 +1569,91 @@
     </section>
 
     <!-- Projects Section -->
-    <section id="projects" class="section my-work">
-        <h2 class="section-title" data-translate="featured_projects">المشاريع البارزة</h2>
-        <p class="section-subtitle" data-translate="projects_subtitle">حلول عملية قمت ببنائها لحل مشاكل حقيقية</p>
+    <section id="projects" class="section backend-projects">
+        <h2 class="section-title">Backend Projects</h2>
+        <p class="section-subtitle">Scalable solutions I've built to solve real problems</p>
         
-        <div class="work-grid">
-            <!-- Univ-Bot -->
-            <div class="work-item animate-float delay-1">
-                <img src="images/univ-bot.jpg" alt="Univ-Bot" class="work-image" onerror="this.src='https://source.unsplash.com/random/600x400/?chatbot,education'">
-                <div class="work-info">
-                    <h3 class="work-title">Univ-Bot</h3>
-                    <p class="work-description">
-                        روبوت مساعد للطلاب يوفر خدمات الجامعة بما في ذلك المواد الدراسية والامتحانات والجداول.
+        <div class="projects-grid">
+            <!-- Univ-Bot Backend -->
+            <div class="project-item animate-float delay-1">
+                <img src="images/Ash.png" alt="Univ-Bot Backend" class="project-image">
+                <div class="project-info">
+                    <h3 class="project-title">Univ-Bot API</h3>
+                    <p class="project-description">
+                        Scalable backend for a university chatbot handling student requests, 
+                        course materials, and exam schedules.
                     </p>
-                    <a href="https://t.me/TissmsiltBot" target="_blank" class="work-link" data-translate="view_project">
-                        عرض المشروع <i class="fas fa-arrow-right"></i>
+                    <div class="project-tech">
+                        <span class="tech-tag">Node.js</span>
+                        <span class="tech-tag">Express</span>
+                        <span class="tech-tag">MongoDB</span>
+                        <span class="tech-tag">Redis</span>
+                    </div>
+                    <a href="https://t.me/TissmsiltBot" target="_blank" class="project-link">
+                        View Project <i class="fas fa-arrow-right"></i>
                     </a>
                 </div>
             </div>
             
-            <!-- Hajj & Umrah Website -->
-            <div class="work-item animate-float delay-2">
-                <img src="images/hajj-umrah.jpg" alt="Hajj & Umrah Website" class="work-image" onerror="this.src='https://source.unsplash.com/random/600x400/?hajj,islam'">
-                <div class="work-info">
-                    <h3 class="work-title">موقع الحج والعمرة</h3>
-                    <p class="work-description">
-                        منصة شاملة للحجاج والمعتمرين مع جميع المعلومات والخدمات اللازمة.
+            <!-- Hajj & Umrah API -->
+            <div class="project-item animate-float delay-2">
+                <img src="images/Ash.png" alt="Hajj & Umrah API" class="project-image">
+                <div class="project-info">
+                    <h3 class="project-title">Hajj & Umrah API</h3>
+                    <p class="project-description">
+                        Comprehensive backend for pilgrimage services with booking system, 
+                        user management, and payment processing.
                     </p>
-                    <a href="https://ashref2004.github.io/EL-Hadj-El-Omra/" target="_blank" class="work-link" data-translate="view_project">
-                        عرض المشروع <i class="fas fa-arrow-right"></i>
+                    <div class="project-tech">
+                        <span class="tech-tag">Python</span>
+                        <span class="tech-tag">Django</span>
+                        <span class="tech-tag">PostgreSQL</span>
+                        <span class="tech-tag">Stripe</span>
+                    </div>
+                    <a href="https://ashref2004.github.io/EL-Hadj-El-Omra/" target="_blank" class="project-link">
+                        View Project <i class="fas fa-arrow-right"></i>
                     </a>
                 </div>
             </div>
             
-            <!-- Umrah Agency -->
-            <div class="work-item animate-float delay-3">
-                <img src="images/umrah-agency.jpg" alt="Umrah Agency" class="work-image" onerror="this.src='https://source.unsplash.com/random/600x400/?agency,travel'">
-                <div class="work-info">
-                    <h3 class="work-title">وكالة عمرة</h3>
-                    <p class="work-description">
-                        موقع كامل لوكالة عمرة مع نظام حجوزات وإدارة العملاء.
+            <!-- E-commerce Microservices -->
+            <div class="project-item animate-float delay-3">
+                <img src="images/Ash.png" alt="E-commerce Microservices" class="project-image">
+                <div class="project-info">
+                    <h3 class="project-title">E-commerce Microservices</h3>
+                    <p class="project-description">
+                        Distributed system with product, order, and payment services 
+                        communicating via message queue.
                     </p>
-                    <a href="https://github.com/Ashref2004/Umrah-Agency.git" target="_blank" class="work-link" data-translate="view_project">
-                        عرض المشروع <i class="fas fa-arrow-right"></i>
+                    <div class="project-tech">
+                        <span class="tech-tag">Node.js</span>
+                        <span class="tech-tag">RabbitMQ</span>
+                        <span class="tech-tag">MongoDB</span>
+                        <span class="tech-tag">Docker</span>
+                    </div>
+                    <a href="#" class="project-link">
+                        View Project <i class="fas fa-arrow-right"></i>
                     </a>
                 </div>
             </div>
             
-            <!-- Custom Bots -->
-            <div class="work-item animate-float delay-4">
-                <img src="images/custom-bots.jpg" alt="Custom Bots" class="work-image" onerror="this.src='https://source.unsplash.com/random/600x400/?chatbot,ai'">
-                <div class="work-info">
-                    <h3 class="work-title">روبوتات مخصصة</h3>
-                    <p class="work-description">
-                        روبوتات مخصصة بناها لأغراض مختلفة بما في ذلك الأتمتة وخدمة العملاء.
+            <!-- Authentication Service -->
+            <div class="project-item animate-float delay-4">
+                <img src="images/Ash.png" alt="Authentication Service" class="project-image">
+                <div class="project-info">
+                    <h3 class="project-title">Auth Service</h3>
+                    <p class="project-description">
+                        JWT-based authentication service with role management, 
+                        OAuth integration, and rate limiting.
                     </p>
-                    <a href="#" class="work-link" data-translate="view_project">
-                        عرض المشروع <i class="fas fa-arrow-right"></i>
+                    <div class="project-tech">
+                        <span class="tech-tag">Node.js</span>
+                        <span class="tech-tag">JWT</span>
+                        <span class="tech-tag">Redis</span>
+                        <span class="tech-tag">OAuth</span>
+                    </div>
+                    <a href="#" class="project-link">
+                        View Project <i class="fas fa-arrow-right"></i>
                     </a>
                 </div>
             </div>
@@ -1850,18 +1662,19 @@
 
     <!-- Experience Section -->
     <section id="experience" class="section">
-        <h2 class="section-title" data-translate="professional_journey">رحلة مهنية</h2>
-        <p class="section-subtitle" data-translate="experience_subtitle">محطات في مسيرتي كمطور</p>
+        <h2 class="section-title">Professional Journey</h2>
+        <p class="section-subtitle">Milestones in my backend development career</p>
         
         <div class="timeline">
             <!-- Experience 1 -->
             <div class="timeline-item animate-float delay-1">
                 <div class="timeline-content">
-                    <div class="timeline-date" data-translate="exp1_date">2023 - الحاضر</div>
-                    <h3 class="timeline-title" data-translate="exp1_title">V-Code</h3>
-                    <div class="timeline-company">عمل حر</div>
+                    <div class="timeline-date">2023 - Present</div>
+                    <h3 class="timeline-title">Backend Engineer</h3>
+                    <div class="timeline-company">V-Code</div>
                     <p class="timeline-description">
-                        تطوير حلول ويب وروبوتات مخصصة للعملاء. إنشاء Univ-Bot، مواقع الحج والعمرة، ومشاريع أخرى متنوعة.
+                        Designing and implementing scalable backend systems for various clients. 
+                        Specializing in API development, database architecture, and cloud solutions.
                     </p>
                 </div>
             </div>
@@ -1869,11 +1682,12 @@
             <!-- Experience 2 -->
             <div class="timeline-item animate-float delay-2">
                 <div class="timeline-content">
-                    <div class="timeline-date" data-translate="exp2_date">2021 - 2023</div>
-                    <h3 class="timeline-title" data-translate="exp2_title">مطور ويب</h3>
-                    <div class="timeline-company">عمل حر</div>
+                    <div class="timeline-date">2021 - 2023</div>
+                    <h3 class="timeline-title">Full Stack Developer</h3>
+                    <div class="timeline-company">Freelance</div>
                     <p class="timeline-description">
-                        بناء مواقع وتطبيقات ويب باستخدام HTML، CSS، JavaScript، و PHP. بدأت تعلم Python و Node.js.
+                        Built full-stack applications with Node.js backends and React frontends. 
+                        Gained experience with REST APIs, authentication, and deployment.
                     </p>
                 </div>
             </div>
@@ -1881,144 +1695,184 @@
             <!-- Experience 3 -->
             <div class="timeline-item animate-float delay-3">
                 <div class="timeline-content">
-                    <div class="timeline-date" data-translate="exp3_date">2019 - 2021</div>
-                    <h3 class="timeline-title" data-translate="exp3_title">مطور واجهات</h3>
-                    <div class="timeline-company">عمل حر</div>
+                    <div class="timeline-date">2019 - 2021</div>
+                    <h3 class="timeline-title">Backend Developer</h3>
+                    <div class="timeline-company">Freelance</div>
                     <p class="timeline-description">
-                        بدأت رحلتي مع HTML و CSS، ثم انتقلت إلى JavaScript. بنيت أول مواقعي ومشاريعي الصغيرة.
+                        Started my journey with backend development using Python and PHP. 
+                        Built my first APIs and database-driven applications.
                     </p>
                 </div>
             </div>
         </div>
     </section>
 
-    <!-- Skills Section -->
-    <section id="skills" class="section">
-        <h2 class="section-title" data-translate="technical_arsenal">الأدوات التقنية</h2>
-        <p class="section-subtitle" data-translate="skills_subtitle">التقنيات التي أعمل بها</p>
+    <!-- Tech Stack Section -->
+    <section id="tech" class="section">
+        <h2 class="section-title">Technical Arsenal</h2>
+        <p class="section-subtitle">Technologies I work with daily</p>
         
-        <div class="skills">
-            <div class="skill-item animate-float delay-1">
-                <div class="skill-circle">
-                    <i class="fab fa-html5 skill-icon"></i>
+        <div class="tech-stack-items">
+            <div class="tech-item animate-float delay-1">
+                <div class="tech-circle">
+                    <i class="fab fa-node-js tech-icon"></i>
                 </div>
-                <span class="skill-name">HTML</span>
-                <span class="skill-level">خبير</span>
+                <span class="tech-name">Node.js</span>
+                <span class="tech-level">Expert</span>
             </div>
             
-            <div class="skill-item animate-float delay-2">
-                <div class="skill-circle">
-                    <i class="fab fa-css3-alt skill-icon"></i>
+            <div class="tech-item animate-float delay-2">
+                <div class="tech-circle">
+                    <i class="fab fa-python tech-icon"></i>
                 </div>
-                <span class="skill-name">CSS</span>
-                <span class="skill-level">خبير</span>
+                <span class="tech-name">Python</span>
+                <span class="tech-level">Advanced</span>
             </div>
             
-            <div class="skill-item animate-float delay-3">
-                <div class="skill-circle">
-                    <i class="fab fa-js skill-icon"></i>
+            <div class="tech-item animate-float delay-3">
+                <div class="tech-circle">
+                    <i class="fas fa-database tech-icon"></i>
                 </div>
-                <span class="skill-name">JavaScript</span>
-                <span class="skill-level">خبير</span>
+                <span class="tech-name">SQL</span>
+                <span class="tech-level">Expert</span>
             </div>
             
-            <div class="skill-item animate-float delay-4">
-                <div class="skill-circle">
-                    <i class="fab fa-python skill-icon"></i>
+            <div class="tech-item animate-float delay-4">
+                <div class="tech-circle">
+                    <i class="fab fa-aws tech-icon"></i>
                 </div>
-                <span class="skill-name">Python</span>
-                <span class="skill-level">متقدم</span>
+                <span class="tech-name">AWS</span>
+                <span class="tech-level">Intermediate</span>
             </div>
             
-            <div class="skill-item animate-float delay-5">
-                <div class="skill-circle">
-                    <i class="fab fa-php skill-icon"></i>
+            <div class="tech-item animate-float delay-5">
+                <div class="tech-circle">
+                    <i class="fab fa-docker tech-icon"></i>
                 </div>
-                <span class="skill-name">PHP</span>
-                <span class="skill-level">متوسط</span>
+                <span class="tech-name">Docker</span>
+                <span class="tech-level">Advanced</span>
             </div>
             
-            <div class="skill-item animate-float delay-1">
-                <div class="skill-circle">
-                    <i class="fas fa-database skill-icon"></i>
+            <div class="tech-item animate-float delay-1">
+                <div class="tech-circle">
+                    <i class="fas fa-server tech-icon"></i>
                 </div>
-                <span class="skill-name">SQLite3</span>
-                <span class="skill-level">متقدم</span>
+                <span class="tech-name">REST APIs</span>
+                <span class="tech-level">Expert</span>
             </div>
             
-            <div class="skill-item animate-float delay-2">
-                <div class="skill-circle">
-                    <i class="fab fa-react skill-icon"></i>
+            <div class="tech-item animate-float delay-2">
+                <div class="tech-circle">
+                    <i class="fas fa-bolt tech-icon"></i>
                 </div>
-                <span class="skill-name">React</span>
-                <span class="skill-level">متوسط</span>
+                <span class="tech-name">GraphQL</span>
+                <span class="tech-level">Intermediate</span>
             </div>
             
-            <div class="skill-item animate-float delay-3">
-                <div class="skill-circle">
-                    <i class="fab fa-node-js skill-icon"></i>
+            <div class="tech-item animate-float delay-3">
+                <div class="tech-circle">
+                    <i class="fas fa-shield-alt tech-icon"></i>
                 </div>
-                <span class="skill-name">Node.js</span>
-                <span class="skill-level">متقدم</span>
+                <span class="tech-name">Auth</span>
+                <span class="tech-level">Advanced</span>
             </div>
         </div>
         
-        <div class="code-snippet animate-float delay-4">
-            <pre><code>// Univ-Bot Main Functionality
-function handleStudentRequest(userId, request) {
-    // Connect to database
-    const db = new SQLite3.Database('univbot.db');
-    
-    // Check request type
-    switch(request.type) {
-        case 'course':
-            return getCourseMaterials(db, userId, request.course);
-        case 'exam':
-            return getExamInfo(db, userId, request.exam);
-        case 'schedule':
-            return getSchedule(db, userId);
-        default:
-            return "Sorry, I didn't understand that request.";
-    }
-}
+        <div class="api-snippet animate-float delay-4">
+            <pre><code>// Sample REST API Endpoint with Express
+const express = require('express');
+const router = express.Router();
+const auth = require('../middleware/auth');
+const { check, validationResult } = require('express-validator');
 
-// Example usage
-const response = handleStudentRequest('12345', {type: 'course', course: 'CS101'});
-console.log('Bot response:', response);</code></pre>
+// @route   POST api/users
+// @desc    Register user
+// @access  Public
+router.post(
+  '/',
+  [
+    check('name', 'Name is required').not().isEmpty(),
+    check('email', 'Please include a valid email').isEmail(),
+    check('password', 'Please enter a password with 6+ chars').isLength({ min: 6 })
+  ],
+  async (req, res) => {
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+      return res.status(400).json({ errors: errors.array() });
+    }
+
+    const { name, email, password } = req.body;
+
+    try {
+      // Check if user exists
+      let user = await User.findOne({ email });
+      if (user) {
+        return res.status(400).json({ errors: [{ msg: 'User already exists' }] });
+      }
+
+      // Create user instance
+      user = new User({ name, email, password });
+
+      // Encrypt password
+      const salt = await bcrypt.genSalt(10);
+      user.password = await bcrypt.hash(password, salt);
+
+      // Save to database
+      await user.save();
+
+      // Return JWT
+      const payload = { user: { id: user.id } };
+      jwt.sign(
+        payload,
+        config.get('jwtSecret'),
+        { expiresIn: 360000 },
+        (err, token) => {
+          if (err) throw err;
+          res.json({ token });
+        }
+      );
+    } catch (err) {
+      console.error(err.message);
+      res.status(500).send('Server error');
+    }
+  }
+);
+
+module.exports = router;</code></pre>
         </div>
     </section>
 
     <!-- Contact Section -->
     <section id="contact" class="section">
-        <h2 class="section-title" data-translate="collaborate">لنتعاون</h2>
-        <p class="section-subtitle" data-translate="contact_subtitle">مستعد لمناقشة مشروعك القادم؟</p>
+        <h2 class="section-title">Let's Collaborate</h2>
+        <p class="section-subtitle">Ready to discuss your next backend project?</p>
         
         <form class="contact-form animate-float delay-1" id="contactForm">
             <div id="successMessage" class="success-message" style="display: none;">
-                <i class="fas fa-check-circle"></i> <span data-translate="message_sent">تم إرسال رسالتك بنجاح!</span>
+                <i class="fas fa-check-circle"></i> Your message has been sent successfully!
             </div>
             
             <div class="form-group">
-                <label for="name" data-translate="name">الاسم</label>
+                <label for="name">Name</label>
                 <input type="text" id="name" class="form-input" required>
             </div>
             
             <div class="form-group">
-                <label for="email" data-translate="email">البريد الإلكتروني</label>
+                <label for="email">Email</label>
                 <input type="email" id="email" class="form-input" required>
             </div>
             
             <div class="form-group">
-                <label for="subject" data-translate="subject">الموضوع</label>
+                <label for="subject">Subject</label>
                 <input type="text" id="subject" class="form-input" required>
             </div>
             
             <div class="form-group">
-                <label for="message" data-translate="message">الرسالة</label>
+                <label for="message">Message</label>
                 <textarea id="message" class="form-textarea" required></textarea>
             </div>
             
-            <button type="submit" class="submit-button" data-translate="send_message">إرسال الرسالة</button>
+            <button type="submit" class="submit-button">Send Message</button>
         </form>
     </section>
 
@@ -2028,11 +1882,11 @@ console.log('Bot response:', response);</code></pre>
             <div class="footer-logo">V-Code</div>
             
             <div class="footer-links">
-                <a href="#expertise" data-translate="expertise">التخصصات</a>
-                <a href="#projects" data-translate="projects">المشاريع</a>
-                <a href="#skills" data-translate="skills">المهارات</a>
-                <a href="#experience" data-translate="experience">الخبرة</a>
-                <a href="#contact" data-translate="contact">اتصل</a>
+                <a href="#services">Services</a>
+                <a href="#projects">Projects</a>
+                <a href="#tech">Tech Stack</a>
+                <a href="#experience">Experience</a>
+                <a href="#contact">Contact</a>
             </div>
             
             <div class="social-links">
@@ -2044,323 +1898,108 @@ console.log('Bot response:', response);</code></pre>
                 <a href="https://wa.me/213782675199" class="social-link"><i class="fab fa-whatsapp"></i></a>
             </div>
             
-            <p class="copyright" data-translate="copyright">© 2024 V-Code. جميع الحقوق محفوظة.</p>
+            <p class="copyright">© 2025 V-Code. All rights reserved.</p>
         </div>
     </footer>
 
-    <!-- Order Modal -->
-    <div class="modal" id="orderModal">
+    <!-- Service Modal -->
+    <div class="modal" id="serviceModal">
         <div class="modal-content">
             <button class="close-modal" onclick="closeModal()">&times;</button>
-            <h2 class="modal-title" id="modalProductTitle">استفسار عن الخدمة</h2>
+            <h2 class="modal-title" id="modalServiceTitle">Service Inquiry</h2>
             
             <div class="modal-image-container">
-                <img id="modalProductImage" src="" alt="Service Image" class="modal-image">
+                <img id="modalServiceImage" src="" alt="Service Image" class="modal-image">
             </div>
             
-            <p class="modal-description" id="modalProductDescription"></p>
+            <p class="modal-description" id="modalServiceDescription"></p>
             
-            <div class="modal-tech" id="modalProductTech">
+            <div class="modal-tech" id="modalServiceTech">
                 <!-- Technology tags will be added here -->
             </div>
             
-            <ul class="modal-features" id="modalProductFeatures">
+            <ul class="modal-features" id="modalServiceFeatures">
                 <!-- Features will be added here -->
             </ul>
             
-            <div class="modal-price" id="modalProductPrice"></div>
-            
-            <form class="modal-form" id="orderForm">
+            <form class="modal-form" id="serviceForm">
                 <div class="form-group">
-                    <label for="order-name" data-translate="full_name">الاسم الكامل</label>
-                    <input type="text" id="order-name" class="form-input" required>
+                    <label for="service-name">Full Name</label>
+                    <input type="text" id="service-name" class="form-input" required>
                 </div>
                 
                 <div class="form-group">
-                    <label for="order-email" data-translate="email">البريد الإلكتروني</label>
-                    <input type="email" id="order-email" class="form-input" required>
+                    <label for="service-email">Email</label>
+                    <input type="email" id="service-email" class="form-input" required>
                 </div>
                 
                 <div class="form-group">
-                    <label for="order-phone" data-translate="phone">الهاتف</label>
-                    <input type="tel" id="order-phone" class="form-input" required>
+                    <label for="service-phone">Phone</label>
+                    <input type="tel" id="service-phone" class="form-input" required>
                 </div>
                 
                 <div class="form-group">
-                    <label for="order-company" data-translate="company">الشركة</label>
-                    <input type="text" id="order-company" class="form-input">
+                    <label for="service-company">Company</label>
+                    <input type="text" id="service-company" class="form-input">
                 </div>
                 
                 <div class="form-group">
-                    <label for="order-details" data-translate="project_details">تفاصيل المشروع</label>
-                    <textarea id="order-details" rows="5" class="form-textarea"></textarea>
+                    <label for="service-details">Project Details</label>
+                    <textarea id="service-details" rows="5" class="form-textarea"></textarea>
                 </div>
                 
-                <button type="button" class="submit-button" onclick="submitOrder()" data-translate="send_inquiry">إرسال الاستفسار</button>
+                <button type="button" class="submit-button" onclick="submitService()">Send Inquiry</button>
             </form>
         </div>
     </div>
 
-    <!-- Database Connection -->
     <script>
-        // Initialize SQLite database
-        function initDatabase() {
-            return new Promise((resolve, reject) => {
-                try {
-                    // In a real app, you would use SQLite in Node.js or a proper backend
-                    // This is just a simulation for the frontend
-                    const db = {
-                        name: 'vcode_portfolio.db',
-                        version: '1.0',
-                        tables: {
-                            messages: [],
-                            projects: [],
-                            skills: []
-                        }
-                    };
-                    
-                    console.log('Database initialized:', db.name);
-                    resolve(db);
-                } catch (error) {
-                    reject(error);
-                }
-            });
-        }
-
-        // Save message to database
-        function saveMessageToDB(message) {
-            return new Promise((resolve, reject) => {
-                try {
-                    // In a real app, this would save to SQLite
-                    // Here we just simulate it
-                    const db = window.db || { tables: { messages: [] } };
-                    db.tables.messages.push({
-                        ...message,
-                        id: Date.now(),
-                        createdAt: new Date().toISOString()
-                    });
-                    
-                    window.db = db;
-                    console.log('Message saved to DB:', message);
-                    resolve(true);
-                } catch (error) {
-                    reject(error);
-                }
-            });
-        }
-
-        // Initialize database when page loads
-        document.addEventListener('DOMContentLoaded', function() {
-            initDatabase().then(db => {
-                window.db = db;
-                console.log('Database ready');
-            }).catch(error => {
-                console.error('Database initialization error:', error);
-            });
-        });
-    </script>
-
-    <script>
-        // Translations
-        const translations = {
-            en: {
-                logo: "V-Code",
-                expertise: "Expertise",
-                projects: "Projects",
-                skills: "Skills",
-                experience: "Experience",
-                contact: "Contact",
-                hero_title: "V-Code ",
-                hero_subtitle: "I design and develop custom web solutions and bots that solve real-world problems. From university bots to Hajj services, I build practical applications that make life easier.",
-                hire_me: "Hire Me",
-                view_work: "View Work",
-                my_expertise: "My Expertise",
-                expertise_subtitle: "Technologies and services I specialize in",
-                web_dev: "Web Development",
-                web_dev_desc: "Custom websites and web applications built with modern technologies.",
-                web_feature1: "Responsive Design",
-                web_feature2: "Frontend Development",
-                web_feature3: "Backend Development",
-                web_feature4: "API Integration",
-                bot_dev: "Bot Development",
-                bot_dev_desc: "Custom bots for various platforms to automate tasks and provide services.",
-                bot_feature1: "Telegram Bots",
-                bot_feature2: "WhatsApp Bots",
-                bot_feature3: "Discord Bots",
-                bot_feature4: "Automation Scripts",
-                mobile_dev: "Mobile Development",
-                mobile_dev_desc: "Cross-platform mobile applications for iOS and Android.",
-                mobile_feature1: "React Native",
-                mobile_feature2: "Hybrid Apps",
-                mobile_feature3: "UI/UX Design",
-                mobile_feature4: "API Integration",
-                database: "Database Design",
-                inquire: "Inquire",
-                details: "Details",
-                expert: "Expert",
-                intermediate: "Intermediate",
-                featured_projects: "Featured Projects",
-                projects_subtitle: "Practical solutions I've built to solve real problems",
-                view_project: "View Project",
-                professional_journey: "Professional Journey",
-                experience_subtitle: "Milestones in my career as a developer",
-                exp1_date: "2023 - Present",
-                exp1_title: "V-Code",
-                exp1_company: "Freelance",
-                exp1_desc: "Developing custom web solutions and bots for clients. Created Univ-Bot, Hajj & Umrah websites, and various other projects.",
-                exp2_date: "2021 - 2023",
-                exp2_title: "Web Developer",
-                exp2_company: "Freelance",
-                exp2_desc: "Built websites and web applications using HTML, CSS, JavaScript, and PHP. Started learning Python and Node.js.",
-                exp3_date: "2019 - 2021",
-                exp3_title: "Frontend Developer",
-                exp3_company: "Freelance",
-                exp3_desc: "Started my journey with HTML and CSS, then moved to JavaScript. Built my first websites and small projects.",
-                technical_arsenal: "Technical Arsenal",
-                skills_subtitle: "Technologies I work with",
-                collaborate: "Let's Collaborate",
-                contact_subtitle: "Ready to discuss your next project?",
-                name: "Name",
-                email: "Email",
-                subject: "Subject",
-                message: "Message",
-                send_message: "Send Message",
-                full_name: "Full Name",
-                phone: "Phone",
-                company: "Company",
-                project_details: "Project Details",
-                send_inquiry: "Send Inquiry",
-                thank_you: "Thank you",
-                inquiry_received: "Your inquiry for",
-                has_been_received: "has been received. I'll contact you shortly.",
-                message_sent: "Your message has been sent successfully!",
-                copyright: "© 2024 V-Code. All rights reserved."
-            },
-            ar: {
-                logo: "V-Code",
-                expertise: "التخصصات",
-                projects: "المشاريع",
-                skills: "المهارات",
-                experience: "الخبرة",
-                contact: "اتصل",
-                hero_title: "V-Code ",
-                hero_subtitle: "أصمم وأطور حلول ويب وروبوتات مخصصة لحل المشاكل الواقعية. من روبوتات الجامعة إلى خدمات الحج، أبني تطبيقات عملية تجعل الحياة أسهل.",
-                hire_me: "وظفني",
-                view_work: "عرض الأعمال",
-                my_expertise: "تخصصاتي",
-                expertise_subtitle: "التقنيات والخدمات التي أتخصص فيها",
-                web_dev: "تطوير الويب",
-                web_dev_desc: "مواقع وتطبيقات ويب مخصصة مبنية بتقنيات حديثة.",
-                web_feature1: "تصميم متجاوب",
-                web_feature2: "تطوير الواجهة الأمامية",
-                web_feature3: "تطوير الواجهة الخلفية",
-                web_feature4: "تكامل API",
-                bot_dev: "تطوير الروبوتات",
-                bot_dev_desc: "روبوتات مخصصة لمنصات مختلفة لأتمتة المهام وتقديم الخدمات.",
-                bot_feature1: "روبوتات تيليجرام",
-                bot_feature2: "روبوتات واتساب",
-                bot_feature3: "روبوتات ديسكورد",
-                bot_feature4: "نصوص الأتمتة",
-                mobile_dev: "تطوير التطبيقات",
-                mobile_dev_desc: "تطبيقات جوال متعددة المنصات لنظامي iOS و Android.",
-                mobile_feature1: "React Native",
-                mobile_feature2: "تطبيقات هجينة",
-                mobile_feature3: "تصميم واجهة المستخدم",
-                mobile_feature4: "تكامل API",
-                database: "تصميم قواعد البيانات",
-                inquire: "استفسر",
-                details: "التفاصيل",
-                expert: "خبير",
-                intermediate: "متوسط",
-                featured_projects: "المشاريع البارزة",
-                projects_subtitle: "حلول عملية قمت ببنائها لحل مشاكل حقيقية",
-                view_project: "عرض المشروع",
-                professional_journey: "رحلة مهنية",
-                experience_subtitle: "محطات في مسيرتي كمطور",
-                exp1_date: "2023 - الحاضر",
-                exp1_title: "V-Code",
-                exp1_company: "عمل حر",
-                exp1_desc: "تطوير حلول ويب وروبوتات مخصصة للعملاء. إنشاء Univ-Bot، مواقع الحج والعمرة، ومشاريع أخرى متنوعة.",
-                exp2_date: "2021 - 2023",
-                exp2_title: "مطور ويب",
-                exp2_company: "عمل حر",
-                exp2_desc: "بناء مواقع وتطبيقات ويب باستخدام HTML، CSS، JavaScript، و PHP. بدأت تعلم Python و Node.js.",
-                exp3_date: "2019 - 2021",
-                exp3_title: "مطور واجهات",
-                exp3_company: "عمل حر",
-                exp3_desc: "بدأت رحلتي مع HTML و CSS، ثم انتقلت إلى JavaScript. بنيت أول مواقعي ومشاريعي الصغيرة.",
-                technical_arsenal: "الأدوات التقنية",
-                skills_subtitle: "التقنيات التي أعمل بها",
-                collaborate: "لنتعاون",
-                contact_subtitle: "مستعد لمناقشة مشروعك القادم؟",
-                name: "الاسم",
-                email: "البريد الإلكتروني",
-                subject: "الموضوع",
-                message: "الرسالة",
-                send_message: "إرسال الرسالة",
-                full_name: "الاسم الكامل",
-                phone: "الهاتف",
-                company: "الشركة",
-                project_details: "تفاصيل المشروع",
-                send_inquiry: "إرسال الاستفسار",
-                thank_you: "شكرًا لك",
-                inquiry_received: "تم استلام استفسارك حول",
-                has_been_received: "سأتواصل معك قريبًا.",
-                message_sent: "تم إرسال رسالتك بنجاح!",
-                copyright: "© 2024 V-Code. جميع الحقوق محفوظة."
-            }
-        };
-
-        // Product details
-        const productDetails = {
-            'web-dev': {
-                description: "Custom web development services tailored to your specific needs. From simple websites to complex web applications, I build solutions that work across all devices and platforms.",
+        // Service details
+        const serviceDetails = {
+            'api-dev': {
+                description: "Custom API development services tailored to your specific needs. From RESTful APIs to GraphQL endpoints, I build scalable and secure solutions that power your applications.",
                 features: [
-                    "Responsive design that works on all devices",
-                    "Clean, modern UI/UX design",
-                    "Frontend development with HTML, CSS, JavaScript",
-                    "Backend development with Node.js, PHP, or Python",
-                    "API development and integration",
-                    "Database design and implementation"
+                    "REST API Design & Development",
+                    "GraphQL Schema Design",
+                    "API Documentation (Swagger/OpenAPI)",
+                    "Authentication & Authorization",
+                    "Rate Limiting & Caching",
+                    "Performance Optimization"
                 ],
-                technologies: ["HTML", "CSS", "JavaScript", "React", "Node.js", "PHP", "Python"],
-                image: "images/web-dev.jpg"
+                technologies: ["Node.js", "Express", "Python", "Django", "GraphQL", "JWT"],
+                image: "https://source.unsplash.com/random/800x500/?api,development"
             },
-            'bot-dev': {
-                description: "Custom bot development for various platforms including Telegram, WhatsApp, and Discord. I create bots that automate tasks, provide information, and enhance user engagement.",
+            'db-arch': {
+                description: "Database architecture and optimization services for both relational and NoSQL databases. I design efficient data models and optimize queries for maximum performance.",
                 features: [
-                    "Telegram bot development",
-                    "WhatsApp bot integration",
-                    "Discord bot creation",
-                    "Automation scripts",
-                    "Natural language processing",
-                    "Database integration"
+                    "SQL & NoSQL Database Design",
+                    "Query Optimization",
+                    "Data Modeling",
+                    "Indexing Strategies",
+                    "Migration Planning",
+                    "Performance Tuning"
                 ],
-                technologies: ["JavaScript", "Python", "Node.js", "Telegram API", "WhatsApp API", "Discord API"],
-                image: "images/bot-dev.jpg"
+                technologies: ["PostgreSQL", "MongoDB", "MySQL", "Redis", "SQLite", "Firestore"],
+                image: "https://source.unsplash.com/random/800x500/?database,architecture"
             },
-            'mobile-dev': {
-                description: "Cross-platform mobile application development using React Native. I build apps that work on both iOS and Android with a single codebase.",
+            'server-setup': {
+                description: "Cloud infrastructure setup and deployment services. I configure servers, set up CI/CD pipelines, and ensure your applications are scalable and highly available.",
                 features: [
-                    "React Native development",
-                    "Hybrid mobile apps",
-                    "UI/UX design",
-                    "API integration",
-                    "App store deployment",
-                    "Performance optimization"
+                    "Cloud Infrastructure (AWS/GCP/Azure)",
+                    "Docker & Kubernetes",
+                    "CI/CD Pipelines",
+                    "Load Balancing",
+                    "Auto-scaling",
+                    "Monitoring & Logging"
                 ],
-                technologies: ["React Native", "JavaScript", "Redux", "Firebase", "API Integration"],
-                image: "images/mobile-dev.jpg"
+                technologies: ["AWS", "Docker", "Kubernetes", "Nginx", "GitHub Actions", "Terraform"],
+                image: "https://source.unsplash.com/random/800x500/?server,cloud"
             }
         };
 
         // Typewriter effect words
-        const typewriterWords = {
-            en: ["Web", "Bots", "Mobile", "Solutions", "JavaScript"],
-            ar: ["ويب", "روبوتات", "موبايل", "حلول", "جافا سكريبت"]
-        };
+        const typewriterWords = ["APIs", "Databases", "Servers", "Microservices", "Node.js", "Python"];
         
-        let currentLanguage = 'en';
         let darkMode = true; // Default to dark mode
 
         // Initialize the page
@@ -2371,9 +2010,6 @@ console.log('Bot response:', response);</code></pre>
             // Load saved theme preference
             loadThemePreference();
             
-            // Load saved language preference
-            loadLanguagePreference();
-            
             // Set up form submissions
             setupForms();
             
@@ -2382,9 +2018,6 @@ console.log('Bot response:', response);</code></pre>
             
             // Setup mobile menu
             setupMobileMenu();
-            
-            // Initialize database
-            initDatabase();
         });
 
         // Initialize animations
@@ -2441,7 +2074,7 @@ console.log('Bot response:', response);</code></pre>
             function type() {
                 if (isWaiting) return;
                 
-                const currentWord = typewriterWords[currentLanguage][wordIndex];
+                const currentWord = typewriterWords[wordIndex];
                 const speed = isDeleting ? 50 : 100;
                 
                 if (isDeleting) {
@@ -2461,7 +2094,7 @@ console.log('Bot response:', response);</code></pre>
                     }, 1500);
                 } else if (isDeleting && charIndex === 0) {
                     isDeleting = false;
-                    wordIndex = (wordIndex + 1) % typewriterWords[currentLanguage].length;
+                    wordIndex = (wordIndex + 1) % typewriterWords.length;
                     setTimeout(type, 500);
                 } else {
                     setTimeout(type, speed);
@@ -2496,35 +2129,6 @@ console.log('Bot response:', response);</code></pre>
             }
         }
 
-        // Change language
-        function changeLanguage(lang) {
-            currentLanguage = lang;
-            document.body.setAttribute('dir', lang === 'ar' ? 'rtl' : 'ltr');
-            document.documentElement.setAttribute('lang', lang);
-            
-            // Update all translatable elements
-            document.querySelectorAll('[data-translate]').forEach(element => {
-                const key = element.getAttribute('data-translate');
-                if (translations[lang][key]) {
-                    element.textContent = translations[lang][key];
-                }
-            });
-            
-            // Restart typewriter with new language words
-            initTypewriter();
-            
-            // Save preference to localStorage
-            localStorage.setItem('language', lang);
-        }
-
-        // Load language preference
-        function loadLanguagePreference() {
-            const savedLang = localStorage.getItem('language');
-            if (savedLang && translations[savedLang]) {
-                changeLanguage(savedLang);
-            }
-        }
-
         // Toggle mobile menu
         function toggleMenu() {
             const navLinks = document.querySelector('.nav-links');
@@ -2537,24 +2141,23 @@ console.log('Bot response:', response);</code></pre>
 
         // Open modal for service inquiry
         function openModal(title, price, serviceId) {
-            const modal = document.getElementById('orderModal');
-            const service = productDetails[serviceId];
+            const modal = document.getElementById('serviceModal');
+            const service = serviceDetails[serviceId];
             
-            document.getElementById('modalProductTitle').textContent = translations[currentLanguage][`${serviceId}_title`] || title;
-            document.getElementById('modalProductPrice').textContent = `${translations[currentLanguage]['starting_from']} $${price.toLocaleString()}`;
-            document.getElementById('modalProductImage').src = service.image;
-            document.getElementById('modalProductDescription').textContent = service.description;
+            document.getElementById('modalServiceTitle').textContent = title;
+            document.getElementById('modalServiceImage').src = service.image;
+            document.getElementById('modalServiceDescription').textContent = service.description;
             
-            const featuresList = document.getElementById('modalProductFeatures');
+            const featuresList = document.getElementById('modalServiceFeatures');
             featuresList.innerHTML = '';
             
             service.features.forEach(feature => {
                 const li = document.createElement('li');
-                li.textContent = translations[currentLanguage][`${serviceId}_feature${service.features.indexOf(feature)+1}`] || feature;
+                li.textContent = feature;
                 featuresList.appendChild(li);
             });
             
-            const techContainer = document.getElementById('modalProductTech');
+            const techContainer = document.getElementById('modalServiceTech');
             techContainer.innerHTML = '';
             
             service.technologies.forEach(tech => {
@@ -2562,32 +2165,46 @@ console.log('Bot response:', response);</code></pre>
                 tag.className = 'tech-tag';
                 tag.textContent = tech;
                 techContainer.appendChild(tag);
-            });
+            });  
+        }
+                    // Reset form
+                    document.getElementById('serviceForm').reset();
             
-            modal.classList.add('active');
-            document.body.style.overflow = 'hidden';
+            // Show modal
+            setTimeout(() => {
+                modal.style.opacity = '1';
+            }, 10);
+        
+        // Close modal
+        function closeModal() {
+            const modal = document.getElementById('serviceModal');
+            modal.style.opacity = '0';
+            
+            setTimeout(() => {
+                modal.classList.remove('active');
+                document.body.style.overflow = 'auto';
+            }, 300);
         }
 
         // Show service details
         function showDetails(serviceId) {
-            const service = productDetails[serviceId];
-            const modal = document.getElementById('orderModal');
+            const service = serviceDetails[serviceId];
+            const modal = document.getElementById('serviceModal');
             
-            document.getElementById('modalProductTitle').textContent = translations[currentLanguage][`${serviceId}_title`] || serviceId;
-            document.getElementById('modalProductPrice').textContent = '';
-            document.getElementById('modalProductImage').src = service.image;
-            document.getElementById('modalProductDescription').textContent = service.description;
+            document.getElementById('modalServiceTitle').textContent = serviceId.replace('-', ' ').replace(/\b\w/g, l => l.toUpperCase());
+            document.getElementById('modalServiceImage').src = service.image;
+            document.getElementById('modalServiceDescription').textContent = service.description;
             
-            const featuresList = document.getElementById('modalProductFeatures');
+            const featuresList = document.getElementById('modalServiceFeatures');
             featuresList.innerHTML = '';
             
             service.features.forEach(feature => {
                 const li = document.createElement('li');
-                li.textContent = translations[currentLanguage][`${serviceId}_feature${service.features.indexOf(feature)+1}`] || feature;
+                li.textContent = feature;
                 featuresList.appendChild(li);
             });
             
-            const techContainer = document.getElementById('modalProductTech');
+            const techContainer = document.getElementById('modalServiceTech');
             techContainer.innerHTML = '';
             
             service.technologies.forEach(tech => {
@@ -2597,95 +2214,122 @@ console.log('Bot response:', response);</code></pre>
                 techContainer.appendChild(tag);
             });
             
-            // Hide the order form for details view
-            document.getElementById('orderForm').style.display = 'none';
+            // Hide the form for details view
+            document.getElementById('serviceForm').style.display = 'none';
             
             modal.classList.add('active');
             document.body.style.overflow = 'hidden';
-        }
-
-        // Close modal
-        function closeModal() {
-            document.getElementById('orderModal').classList.remove('active');
-            document.body.style.overflow = 'auto';
-            document.getElementById('orderForm').style.display = 'block';
-        }
-
-        // Submit order form
-        function submitOrder() {
-            const name = document.getElementById('order-name').value;
-            const email = document.getElementById('order-email').value;
-            const phone = document.getElementById('order-phone').value;
-            const company = document.getElementById('order-company').value;
-            const details = document.getElementById('order-details').value;
-            const service = document.getElementById('modalProductTitle').textContent;
             
-            // Save to database
-            saveMessageToDB({
-                type: 'service_inquiry',
-                service,
-                name,
-                email,
-                phone,
-                company,
-                details
-            }).then(() => {
-                // Show success message
-                const successMsg = `${translations[currentLanguage]['thank_you']} ${name}! ${translations[currentLanguage]['inquiry_received']} ${service} ${translations[currentLanguage]['has_been_received']}`;
-                alert(successMsg);
-                
-                // Reset form
-                document.getElementById('orderForm').reset();
+            setTimeout(() => {
+                modal.style.opacity = '1';
+            }, 10);
+            
+            // Add close button functionality
+            document.querySelector('.close-modal').onclick = function() {
                 closeModal();
-            }).catch(error => {
-                console.error('Error saving inquiry:', error);
-                alert(translations[currentLanguage]['error_occurred']);
-            });
+                // Show the form again when modal is closed
+                document.getElementById('serviceForm').style.display = 'block';
+            };
         }
 
         // Setup form submissions
         function setupForms() {
-            document.getElementById('contactForm').addEventListener('submit', function(e) {
-                e.preventDefault();
-                
-                const name = document.getElementById('name').value;
-                const email = document.getElementById('email').value;
-                const subject = document.getElementById('subject').value;
-                const message = document.getElementById('message').value;
-                
-                // Save to database
-                saveMessageToDB({
-                    type: 'contact_form',
-                    name,
-                    email,
-                    subject,
-                    message
-                }).then(() => {
-                    // Show success message
+            // Contact form
+            const contactForm = document.getElementById('contactForm');
+            if (contactForm) {
+                contactForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    
+                    // Simulate form submission
                     const successMessage = document.getElementById('successMessage');
                     successMessage.style.display = 'block';
-                    
-                    // Reset form
-                    this.reset();
+                    contactForm.reset();
                     
                     // Hide success message after 5 seconds
                     setTimeout(() => {
                         successMessage.style.display = 'none';
                     }, 5000);
-                }).catch(error => {
-                    console.error('Error saving message:', error);
-                    alert(translations[currentLanguage]['error_occurred']);
                 });
-            });
-        }
-
-        // Close modal when clicking outside
-        window.onclick = function(event) {
-            const modal = document.getElementById('orderModal');
-            if (event.target === modal) {
-                closeModal();
+            }
+            
+            // Service inquiry form
+            const serviceForm = document.getElementById('serviceForm');
+            if (serviceForm) {
+                serviceForm.addEventListener('submit', function(e) {
+                    e.preventDefault();
+                    submitService();
+                });
             }
         }
+
+        // Submit service inquiry
+        function submitService() {
+            // Here you would typically send the data to a server
+            // For this example, we'll just show a success message
+            
+            const successMessage = document.createElement('div');
+            successMessage.className = 'success-message';
+            successMessage.innerHTML = '<i class="fas fa-check-circle"></i> Your inquiry has been sent successfully!';
+            successMessage.style.animation = 'fadeIn 0.5s ease-out';
+            
+            const modalContent = document.querySelector('.modal-content');
+            modalContent.insertBefore(successMessage, modalContent.firstChild);
+            
+            // Reset form
+            document.getElementById('serviceForm').reset();
+            
+            // Hide success message after 5 seconds
+            setTimeout(() => {
+                successMessage.style.opacity = '0';
+                setTimeout(() => {
+                    successMessage.remove();
+                }, 500);
+            }, 5000);
+            
+            // Close modal after submission (optional)
+            setTimeout(() => {
+                closeModal();
+            }, 3000);
+        }
+
+        // Smooth scrolling for anchor links
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                const targetId = this.getAttribute('href');
+                const targetElement = document.querySelector(targetId);
+                
+                if (targetElement) {
+                    window.scrollTo({
+                        top: targetElement.offsetTop - 80,
+                        behavior: 'smooth'
+                    });
+                }
+            });
+        });
+
+        // Close modal when clicking outside
+        window.addEventListener('click', function(e) {
+            const modal = document.getElementById('serviceModal');
+            if (e.target === modal) {
+                closeModal();
+                // Show the form again when modal is closed
+                document.getElementById('serviceForm').style.display = 'block';
+            }
+        });
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape') {
+                const modal = document.getElementById('serviceModal');
+                if (modal.classList.contains('active')) {
+                    closeModal();
+                    // Show the form again when modal is closed
+                    document.getElementById('serviceForm').style.display = 'block';
+                }
+            }
+        });
     </script>
 </body>
 </html>
