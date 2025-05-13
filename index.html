@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>V-Code </title>
+    <title>Ash</title>
     <meta name="description" content="Professional backend developer specializing in scalable APIs, database architecture, and server-side solutions.">
     <link rel="icon" href="Ash.png">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
@@ -1335,7 +1335,7 @@
         <div class="header-container">
             <a href="#" class="logo">
                 <img id="profile-img" src="Ash.png" alt="Developer Photo">
-                <span>V-Code</span>
+                <span>Ash</span>
             </a>
             
             <button class="mobile-menu-btn" onclick="toggleMenu()">
@@ -1443,7 +1443,7 @@
     <!-- Hero Section -->
     <section class="hero">
         <div class="hero-container animate-float">
-            <h1>V-Code <span class="typewriter" id="typewriter"></span></h1>
+            <h1>Ash <span class="typewriter" id="typewriter"></span></h1>
             <p class="subtitle">
                 Backend engineer specializing in scalable APIs, database architecture, and server-side solutions. 
                 I build robust systems that power modern applications.
@@ -1671,7 +1671,7 @@
                 <div class="timeline-content">
                     <div class="timeline-date">2023 - Present</div>
                     <h3 class="timeline-title">Backend Engineer</h3>
-                    <div class="timeline-company">V-Code</div>
+                    <div class="timeline-company">Ash</div>
                     <p class="timeline-description">
                         Designing and implementing scalable backend systems for various clients. 
                         Specializing in API development, database architecture, and cloud solutions.
@@ -1879,7 +1879,7 @@ module.exports = router;</code></pre>
     <!-- Footer -->
     <footer>
         <div class="footer-container">
-            <div class="footer-logo">V-Code</div>
+            <div class="footer-logo">Ash</div>
             
             <div class="footer-links">
                 <a href="#services">Services</a>
@@ -1898,7 +1898,7 @@ module.exports = router;</code></pre>
                 <a href="https://wa.me/213782675199" class="social-link"><i class="fab fa-whatsapp"></i></a>
             </div>
             
-            <p class="copyright">© 2025 V-Code. All rights reserved.</p>
+            <p class="copyright">© 2025 Ash. All rights reserved.</p>
         </div>
     </footer>
 
@@ -2330,6 +2330,99 @@ module.exports = router;</code></pre>
                 }
             }
         });
+    </script>
+    <script>
+        // Update form submissions to use real backend
+function setupForms() {
+  // Contact form
+  const contactForm = document.getElementById('contactForm');
+  if (contactForm) {
+    contactForm.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      
+      const formData = {
+        name: document.getElementById('name').value,
+        email: document.getElementById('email').value,
+        subject: document.getElementById('subject').value,
+        message: document.getElementById('message').value
+      };
+
+      try {
+        const response = await fetch('/api/contact', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(formData)
+        });
+
+        const data = await response.json();
+        
+        if (data.success) {
+          const successMessage = document.getElementById('successMessage');
+          successMessage.style.display = 'block';
+          contactForm.reset();
+          
+          setTimeout(() => {
+            successMessage.style.display = 'none';
+          }, 5000);
+        }
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    });
+  }
+  
+  // Service inquiry form
+  const serviceForm = document.getElementById('serviceForm');
+  if (serviceForm) {
+    serviceForm.addEventListener('submit', async function(e) {
+      e.preventDefault();
+      
+      const formData = {
+        name: document.getElementById('service-name').value,
+        email: document.getElementById('service-email').value,
+        phone: document.getElementById('service-phone').value,
+        company: document.getElementById('service-company').value,
+        serviceType: document.getElementById('modalServiceTitle').textContent,
+        details: document.getElementById('service-details').value
+      };
+
+      try {
+        const response = await fetch('/api/services', {
+          method: 'POST',
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(formData)
+        });
+
+        const data = await response.json();
+        
+        if (data.success) {
+          const successMessage = document.createElement('div');
+          successMessage.className = 'success-message';
+          successMessage.innerHTML = '<i class="fas fa-check-circle"></i> Your inquiry has been sent successfully!';
+          
+          const modalContent = document.querySelector('.modal-content');
+          modalContent.insertBefore(successMessage, modalContent.firstChild);
+          
+          serviceForm.reset();
+          
+          setTimeout(() => {
+            successMessage.style.opacity = '0';
+            setTimeout(() => {
+              successMessage.remove();
+              closeModal();
+            }, 500);
+          }, 3000);
+        }
+      } catch (error) {
+        console.error('Error:', error);
+      }
+    });
+  }
+}
     </script>
 </body>
 </html>
