@@ -1,3 +1,3 @@
-Perfume store is a e-commerce website for selling perfume products
+this my portfolio 
 
 the link for the website : https://my-website.onrender.com/
